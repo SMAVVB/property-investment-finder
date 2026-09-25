@@ -227,9 +227,9 @@ def _get_purchase_costs_rate(criteria: dict, state: str) -> float:
     elif "brandenburg" in state_lower:
         return pc.get("brandenburg", 0.065)
     elif "sachsen" in state_lower and "anhalt" in state_lower:
-        return pc.get("saxony_anhalt", 0.065)
+        return pc.get("saxony_anhalt", 0.05)
     elif "sachsen" in state_lower:
-        return pc.get("saxony", 0.06)
+        return pc.get("saxony", 0.055)
     else:
         return pc.get("other", 0.06)
 

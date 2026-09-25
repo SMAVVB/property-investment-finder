@@ -54,8 +54,8 @@ purchase_costs:
   berlin: 0.06    # 6% — Grunderwerbsteuer 6%, Notar ~0.2%, kein Makler
   brandenburg: 0.065  # 6.5% — Grunderwerbsteuer 6%, Notar ~0.2%
   brandenburg_berlin_belt: 0.065  # 6.5% — Brandbg. Orte im S-Bahn/RE-Gürtel
-  saxony: 0.06    # 6% — Grunderwerbsteuer 3.1% + 3%
-  saxony_anhalt: 0.065  # 6.5% — Sachsen-Anhalt
+  saxony: 0.055    # 5.5% — Sachsen, seit 1.1.2023 (Grunderwerbsteuergesetz)
+  saxony_anhalt: 0.05  # 5.0% — Sachsen-Anhalt, seit 1.1.2023
   other: 0.06     # Standardwert für unbekannte Bundesländer
   comment: "Grunderwerbsteuer + Notar; Makler separat. Berlin 6%, Brandenburg 6.5%"
 

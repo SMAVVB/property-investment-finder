@@ -197,17 +197,17 @@ EXPECTED_BRB = {
 #   P = 117000€, space = 45m², rent = 700€/Monat
 #   state = Sachsen, rate = 6%
 #
-# Nebenrechnung:
+# Nebenrechnung (Sachsen Grunderwerbsteuer 5.5% seit 1.1.2023):
 #   R_year = 700 * 12 = 8400€
-#   purchase_costs = 117000 * 0.06 = 7020€
-#   K = 117000 + 7020 + 15000 = 139020€
+#   purchase_costs = 117000 * 0.055 = 6435€
+#   K = 117000 + 6435 + 15000 = 138435€
 #   gross_yield = 8400 / 117000 * 100 = 7.18%
 #   monthly_nk = 45 * 3.0 = 135€
 #   H_non_alloc = 135 * 0.02 = 2.70€/Monat
 #   M = 0.068 * 117000 = 7956€/Jahr
-#   net_yield = (8400 * 0.95 - 12 * 2.70 - 7956) / 139020 * 100
-#             = (7980 - 32.40 - 7956) / 139020 * 100
-#             = -8.40 / 139020 * 100 = -0.01%
+#   net_yield = (8400 * 0.95 - 12 * 2.70 - 7956) / 138435 * 100
+#             = (7980 - 32.40 - 7956) / 138435 * 100
+#             = -8.40 / 138435 * 100 = -0.01%
 #   kaufpreisfaktor = 117000 / 8400 = 13.93
 #   outlier_tier: 13.93 <= 14 => "phenomenal"
 #   monthly_mortgage = 117000*0.048/12 + 117000*0.02/12 = 468 + 195 = 663€
@@ -219,8 +219,8 @@ EXPECTED_BRB = {
 #     6-month loss = 993*6 - 700*6 = 5958 - 4200 = 1758€
 #
 EXPECTED_LEP = {
-    "purchase_costs_eur": 7020.0,
-    "all_in_costs": 139020.0,
+    "purchase_costs_eur": 6435.0,
+    "all_in_costs": 138435.0,
     "annual_rent": 8400.0,
     "gross_yield": 7.18,
     "net_yield": -0.01,
@@ -235,8 +235,8 @@ EXPECTED_LEP = {
     "annual_loan_costs": 7956.0,
     "monthly_surplus": -98.0,
     "monthly_top_up": 98.0,
-    "equity_required": 22020.0,
-    "total_investment": 154020.0,
+    "equity_required": 21435.0,
+    "total_investment": 153435.0,
     "stress_test_passed": False,
     "stress_monthly_surplus": -293.0,
     "stress_6month_loss": 1758.0,
