@@ -50,13 +50,11 @@ loan:
 # ------------------------------------------------------------
 # 6. Kaufnebenkosten (Purchase Costs by Bundesland)
 # ------------------------------------------------------------
-# Kaufnebenkosten in % des Kaufpreises, je nach Bundesland
-# Dazu zählen: Grunderwerbsteuer, Notarkosten, evtl. Makler
 purchase_costs:
   berlin: 0.06    # 6% — Grunderwerbsteuer 6%, Notar ~0.2%, kein Makler
   brandenburg: 0.065  # 6.5% — Grunderwerbsteuer 6%, Notar ~0.2%
   brandenburg_berlin_belt: 0.065  # 6.5% — Brandbg. Orte im S-Bahn/RE-Gürtel
-  saxony: 0.06    # 6% — Grunderwerbsteuer 3.1% + 3% (je nach Konstellation)
+  saxony: 0.06    # 6% — Grunderwerbsteuer 3.1% + 3%
   saxony_anhalt: 0.065  # 6.5% — Sachsen-Anhalt
   other: 0.06     # Standardwert für unbekannte Bundesländer
   comment: "Grunderwerbsteuer + Notar; Makler separat. Berlin 6%, Brandenburg 6.5%"
@@ -78,24 +76,23 @@ location:
 # ------------------------------------------------------------
 # 9. Target Regions (Zielregionen)
 # ------------------------------------------------------------
+# Bereinigt: Doppelte Einträge entfernt, ungültige Ortsteile gelöscht
+# (kohlsdorf, bahnhof sind keine echten Berliner Bezirke)
 target_regions:
   berlin_outer_districts:
-    - neukoelln
-    - treptow
-    - koepenick
-    - lichtenberg
-    - marzahn
-    - hellersdorf
-    - kohlsdorf
-    - tempelhof
-    - neukoelln
-    - charlottenburg
-    - spandau
-    - reinickendorf
-    - weissensee
-    - frohnau
-    - bahnhof
-    - pankow
+    - Neukölln
+    - Treptow
+    - Köpenick
+    - Lichtenberg
+    - Marzahn
+    - Hellersdorf
+    - Tempelhof
+    - Charlottenburg
+    - Spandau
+    - Reinickendorf
+    - Weissensee
+    - Frohnau
+    - Pankow
     - Prenzlauer Berg
     - Kreuzberg
   s_bahn_belt:
@@ -152,9 +149,15 @@ monthly_top_up:
 # ------------------------------------------------------------
 # 13. Exclusions (Ausschlüsse)
 # ------------------------------------------------------------
+# Ausschlüsse als boolesche Flags (Kategorie, kein Preis-Schwellenwert)
+# Gemäß Build-Plan: Erbpacht, Ferienwohnung, Zwangsversteigerung,
+# Betreutes Wohnen, Sozialbindung
 exclusions:
-  erbpacht: true  # Erbpacht (Erbbaurecht) ausschließen
-  vacation_rental_threshold: 148000  # Ferienwohnungen über ~148.000€ ausschließen
+  erbpacht: true              # Erbpacht (Erbbaurecht) ausschließen
+  vacation: true              # Ferienwohnungen ausschließen
+  auction: true               # Zwangsversteigerungen ausschließen
+  care_apartment: true        # Betreutes Wohnen ausschließen
+  social_binding: true        # Sozialgebundene Wohnungen ausschließen
   city_specific:
     cottbus:
       max_living_space: 45    # Max 45 m²
@@ -165,10 +168,17 @@ exclusions:
     leipzig:
       max_living_space: 45     # Max 45 m²
       max_price: 117000        # Max ~117.000€
-  comment: "Erbpacht immer ausschließen; städtespezifische Limits als fünfter Filter"
+  comment: "Erbpacht, Ferienwohnung, Zwangsversteigerung, Betreutes Wohnen, Sozialbindung immer ausschließen; städtespezifische Limits als zusätzlicher Filter"
 
 # ------------------------------------------------------------
-# 14. Rent per m² (Kaltmiete pro m² — Referenz)
+# 14. Hausgeld / Nebenkosten
+# ------------------------------------------------------------
+monthly_nk_per_sqm: 3.0       # Geschätztes monatliches Hausgeld pro m²
+non_allocable_pct: 0.02       # 2% des Hausgelds sind nicht umlagefähig
+comment: "Geschätztes Hausgeld; nicht umlagefähiger Anteil für Build-Plan-Formel"
+
+# ------------------------------------------------------------
+# 15. Rent per m² (Kaltmiete pro m² — Referenz)
 # ------------------------------------------------------------
 rent_per_sqm:
   berlin_min: 8.0    # Min. Kaltmiete/m² in Berlin
