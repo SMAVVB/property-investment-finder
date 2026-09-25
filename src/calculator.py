@@ -14,7 +14,9 @@ Formeln nach Build-Plan:
 - outlier_tier: ≤14 = phenomenal, 15-18 = very_good, 19-22 = acceptable, >22 = market
 - stress_test: +2pp Zins, 6 Monate Leerstand
 
-Kein LLM-Call, kein Modell — reines Python.
+ANNahmen (nicht explizit im Build-Plan belegt):
+- v (Leerstandsquote) = 5% (default, kann pro Listing überschrieben werden)
+- H_non_alloc = 2% des Gesamthaushalts (default, kann pro Listing überschrieben werden)
 """
 
 from __future__ import annotations
@@ -43,8 +45,10 @@ class Listing:
     floor: int = 0
     built_year: int = 0
     condition: str = "unknown"
+    plz: str = ""             # Postleitzahl
     city: str = ""
-    state: str = ""           # Bundesland (ISO-Code oder Name)
+    kreis_ags: Optional[str] = None  # Kreis-AGS (FK zu location.kreis_ags)
+    bundesland: str = ""      # Bundesland
     address: str = ""
     latitude: Optional[float] = None
     longitude: Optional[float] = None
@@ -59,15 +63,16 @@ class Listing:
     scraped_at: str = ""
     # Optional: direkt berechnete Werte vom Extractor
     rent_per_sqm: Optional[float] = None
+    # Geo-Detail-Felder pro Listing (ÖPNV, Reisezeit etc.)
     distance_to_station_minutes: Optional[float] = None
+    station_name: Optional[str] = None
+    transport_types: Optional[str] = None
     travel_time_to_berlin_hours: Optional[float] = None
     region_label: Optional[str] = None
     # Hausgeld-Parameter für Build-Plan-Formel
     monthly_housing_total: float = 0.0       # Gesamtes monatliches Hausgeld
     monthly_housing_non_allocable: float = 0.0  # Nicht umlagefähiger Anteil
-    vacancy_rate: float = 0.05               # Leerstandsquote (default 5%)
-    # Location
-    kreis_ags: Optional[str] = None          # Kreis-AGS für Phase-3-Verknüpfung
+    vacancy_rate: float = 0.05               # Leerstandsquote (ANNAHME: 5%, nicht explizit im Build-Plan)
 
 
 @dataclass
@@ -134,7 +139,7 @@ def calculate(listing: Listing, criteria: dict) -> CalculationResult:
     result = CalculationResult(listing_id=listing.listing_id)
 
     # --- Kosten ---
-    purchase_costs_rate = _get_purchase_costs_rate(criteria, listing.state)
+    purchase_costs_rate = _get_purchase_costs_rate(criteria, listing.bundesland)
     result.purchase_costs_eur = round(listing.price * purchase_costs_rate, 2)
 
     renovation_budget = criteria.get("renovation", {}).get("budget", 15000)
@@ -463,15 +468,17 @@ def init_db(db_path: str, schema_path: Optional[str] = None) -> sqlite3.Connecti
 
 def store_result(conn: sqlite3.Connection, listing: Listing, result: CalculationResult) -> None:
     """Speichere Berechnungsergebnis in der Datenbank (Build-Plan-Schema)."""
-    # listing
+    # listing — Pro-Listing-Geodaten + Geo-Detail-Felder
     conn.execute("""
         INSERT OR REPLACE INTO listing (
             listing_id, title, price, living_space, rent_monthly, rooms,
-            floor, built_year, condition, location_city, location_state,
-            location_address, latitude, longitude,
+            floor, built_year, condition, plz, city, kreis_ags, bundesland,
+            address, latitude, longitude,
             is_erbpacht, is_vacation, is_auction, is_care_apartment, is_social_binding,
-            property_type, url, scraped_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            property_type, url, scraped_at,
+            distance_to_station_minutes, station_name, transport_types,
+            travel_time_to_berlin_hours, region_label
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         result.listing_id,
         "",  # title
@@ -482,8 +489,10 @@ def store_result(conn: sqlite3.Connection, listing: Listing, result: Calculation
         listing.floor,
         listing.built_year,
         listing.condition,
+        listing.plz,
         listing.city,
-        listing.state,
+        listing.kreis_ags,
+        listing.bundesland,
         listing.address,
         listing.latitude,
         listing.longitude,
@@ -495,9 +504,14 @@ def store_result(conn: sqlite3.Connection, listing: Listing, result: Calculation
         listing.property_type,
         listing.url,
         listing.scraped_at,
+        listing.distance_to_station_minutes,
+        listing.station_name,
+        listing.transport_types,
+        listing.travel_time_to_berlin_hours,
+        listing.region_label,
     ))
 
-    # financials
+    # financials — inkl. Calculator-Ausgabe (outlier_tier, stress_test, score, etc.)
     conn.execute("""
         INSERT OR REPLACE INTO financials (
             listing_id, purchase_costs_eur, all_in_costs, annual_rent,
@@ -505,8 +519,10 @@ def store_result(conn: sqlite3.Connection, listing: Listing, result: Calculation
             loan_amount, monthly_interest, monthly_amortization,
             total_monthly_mortgage, monthly_nk, monthly_nk_non_alloc,
             annual_loan_costs, monthly_surplus, monthly_top_up,
-            equity_required, renovation_budget
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            equity_required, renovation_budget,
+            outlier_tier, stress_test_passed, stress_monthly_surplus,
+            stress_6month_loss, score, passed_filter, rejection_reasons
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         result.listing_id,
         result.purchase_costs_eur,
@@ -526,47 +542,14 @@ def store_result(conn: sqlite3.Connection, listing: Listing, result: Calculation
         result.monthly_top_up,
         result.equity_required,
         result.renovation_budget,
-    ))
-
-    # judgments
-    conn.execute("""
-        INSERT OR REPLACE INTO judgments (
-            listing_id, passed_filter, outlier_tier,
-            stress_test_passed, stress_monthly_surplus, stress_6month_loss,
-            rejection_reasons, score
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-        result.listing_id,
-        1 if result.passed_filter else 0,
         result.outlier_tier,
         1 if result.stress_test_passed else 0,
         result.stress_monthly_surplus,
         result.stress_6month_loss,
-        json.dumps(result.rejection_reasons),
         result.score,
+        1 if result.passed_filter else 0,
+        json.dumps(result.rejection_reasons),
     ))
-
-    # location
-    if listing.distance_to_station_minutes is not None:
-        conn.execute("""
-            INSERT OR REPLACE INTO location (
-                listing_id, city, state, kreis_ags, latitude, longitude,
-                distance_to_station_minutes, station_name, transport_types,
-                travel_time_to_berlin_hours, region_label
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            result.listing_id,
-            listing.city,
-            listing.state,
-            listing.kreis_ags,
-            listing.latitude,
-            listing.longitude,
-            listing.distance_to_station_minutes,
-            None,  # station_name
-            None,  # transport_types
-            listing.travel_time_to_berlin_hours,
-            listing.region_label,
-        ))
 
 
 def store_criteria_in_db(conn: sqlite3.Connection, criteria: dict) -> None:

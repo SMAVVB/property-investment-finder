@@ -61,16 +61,20 @@ def criteria():
 def _make_listing(name, price, space, rent, city, state, **kwargs):
     return Listing(
         listing_id=name, price=price, living_space=space,
-        rent_monthly=rent, city=city, state=state,
+        rent_monthly=rent, city=city, bundesland=state,
         condition="needs_work", property_type="apartment",
+        plz=kwargs.get("plz", ""),
+        kreis_ags=kwargs.get("kreis_ags", None),
         distance_to_station_minutes=kwargs.get("dist", 10.0),
+        station_name=kwargs.get("station_name", None),
+        transport_types=kwargs.get("transport_types", None),
         travel_time_to_berlin_hours=kwargs.get("travel", 1.0),
         region_label=kwargs.get("region", "other"),
         monthly_housing_total=kwargs.get("housing", space * 3.0),
         monthly_housing_non_allocable=kwargs.get("housing_non_alloc", 0.0),
         vacancy_rate=kwargs.get("vacancy", 0.05),
         **{k: v for k, v in kwargs.items()
-           if k not in ("dist", "travel", "region", "housing", "housing_non_alloc", "vacancy")},
+           if k not in ("dist", "travel", "region", "housing", "housing_non_alloc", "vacancy", "plz", "kreis_ags", "station_name", "transport_types")},
     )
 
 
@@ -678,9 +682,10 @@ def test_db_init_and_store(criteria):
         store_result(conn, l, r)
         conn.commit()
 
-        # Verifiziere: financials existiert
+        # Verifiziere: financials existiert mit Calculator-Ausgabe
         row = conn.execute(
-            "SELECT purchase_costs_eur, gross_yield, kaufpreisfaktor "
+            "SELECT purchase_costs_eur, gross_yield, kaufpreisfaktor, "
+            "outlier_tier, stress_test_passed, score, passed_filter "
             "FROM financials WHERE listing_id = ?",
             ("BER-001",),
         ).fetchone()
@@ -688,24 +693,14 @@ def test_db_init_and_store(criteria):
         assert row[0] == 7200.0
         assert abs(row[1] - 8.0) < 0.01
         assert row[2] == 12.50
+        assert row[3] == "phenomenal"
+        assert row[4] == 0  # stress_test FAILED
+        assert row[5] > 0  # score > 0
+        assert row[6] == 1  # passed_filter = True
 
-        # Verifiziere: judgments existiert
-        j = conn.execute(
-            "SELECT passed_filter, outlier_tier, stress_test_passed "
-            "FROM judgments WHERE listing_id = ?",
-            ("BER-001",),
-        ).fetchone()
-        assert j is not None
-        assert j[0] == 1
-        assert j[1] == "phenomenal"
-        assert j[2] == 0  # stress_test FAILED
-
-        # Verifiziere: location existiert
-        loc = conn.execute(
-            "SELECT kreis_ags FROM location WHERE listing_id = ?",
-            ("BER-001",),
-        ).fetchone()
-        assert loc is not None
+        # Verifiziere: location ist Referenztabelle (kein listing_id, leer)
+        loc = conn.execute("SELECT COUNT(*) FROM location").fetchone()
+        assert loc[0] == 0  # leer (Referenztabelle, keine Pro-Listing-Daten)
         conn.close()
 
 
