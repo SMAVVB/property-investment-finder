@@ -1,0 +1,180 @@
+# ============================================================
+# Property Investment Finder — Investment Criteria (Phase 0)
+# ============================================================
+# Alle Parameter für die Filterung und Bewertung von
+# Buy-to-Let-Kandidaten im deutschen Wohnungsmarkt.
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Purchase Price (Kaufpreis)
+# ------------------------------------------------------------
+purchase_price:
+  min: 80000      # Minimum in Euro
+  max: 150000     # Maximum in Euro
+  comment: "Gesamter Kaufpreis inkl. aller Nebenkosten"
+
+# ------------------------------------------------------------
+# 2. Living Space (Wohnfläche in m²)
+# ------------------------------------------------------------
+living_space:
+  target_min: 35  # Ziel: mindestens 35 m²
+  target_max: 50  # Ziel: höchstens 50 m²
+  allowed_min: 30 # Absolute Untergrenze (härterer Filter)
+  allowed_max: 55 # Absolute Obergrenze
+  comment: "Zielbereich 35-50m², mit Toleranz nach unten/oben bis 30/55m²"
+
+# ------------------------------------------------------------
+# 3. Equity (Eigenkapital)
+# ------------------------------------------------------------
+equity:
+  min: 20000      # Minimum Eigenkapital in Euro
+  max: 40000      # Maximum Eigenkapital in Euro
+  comment: "Verfügbares Eigenkapital für Anzahlung und Nebenkosten"
+
+# ------------------------------------------------------------
+# 4. Financing (Finanzierung)
+# ------------------------------------------------------------
+financing:
+  loan_to_value: 1.0  # 100% Finanzierung (keine Eigenbeteiligung am Kaufpreis)
+  comment: "100% Bankfinanzierung des Kaufpreises"
+
+# ------------------------------------------------------------
+# 5. Loan Parameters (Kreditkonditionen)
+# ------------------------------------------------------------
+loan:
+  interest_rate: 0.048   # 4.8% Zinssatz p.a.
+  amortization_rate: 0.02  # 2% Tilgung p.a.
+  total_rate: 0.068       # 6.8% Gesamtbelastung (Zins + Tilgung)
+  comment: "Zins 4.8%, Tilgung 2%, zusammen 6.8% p.a. auf den Kreditbetrag"
+
+# ------------------------------------------------------------
+# 6. Kaufnebenkosten (Purchase Costs by Bundesland)
+# ------------------------------------------------------------
+# Kaufnebenkosten in % des Kaufpreises, je nach Bundesland
+# Dazu zählen: Grunderwerbsteuer, Notarkosten, evtl. Makler
+purchase_costs:
+  berlin: 0.06    # 6% — Grunderwerbsteuer 6%, Notar ~0.2%, kein Makler
+  brandenburg: 0.065  # 6.5% — Grunderwerbsteuer 6%, Notar ~0.2%
+  brandenburg_berlin_belt: 0.065  # 6.5% — Brandbg. Orte im S-Bahn/RE-Gürtel
+  saxony: 0.06    # 6% — Grunderwerbsteuer 3.1% + 3% (je nach Konstellation)
+  saxony_anhalt: 0.065  # 6.5% — Sachsen-Anhalt
+  other: 0.06     # Standardwert für unbekannte Bundesländer
+  comment: "Grunderwerbsteuer + Notar; Makler separat. Berlin 6%, Brandenburg 6.5%"
+
+# ------------------------------------------------------------
+# 7. Renovation Budget (Sanierungsbedarf)
+# ------------------------------------------------------------
+renovation:
+  budget: 15000   # Standard-Budget in Euro für Sanierung
+  comment: "Pauschales Sanierungsbudget; kann pro Listing überschrieben werden"
+
+# ------------------------------------------------------------
+# 8. Location — Travel Time from Berlin
+# ------------------------------------------------------------
+location:
+  max_travel_time_hours: 1.5  # Maximale Reisezeit von Berlin in Stunden
+  comment: "Max 1.5h mit ÖPNV von Berlin (Hbf) zum Objekt"
+
+# ------------------------------------------------------------
+# 9. Target Regions (Zielregionen)
+# ------------------------------------------------------------
+target_regions:
+  berlin_outer_districts:
+    - neukoelln
+    - treptow
+    - koepenick
+    - lichtenberg
+    - marzahn
+    - hellersdorf
+    - kohlsdorf
+    - tempelhof
+    - neukoelln
+    - charlottenburg
+    - spandau
+    - reinickendorf
+    - weissensee
+    - frohnau
+    - bahnhof
+    - pankow
+    - Prenzlauer Berg
+    - Kreuzberg
+  s_bahn_belt:
+    - "Potsdam"
+    - "Königs Wusterhausen"
+    - "Falkensee"
+    - "Eberswalde"
+    - "Bernau"
+    - "Schwedt"
+    - "Oranienburg"
+    - "Kleinmachnow"
+    - "Stahnsdorf"
+    - "Ketzin"
+    - "Wandlitz"
+    - "Hennigsdorf"
+    - "Teltow"
+    - "Zossen"
+    - "Ludwigsfelde"
+    - "Rathenow"
+  brandenburg_towns:
+    - "Cottbus"
+    - "Frankfurt (Oder)"
+    - "Leipzig"
+    - "Dessau-Roßlau"
+    - "Wittenberg"
+    - "Senftenberg"
+    - "Brandenburg an der Havel"
+    - "Potsdam"
+  comment: "Berlin Außenbezirke + S-Bahn/RE-Gürtel + Brandenburger Universitätsstädte"
+
+# ------------------------------------------------------------
+# 10. Location Must-Have (Zwingende Location-Anforderung)
+# ------------------------------------------------------------
+location_must_have:
+  max_distance_to_station_minutes: 10  # Max. 10 Minuten zu Bahn/S-Bahn/RE
+  comment: "Muss innerhalb von ≤10 Min. Fußweg zu einem Bahnanschluss haben"
+
+# ------------------------------------------------------------
+# 11. Yield Thresholds (Ertragsmargen)
+# ------------------------------------------------------------
+yield:
+  gross:
+    min: 0.035   # Min. 3.5% Brutto-Yield (Absolute Untergrenze)
+    preferred: 0.05  # Bevorzugt 5%+ Brutto-Yield
+  comment: "Brutto-Yield = Jahreskaltmiete / Kaufpreis. 3.5% Minimum, 5%+ bevorzugt"
+
+# ------------------------------------------------------------
+# 12. Monthly Top-Up (Monatliche Zuzahlung)
+# ------------------------------------------------------------
+monthly_top_up:
+  max: 500  # Maximum monatliche Zuzahlung in Euro
+  comment: "Die Differenz zwischen monatlichen Kosten (Kredit + NK) und Kaltmiete"
+
+# ------------------------------------------------------------
+# 13. Exclusions (Ausschlüsse)
+# ------------------------------------------------------------
+exclusions:
+  erbpacht: true  # Erbpacht (Erbbaurecht) ausschließen
+  vacation_rental_threshold: 148000  # Ferienwohnungen über ~148.000€ ausschließen
+  city_specific:
+    cottbus:
+      max_living_space: 45    # Max 45 m²
+      max_price: 99000         # Max ~99.000€
+    frankfurt_oder:
+      max_living_space: 45     # Max 45 m²
+      max_price: 81000         # Max ~81.000€
+    leipzig:
+      max_living_space: 45     # Max 45 m²
+      max_price: 117000        # Max ~117.000€
+  comment: "Erbpacht immer ausschließen; städtespezifische Limits als fünfter Filter"
+
+# ------------------------------------------------------------
+# 14. Rent per m² (Kaltmiete pro m² — Referenz)
+# ------------------------------------------------------------
+rent_per_sqm:
+  berlin_min: 8.0    # Min. Kaltmiete/m² in Berlin
+  berlin_max: 12.0   # Max Kaltmiete/m² in Berlin (Kaltmietenbegrenzung)
+  brandenburg_min: 5.0  # Min. Kaltmiete/m² in Brandenburg
+  brandenburg_max: 8.0  # Max Kaltmiete/m² in Brandenburg
+  other_min: 5.0       # Min. Kaltmiete/m² allgemein
+  other_max: 9.0       # Max Kaltmiete/m² allgemein
+  comment: "Referenzwerte für Kaltmiete pro m² zur Plausibilisierung"
