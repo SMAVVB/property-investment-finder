@@ -22,22 +22,9 @@ from dataclasses import dataclass, field
 
 from scrapling.fetchers import StealthyFetcher
 
-# (bundesland_slug, city_slug, display_city, display_bundesland)
-TRACKS = [
-    ("sachsen", "leipzig", "Leipzig", "Sachsen"),
-    ("sachsen-anhalt", "halle-saale", "Halle (Saale)", "Sachsen-Anhalt"),
-    ("sachsen-anhalt", "magdeburg", "Magdeburg", "Sachsen-Anhalt"),
-    ("brandenburg", "frankfurt-oder", "Frankfurt (Oder)", "Brandenburg"),
-    ("brandenburg", "cottbus", "Cottbus", "Brandenburg"),
-    ("brandenburg", "brandenburg-an-der-havel", "Brandenburg an der Havel", "Brandenburg"),
-    # Eberswalde/Wildau: no dedicated IS24 URL slug found (410), skipped here --
-    # already have partial coverage via Kleinanzeigen/poschmann for these.
-    ("berlin/berlin", "neukoelln", "Berlin (Neukoelln)", "Berlin"),
-    ("berlin/berlin", "spandau", "Berlin (Spandau)", "Berlin"),
-    ("berlin/berlin", "marzahn-hellersdorf", "Berlin (Marzahn-Hellersdorf)", "Berlin"),
-    ("berlin/berlin", "lichtenberg", "Berlin (Lichtenberg)", "Berlin"),
-    ("berlin/berlin", "treptow-koepenick", "Berlin (Treptow-Koepenick)", "Berlin"),
-]
+from regions import get_active_tracks
+
+TRACKS = get_active_tracks()
 
 PAGES_PER_CITY = 30  # safety ceiling only (~20 listings/page -> 600/city); the inner loop
                       # already stops naturally once page * 20 >= numberOfHits, so this just
