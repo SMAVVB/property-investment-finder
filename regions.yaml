@@ -1,68 +1,303 @@
-# Region configuration for the ImmoScout24 scraper and the autotune loop.
-# `active`: currently deep-scraped every scrape run (immoscout_scraper.py).
-# `candidates`: seed list the Scout stage (scripts/scout.py) works through,
-#   in order, a batch at a time. Extend freely -- a wrong/dead slug just
-#   gets marked 'failed'/'no_slug' in region_scouting and is skipped.
-# `scouted`: appended automatically once a candidate has been scouted, so
-#   the same city isn't re-scouted every cycle. Do not hand-edit this list.
-
 active:
-  - {bl_slug: sachsen, city_slug: leipzig, display_city: Leipzig, display_bundesland: Sachsen}
-  - {bl_slug: sachsen-anhalt, city_slug: halle-saale, display_city: "Halle (Saale)", display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: sachsen-anhalt, city_slug: magdeburg, display_city: Magdeburg, display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: brandenburg, city_slug: frankfurt-oder, display_city: "Frankfurt (Oder)", display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: cottbus, display_city: Cottbus, display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: brandenburg-an-der-havel, display_city: "Brandenburg an der Havel", display_bundesland: Brandenburg}
-  - {bl_slug: berlin/berlin, city_slug: neukoelln, display_city: "Berlin (Neukoelln)", display_bundesland: Berlin}
-  - {bl_slug: berlin/berlin, city_slug: spandau, display_city: "Berlin (Spandau)", display_bundesland: Berlin}
-  - {bl_slug: berlin/berlin, city_slug: marzahn-hellersdorf, display_city: "Berlin (Marzahn-Hellersdorf)", display_bundesland: Berlin}
-  - {bl_slug: berlin/berlin, city_slug: lichtenberg, display_city: "Berlin (Lichtenberg)", display_bundesland: Berlin}
-  - {bl_slug: berlin/berlin, city_slug: treptow-koepenick, display_city: "Berlin (Treptow-Koepenick)", display_bundesland: Berlin}
-
+- bl_slug: sachsen
+  city_slug: leipzig
+  display_city: Leipzig
+  display_bundesland: Sachsen
+- bl_slug: sachsen-anhalt
+  city_slug: halle-saale
+  display_city: Halle (Saale)
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: magdeburg
+  display_city: Magdeburg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: brandenburg
+  city_slug: frankfurt-oder
+  display_city: Frankfurt (Oder)
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: cottbus
+  display_city: Cottbus
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: brandenburg-an-der-havel
+  display_city: Brandenburg an der Havel
+  display_bundesland: Brandenburg
+- bl_slug: berlin/berlin
+  city_slug: neukoelln
+  display_city: Berlin (Neukoelln)
+  display_bundesland: Berlin
+- bl_slug: berlin/berlin
+  city_slug: spandau
+  display_city: Berlin (Spandau)
+  display_bundesland: Berlin
+- bl_slug: berlin/berlin
+  city_slug: marzahn-hellersdorf
+  display_city: Berlin (Marzahn-Hellersdorf)
+  display_bundesland: Berlin
+- bl_slug: berlin/berlin
+  city_slug: lichtenberg
+  display_city: Berlin (Lichtenberg)
+  display_bundesland: Berlin
+- bl_slug: berlin/berlin
+  city_slug: treptow-koepenick
+  display_city: Berlin (Treptow-Koepenick)
+  display_bundesland: Berlin
 candidates:
-  - {bl_slug: sachsen, city_slug: dresden, display_city: Dresden, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: chemnitz, display_city: Chemnitz, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: zwickau, display_city: Zwickau, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: goerlitz, display_city: Goerlitz, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: bautzen, display_city: Bautzen, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: plauen, display_city: Plauen, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: hoyerswerda, display_city: Hoyerswerda, display_bundesland: Sachsen}
-  - {bl_slug: sachsen, city_slug: zittau, display_city: Zittau, display_bundesland: Sachsen}
-  - {bl_slug: sachsen-anhalt, city_slug: dessau-rosslau, display_city: "Dessau-Rosslau", display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: sachsen-anhalt, city_slug: wittenberg, display_city: "Lutherstadt Wittenberg", display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: sachsen-anhalt, city_slug: stendal, display_city: Stendal, display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: sachsen-anhalt, city_slug: merseburg, display_city: Merseburg, display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: sachsen-anhalt, city_slug: naumburg, display_city: Naumburg, display_bundesland: Sachsen-Anhalt}
-  - {bl_slug: brandenburg, city_slug: potsdam, display_city: Potsdam, display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: oranienburg, display_city: Oranienburg, display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: falkensee, display_city: Falkensee, display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: eberswalde, display_city: Eberswalde, display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: bernau-bei-berlin, display_city: "Bernau bei Berlin", display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: schwedt-oder, display_city: "Schwedt (Oder)", display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: koenigs-wusterhausen, display_city: "Koenigs Wusterhausen", display_bundesland: Brandenburg}
-  - {bl_slug: brandenburg, city_slug: senftenberg, display_city: Senftenberg, display_bundesland: Brandenburg}
-  - {bl_slug: thueringen, city_slug: erfurt, display_city: Erfurt, display_bundesland: Thueringen}
-  - {bl_slug: thueringen, city_slug: jena, display_city: Jena, display_bundesland: Thueringen}
-  - {bl_slug: thueringen, city_slug: gera, display_city: Gera, display_bundesland: Thueringen}
-  - {bl_slug: thueringen, city_slug: weimar, display_city: Weimar, display_bundesland: Thueringen}
-  - {bl_slug: thueringen, city_slug: gotha, display_city: Gotha, display_bundesland: Thueringen}
-  - {bl_slug: thueringen, city_slug: nordhausen, display_city: Nordhausen, display_bundesland: Thueringen}
-  - {bl_slug: mecklenburg-vorpommern, city_slug: schwerin, display_city: Schwerin, display_bundesland: Mecklenburg-Vorpommern}
-  - {bl_slug: mecklenburg-vorpommern, city_slug: rostock, display_city: Rostock, display_bundesland: Mecklenburg-Vorpommern}
-  - {bl_slug: mecklenburg-vorpommern, city_slug: stralsund, display_city: Stralsund, display_bundesland: Mecklenburg-Vorpommern}
-  - {bl_slug: mecklenburg-vorpommern, city_slug: greifswald, display_city: Greifswald, display_bundesland: Mecklenburg-Vorpommern}
-  - {bl_slug: mecklenburg-vorpommern, city_slug: neubrandenburg, display_city: Neubrandenburg, display_bundesland: Mecklenburg-Vorpommern}
-  - {bl_slug: niedersachsen, city_slug: hannover, display_city: Hannover, display_bundesland: Niedersachsen}
-  - {bl_slug: niedersachsen, city_slug: braunschweig, display_city: Braunschweig, display_bundesland: Niedersachsen}
-  - {bl_slug: niedersachsen, city_slug: salzgitter, display_city: Salzgitter, display_bundesland: Niedersachsen}
-  - {bl_slug: niedersachsen, city_slug: wolfsburg, display_city: Wolfsburg, display_bundesland: Niedersachsen}
-  - {bl_slug: niedersachsen, city_slug: goettingen, display_city: Goettingen, display_bundesland: Niedersachsen}
-  - {bl_slug: hessen, city_slug: kassel, display_city: Kassel, display_bundesland: Hessen}
-  - {bl_slug: hessen, city_slug: fulda, display_city: Fulda, display_bundesland: Hessen}
-  - {bl_slug: nordrhein-westfalen, city_slug: duisburg, display_city: Duisburg, display_bundesland: Nordrhein-Westfalen}
-  - {bl_slug: nordrhein-westfalen, city_slug: gelsenkirchen, display_city: Gelsenkirchen, display_bundesland: Nordrhein-Westfalen}
-  - {bl_slug: nordrhein-westfalen, city_slug: bochum, display_city: Bochum, display_bundesland: Nordrhein-Westfalen}
-  - {bl_slug: nordrhein-westfalen, city_slug: dortmund, display_city: Dortmund, display_bundesland: Nordrhein-Westfalen}
-  - {bl_slug: nordrhein-westfalen, city_slug: hagen, display_city: Hagen, display_bundesland: Nordrhein-Westfalen}
-
-scouted: []
+- bl_slug: sachsen
+  city_slug: dresden
+  display_city: Dresden
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: chemnitz
+  display_city: Chemnitz
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: zwickau
+  display_city: Zwickau
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: goerlitz
+  display_city: Goerlitz
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: bautzen
+  display_city: Bautzen
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: plauen
+  display_city: Plauen
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: hoyerswerda
+  display_city: Hoyerswerda
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: zittau
+  display_city: Zittau
+  display_bundesland: Sachsen
+- bl_slug: sachsen-anhalt
+  city_slug: dessau-rosslau
+  display_city: Dessau-Rosslau
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: wittenberg
+  display_city: Lutherstadt Wittenberg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: stendal
+  display_city: Stendal
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: merseburg
+  display_city: Merseburg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: naumburg
+  display_city: Naumburg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: brandenburg
+  city_slug: potsdam
+  display_city: Potsdam
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: oranienburg
+  display_city: Oranienburg
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: falkensee
+  display_city: Falkensee
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: eberswalde
+  display_city: Eberswalde
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: bernau-bei-berlin
+  display_city: Bernau bei Berlin
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: schwedt-oder
+  display_city: Schwedt (Oder)
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: koenigs-wusterhausen
+  display_city: Koenigs Wusterhausen
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: senftenberg
+  display_city: Senftenberg
+  display_bundesland: Brandenburg
+- bl_slug: thueringen
+  city_slug: erfurt
+  display_city: Erfurt
+  display_bundesland: Thueringen
+- bl_slug: thueringen
+  city_slug: jena
+  display_city: Jena
+  display_bundesland: Thueringen
+- bl_slug: thueringen
+  city_slug: gera
+  display_city: Gera
+  display_bundesland: Thueringen
+- bl_slug: thueringen
+  city_slug: weimar
+  display_city: Weimar
+  display_bundesland: Thueringen
+- bl_slug: thueringen
+  city_slug: gotha
+  display_city: Gotha
+  display_bundesland: Thueringen
+- bl_slug: thueringen
+  city_slug: nordhausen
+  display_city: Nordhausen
+  display_bundesland: Thueringen
+- bl_slug: mecklenburg-vorpommern
+  city_slug: schwerin
+  display_city: Schwerin
+  display_bundesland: Mecklenburg-Vorpommern
+- bl_slug: mecklenburg-vorpommern
+  city_slug: rostock
+  display_city: Rostock
+  display_bundesland: Mecklenburg-Vorpommern
+- bl_slug: mecklenburg-vorpommern
+  city_slug: stralsund
+  display_city: Stralsund
+  display_bundesland: Mecklenburg-Vorpommern
+- bl_slug: mecklenburg-vorpommern
+  city_slug: greifswald
+  display_city: Greifswald
+  display_bundesland: Mecklenburg-Vorpommern
+- bl_slug: mecklenburg-vorpommern
+  city_slug: neubrandenburg
+  display_city: Neubrandenburg
+  display_bundesland: Mecklenburg-Vorpommern
+- bl_slug: niedersachsen
+  city_slug: hannover
+  display_city: Hannover
+  display_bundesland: Niedersachsen
+- bl_slug: niedersachsen
+  city_slug: braunschweig
+  display_city: Braunschweig
+  display_bundesland: Niedersachsen
+- bl_slug: niedersachsen
+  city_slug: salzgitter
+  display_city: Salzgitter
+  display_bundesland: Niedersachsen
+- bl_slug: niedersachsen
+  city_slug: wolfsburg
+  display_city: Wolfsburg
+  display_bundesland: Niedersachsen
+- bl_slug: niedersachsen
+  city_slug: goettingen
+  display_city: Goettingen
+  display_bundesland: Niedersachsen
+- bl_slug: hessen
+  city_slug: kassel
+  display_city: Kassel
+  display_bundesland: Hessen
+- bl_slug: hessen
+  city_slug: fulda
+  display_city: Fulda
+  display_bundesland: Hessen
+- bl_slug: nordrhein-westfalen
+  city_slug: duisburg
+  display_city: Duisburg
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: gelsenkirchen
+  display_city: Gelsenkirchen
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: bochum
+  display_city: Bochum
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: dortmund
+  display_city: Dortmund
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: hagen
+  display_city: Hagen
+  display_bundesland: Nordrhein-Westfalen
+scouted:
+- bl_slug: sachsen
+  city_slug: dresden
+  display_city: Dresden
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: chemnitz
+  display_city: Chemnitz
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: zwickau
+  display_city: Zwickau
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: goerlitz
+  display_city: Goerlitz
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: bautzen
+  display_city: Bautzen
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: plauen
+  display_city: Plauen
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: hoyerswerda
+  display_city: Hoyerswerda
+  display_bundesland: Sachsen
+- bl_slug: sachsen
+  city_slug: zittau
+  display_city: Zittau
+  display_bundesland: Sachsen
+- bl_slug: sachsen-anhalt
+  city_slug: dessau-rosslau
+  display_city: Dessau-Rosslau
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: wittenberg
+  display_city: Lutherstadt Wittenberg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: stendal
+  display_city: Stendal
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: merseburg
+  display_city: Merseburg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: sachsen-anhalt
+  city_slug: naumburg
+  display_city: Naumburg
+  display_bundesland: Sachsen-Anhalt
+- bl_slug: brandenburg
+  city_slug: potsdam
+  display_city: Potsdam
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: oranienburg
+  display_city: Oranienburg
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: falkensee
+  display_city: Falkensee
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: eberswalde
+  display_city: Eberswalde
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: bernau-bei-berlin
+  display_city: Bernau bei Berlin
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: schwedt-oder
+  display_city: Schwedt (Oder)
+  display_bundesland: Brandenburg
+- bl_slug: brandenburg
+  city_slug: koenigs-wusterhausen
+  display_city: Koenigs Wusterhausen
+  display_bundesland: Brandenburg
