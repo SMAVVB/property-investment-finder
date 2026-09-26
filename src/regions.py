@@ -13,6 +13,16 @@ import yaml
 
 REGIONS_PATH = os.path.join(os.path.dirname(__file__), "..", "regions.yaml")
 
+REGIONS_HEADER = """# Region configuration for the ImmoScout24 scraper and the autotune loop.
+# `active`: currently deep-scraped every scrape run (immoscout_scraper.py).
+# `candidates`: seed list the Scout stage (scripts/scout.py) works through,
+#   in order, a batch at a time. Extend freely -- a wrong/dead slug just
+#   gets marked 'failed'/'no_slug' in region_scouting and is skipped.
+# `scouted`: appended automatically once a candidate has been scouted, so
+#   the same city isn't re-scouted every cycle. Do not hand-edit this list.
+
+"""
+
 
 def load_regions(path: str = REGIONS_PATH) -> dict:
     with open(path, encoding="utf-8") as f:
@@ -21,6 +31,7 @@ def load_regions(path: str = REGIONS_PATH) -> dict:
 
 def save_regions(data: dict, path: str = REGIONS_PATH) -> None:
     with open(path, "w", encoding="utf-8") as f:
+        f.write(REGIONS_HEADER)
         yaml.dump(data, f, allow_unicode=True, sort_keys=False)
 
 

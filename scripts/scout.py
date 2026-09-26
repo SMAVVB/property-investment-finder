@@ -25,6 +25,7 @@ from scout_scoring import estimate_kaufpreisfaktor, median_or_none
 DB_PATH = "/tmp/property-investment-finder/data/listings.db"
 PRICE_MIN, PRICE_MAX = 80000, 150000
 SPACE_MIN, SPACE_MAX = 30, 55
+SCOUT_BATCH_SIZE = 20  # candidates to process per scout run
 
 
 def _fetch_hits(bl_slug: str, city_slug: str, city_name: str, bl_name: str, kind: str):
@@ -109,7 +110,7 @@ def store_scout_result(
     conn.commit()
 
 
-def main(batch_size: int = 20) -> None:
+def main(batch_size: int = SCOUT_BATCH_SIZE) -> None:
     candidates = load_candidate_batch(batch_size=batch_size)
     if not candidates:
         print("No un-scouted candidates left in regions.yaml.")

@@ -4,7 +4,14 @@ import tempfile
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from regions import load_regions, save_regions, get_active_tracks, load_candidate_batch, mark_scouted
+from regions import (
+    load_regions,
+    save_regions,
+    get_active_tracks,
+    load_candidate_batch,
+    mark_scouted,
+    REGIONS_HEADER,
+)
 
 FIXTURE = {
     "active": [
@@ -47,4 +54,14 @@ def test_mark_scouted_excludes_from_next_batch():
     mark_scouted([("sachsen", "dresden", "Dresden", "Sachsen")], path=path)
     remaining = load_candidate_batch(batch_size=10, path=path)
     assert remaining == [("sachsen", "chemnitz", "Chemnitz", "Sachsen")]
+    os.unlink(path)
+
+
+def test_save_regions_preserves_header_comment():
+    with tempfile.NamedTemporaryFile(suffix=".yaml", delete=False) as f:
+        path = f.name
+    save_regions(FIXTURE, path)
+    with open(path, encoding="utf-8") as f:
+        contents = f.read()
+    assert REGIONS_HEADER in contents
     os.unlink(path)
