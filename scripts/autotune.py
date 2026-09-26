@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""Autotune controller -- runs exactly one cycle of the autonomous
+filter/region tuning loop per invocation (see
+docs/superpowers/specs/2026-09-26-autonomous-filter-tuning-design.md).
+
+Run: /home/vincent/laya_venv/bin/python scripts/autotune.py
+Intended to be invoked repeatedly by a Multica scheduled autopilot
+(see Task 7), not looped in-process.
+"""
+from __future__ import annotations
+
+import json
+import os
+import sqlite3
+import subprocess
+import sys
+from datetime import datetime, timezone
+
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_DIR = os.path.dirname(SCRIPTS_DIR)
+sys.path.insert(0, os.path.join(REPO_DIR, "src"))
+
+import yaml
+
+from calculator import load_criteria
+from regions import add_active, load_candidate_batch, load_regions
+
+DB_PATH = f"{REPO_DIR}/data/listings.db"
+CRITERIA_PATH = f"{REPO_DIR}/criteria.yaml"
+TUNING_HISTORY_PATH = f"{REPO_DIR}/data/tuning_history.md"
+
+TOP_K_PROMOTE = 5
+SCOUT_BATCH_SIZE = 20
+MIN_SHORTLIST_SIZE = 20
+IMPROVEMENT_MARGIN = 2.0
+NON_IMPROVING_STOP_AFTER = 3
+
+PARAM_GRID = {
+    "built_year.min": [0, 1970, 1990, 2000],
+    "yield.gross.min": [0.03, 0.035, 0.04, 0.045],
+    "location_must_have.max_distance_to_station_minutes": [5, 10, 15, 999],
+}
+
+
+def should_stop(non_improving_streak: int) -> bool:
+    return non_improving_streak >= NON_IMPROVING_STOP_AFTER
+
+
+def get_state(conn: sqlite3.Connection) -> dict:
+    row = conn.execute(
+        "SELECT mean_score FROM tuning_runs WHERE promoted = 1 ORDER BY id DESC LIMIT 1"
+    ).fetchone()
+    best_score = row[0] if row else 0.0
+    recent = conn.execute(
+        "SELECT promoted FROM tuning_runs ORDER BY id DESC LIMIT ?",
+        (NON_IMPROVING_STOP_AFTER,),
+    ).fetchall()
+    streak = 0
+    for (promoted,) in recent:
+        if promoted:
+            break
+        streak += 1
+    return {"best_score": best_score, "non_improving_streak": streak}
+
+
+def rank_scouted_cities(conn: sqlite3.Connection, top_k: int) -> list[sqlite3.Row]:
+    conn.row_factory = sqlite3.Row
+    return conn.execute(
+        """
+        SELECT * FROM region_scouting
+        WHERE status = 'ok' AND est_kaufpreisfaktor IS NOT NULL
+        ORDER BY est_kaufpreisfaktor ASC
+        LIMIT ?
+        """,
+        (top_k,),
+    ).fetchall()
+
+
+def _lookup_display_bundesland(bl_slug: str, city_slug: str) -> str:
+    """region_scouting only stores kreis_ags as '{bl_slug}/{city_slug}' --
+    it has no bundesland column. The display name lives in regions.yaml
+    (active/candidates/scouted all carry it), so look it up there rather
+    than guessing from the slug."""
+    data = load_regions()
+    for bucket in ("active", "candidates", "scouted"):
+        for r in data.get(bucket, []):
+            if r["bl_slug"] == bl_slug and r["city_slug"] == city_slug:
+                return r["display_bundesland"]
+    # Fall back to a slug-derived guess rather than crashing -- this can
+    # only happen if regions.yaml was hand-edited out from under us.
+    return bl_slug.replace("-", " ").title()
+
+
+def promote_to_deep_dive(top_cities: list) -> None:
+    """Add the given cities to regions.yaml's active list, then run the
+    existing scrape -> import chain so they get real listing data."""
+    for row in top_cities:
+        bl_slug, city_slug = row["kreis_ags"].split("/", 1)
+        display_bundesland = _lookup_display_bundesland(bl_slug, city_slug)
+        add_active(bl_slug, city_slug, row["city"], display_bundesland)
+    if not top_cities:
+        return
+    subprocess.run(
+        ["/home/vincent/multica-lab/venv-scrape/bin/python", "src/immoscout_scraper.py"],
+        check=True, cwd=REPO_DIR,
+    )
+    subprocess.run(
+        ["/home/vincent/laya_venv/bin/python", "scripts/import_immoscout.py"],
+        check=True, cwd=REPO_DIR,
+    )
+
+
+def append_history(entry: dict, source: str = "autotune") -> None:
+    with open(TUNING_HISTORY_PATH, "a", encoding="utf-8") as f:
+        f.write(
+            f"\n## {entry['cycle_at']} [{source}]\n\n"
+            f"- Shortlist size: {entry['shortlist_size']}\n"
+            f"- Mean score: {entry['mean_score']:.2f}\n"
+            f"- Promoted: {'yes' if entry['promoted'] else 'no'}\n"
+            f"- Preset: `{json.dumps(entry['preset'])}`\n"
+        )
+
+
+def _git(*args: str) -> str:
+    return subprocess.run(
+        ["git", *args], check=True, capture_output=True, text=True, cwd=REPO_DIR
+    ).stdout.strip()
+
+
+def run_cycle() -> None:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    state = get_state(conn)
+    if should_stop(state["non_improving_streak"]):
+        print(f"Plateau reached ({NON_IMPROVING_STOP_AFTER} consecutive non-improving cycles) -- stopping.")
+        conn.close()
+        return
+
+    candidates = load_candidate_batch(batch_size=SCOUT_BATCH_SIZE)
+    if candidates:
+        subprocess.run(
+            ["/home/vincent/multica-lab/venv-scrape/bin/python", "scripts/scout.py"],
+            check=True, cwd=REPO_DIR,
+        )
+
+    top_cities = rank_scouted_cities(conn, TOP_K_PROMOTE)
+    promote_to_deep_dive(top_cities)
+
+    sys.path.insert(0, REPO_DIR)
+    from run_v1_pipeline import load_listings  # existing loader, unchanged
+
+    listings = load_listings(conn)
+    base_criteria = load_criteria(CRITERIA_PATH)
+
+    from threshold_search import search_best_criteria
+    best_criteria, mean_score, shortlist_size = search_best_criteria(
+        listings, base_criteria, PARAM_GRID, MIN_SHORTLIST_SIZE
+    )
+
+    promoted = mean_score > state["best_score"] + IMPROVEMENT_MARGIN
+    cycle_at = datetime.now(timezone.utc).isoformat()
+    commit_hash = None
+    if promoted:
+        with open(CRITERIA_PATH, "w", encoding="utf-8") as f:
+            yaml.dump(best_criteria, f, allow_unicode=True, sort_keys=False)
+        _git("add", "criteria.yaml", "regions.yaml")
+        _git(
+            "commit", "-m",
+            f"autotune: new best preset (mean score {mean_score:.2f}, shortlist {shortlist_size})\n\n"
+            "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n"
+            "Claude-Session: https://claude.ai/code/session_011mDK3TmcgpPLGPpzCaGB93",
+        )
+        commit_hash = _git("rev-parse", "HEAD")
+        _git("push", "origin", "main")
+
+    conn.execute(
+        """
+        INSERT INTO tuning_runs (cycle_at, preset_json, shortlist_size, mean_score, promoted, commit_hash, source)
+        VALUES (?, ?, ?, ?, ?, ?, 'autotune')
+        """,
+        (cycle_at, json.dumps(best_criteria), shortlist_size, mean_score, promoted, commit_hash),
+    )
+    conn.commit()
+    append_history({
+        "cycle_at": cycle_at, "shortlist_size": shortlist_size,
+        "mean_score": mean_score, "promoted": promoted, "preset": best_criteria,
+    })
+    conn.close()
+    print(f"Cycle done: mean_score={mean_score:.2f} shortlist_size={shortlist_size} promoted={promoted}")
+
+
+if __name__ == "__main__":
+    run_cycle()
