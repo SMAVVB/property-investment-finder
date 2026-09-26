@@ -13,6 +13,7 @@ not a new agent ticket, given the source data only just became consistent
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sqlite3
 import sys
@@ -112,6 +113,20 @@ def store_financials(conn: sqlite3.Connection, result) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--judge", choices=["laya", "finetuned"], default="laya",
+                         help="laya: original zero-shot Laya judge (default, kept for comparison). "
+                              "finetuned: linear heads trained on ground-truth labels "
+                              "(models/finetune_v1/) -- see scripts/train_finetune.py.")
+    args = parser.parse_args()
+
+    if args.judge == "finetuned":
+        from src.finetuned_judge import run_judge_finetuned as run_judge_impl
+        judge_model_version = "finetuned-v1"
+    else:
+        run_judge_impl = run_judge
+        judge_model_version = "laya-0.1.0"
+
     criteria = load_criteria(CRITERIA_PATH)
     # financials/judgments already match schema.sql (fixed by hand before this run);
     # avoid calc_init_db's CREATE TABLE IF NOT EXISTS + CREATE INDEX combo, which
@@ -148,8 +163,8 @@ def main() -> None:
         if len(raw) <= 100:
             continue
         try:
-            jr = run_judge(raw)
-            store_judgments(conn, listing.listing_id, jr, "laya-0.1.0")
+            jr = run_judge_impl(raw)
+            store_judgments(conn, listing.listing_id, jr, judge_model_version)
             judged += 1
         except Exception as e:
             judge_errors += 1
@@ -163,14 +178,36 @@ def main() -> None:
         key=lambda kv: (not kv[1].passed_filter, -kv[1].score),
     )
 
+    flag_questions = ["f_sonderumlage", "f_milieuschutz", "f_erbpacht", "f_staffelmiete",
+                      "f_renovation", "f_heating_fossil", "f_small_weg", "f_tenant_issue"]
+    cur = conn.cursor()
+
+    def risk_flags(listing_id: str) -> str:
+        q = ",".join("?" for _ in flag_questions)
+        cur.execute(
+            f"select question_id from judgments where listing_id=? and answer='true' and question_id in ({q})",
+            [listing_id] + flag_questions,
+        )
+        return ", ".join(r[0] for r in cur.fetchall())
+
     lines = []
     lines.append("# Property Investment Finder — v1 Shortlist")
     lines.append("")
     lines.append(f"{len(listings)} real listings (Kleinanzeigen + poschmann-immobilien.com), "
-                  f"{judged} judged by Laya, ranked by score / passed_filter.")
+                  f"{judged} judged by {'the fine-tuned judge (models/finetune_v1)' if args.judge == 'finetuned' else 'Laya (zero-shot)'}, "
+                  f"ranked by score / passed_filter.")
+    if args.judge == "finetuned":
+        lines.append("")
+        lines.append("Judge risk flags below come from linear heads trained on 360 ground-truth labels "
+                      "(scripts/train_finetune.py). f_sonderumlage, f_milieuschutz, f_staffelmiete, "
+                      "f_wg_layout, f_erbpacht, f_tenant_issue, f_small_weg had too few positive "
+                      "examples (<15) to train reliably and currently always predict false "
+                      "(majority-class fallback, see models/finetune_v1/metadata.json) -- known gap, "
+                      "revisit once more labels exist. f_renovation and f_heating_fossil are trained "
+                      "(held-out F1 0.21 and 0.39 respectively -- real signal, not perfect).")
     lines.append("")
-    lines.append("| # | listing_id | city | price | m2 | rent/mo | kaufpreisfaktor | tier | passed | score | reasons |")
-    lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
+    lines.append("| # | listing_id | city | price | m2 | rent/mo | kaufpreisfaktor | tier | passed | score | reasons | risk_flags |")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
     for i, (lid, r) in enumerate(ranked, 1):
         listing = next(l for l, _ in listings if l.listing_id == lid)
         reasons = "; ".join(r.rejection_reasons) if r.rejection_reasons else ""
@@ -178,7 +215,7 @@ def main() -> None:
             f"| {i} | {lid} | {listing.city or '?'} | {listing.price:.0f} | "
             f"{listing.living_space:.0f} | {listing.rent_monthly:.0f} | "
             f"{r.kaufpreisfaktor:.1f} | {r.outlier_tier} | "
-            f"{'YES' if r.passed_filter else 'no'} | {r.score:.1f} | {reasons} |"
+            f"{'YES' if r.passed_filter else 'no'} | {r.score:.1f} | {reasons} | {risk_flags(lid)} |"
         )
 
     out = "\n".join(lines)

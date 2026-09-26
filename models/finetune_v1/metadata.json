@@ -1,0 +1,280 @@
+{
+  "f_sonderumlage": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 1,
+    "note": "only 1/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_milieuschutz": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 2,
+    "note": "only 2/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_erbpacht": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 12,
+    "note": "only 12/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_staffelmiete": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 3,
+    "note": "only 3/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_renovation": {
+    "type": "noul",
+    "majority_fallback": false,
+    "n_examples": 360,
+    "n_positive": 32,
+    "n_train": 288,
+    "n_test": 72,
+    "held_out": {
+      "precision": 0.154,
+      "recall": 0.333,
+      "f1": 0.211,
+      "accuracy": 0.792,
+      "tp": 2,
+      "fp": 11,
+      "fn": 4,
+      "tn": 55
+    }
+  },
+  "f_heating_fossil": {
+    "type": "noul",
+    "majority_fallback": false,
+    "n_examples": 360,
+    "n_positive": 65,
+    "n_train": 288,
+    "n_test": 72,
+    "held_out": {
+      "precision": 0.333,
+      "recall": 0.462,
+      "f1": 0.387,
+      "accuracy": 0.736,
+      "tp": 6,
+      "fp": 12,
+      "fn": 7,
+      "tn": 47
+    }
+  },
+  "f_small_weg": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 0,
+    "note": "only 0/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_tenant_issue": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 1,
+    "note": "only 1/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "f_wg_layout": {
+    "type": "noul",
+    "majority_fallback": true,
+    "fallback_value": "false",
+    "n_examples": 360,
+    "n_positive": 4,
+    "note": "only 4/360 positive examples, below the 15-positive training threshold; predicting majority class ('false') until more labels exist."
+  },
+  "c_tenant_type": {
+    "type": "choice",
+    "criteria": [
+      "student",
+      "single",
+      "couple",
+      "family"
+    ],
+    "class_counts": {
+      "single": 329,
+      "couple": 8,
+      "student": 15,
+      "family": 8
+    },
+    "n_examples": 360,
+    "n_train": 287,
+    "n_test": 73,
+    "held_out_accuracy": 0.904,
+    "held_out_per_class": {
+      "student": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      },
+      "single": {
+        "precision": 0.904,
+        "recall": 1.0,
+        "f1": 0.95,
+        "support": 66
+      },
+      "couple": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2
+      },
+      "family": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2
+      }
+    }
+  },
+  "c_letting_status": {
+    "type": "choice",
+    "criteria": [
+      "let",
+      "vacant",
+      "owner-occupied",
+      "unclear"
+    ],
+    "class_counts": {
+      "unclear": 103,
+      "let": 199,
+      "vacant": 58
+    },
+    "n_examples": 360,
+    "n_train": 287,
+    "n_test": 73,
+    "held_out_accuracy": 0.726,
+    "held_out_per_class": {
+      "let": {
+        "precision": 0.69,
+        "recall": 1.0,
+        "f1": 0.816,
+        "support": 40
+      },
+      "vacant": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12
+      },
+      "owner-occupied": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "unclear": {
+        "precision": 0.867,
+        "recall": 0.619,
+        "f1": 0.722,
+        "support": 21
+      }
+    }
+  },
+  "s_condition": {
+    "type": "score",
+    "criteria": [
+      "Sehr schlecht",
+      "Schlecht",
+      "Durchschnittlich",
+      "Gut",
+      "Sehr gut"
+    ],
+    "class_counts": {
+      "Durchschnittlich": 120,
+      "Gut": 191,
+      "Sehr schlecht": 9,
+      "Sehr gut": 33,
+      "Schlecht": 7
+    },
+    "n_examples": 360,
+    "n_train": 288,
+    "n_test": 72,
+    "held_out": {
+      "mae": 0.444,
+      "exact_accuracy": 0.694,
+      "within_one_class_accuracy": 0.861
+    }
+  },
+  "s_building": {
+    "type": "score",
+    "criteria": [
+      "Sehr schlecht",
+      "Schlecht",
+      "Durchschnittlich",
+      "Gut",
+      "Sehr gut"
+    ],
+    "class_counts": {
+      "Durchschnittlich": 157,
+      "Gut": 186,
+      "Sehr gut": 16,
+      "Schlecht": 1
+    },
+    "n_examples": 360,
+    "n_train": 289,
+    "n_test": 71,
+    "held_out": {
+      "mae": 0.41,
+      "exact_accuracy": 0.676,
+      "within_one_class_accuracy": 0.958
+    }
+  },
+  "s_micro_location": {
+    "type": "score",
+    "criteria": [
+      "Sehr schlecht",
+      "Schlecht",
+      "Durchschnittlich",
+      "Gut",
+      "Sehr gut"
+    ],
+    "class_counts": {
+      "Durchschnittlich": 187,
+      "Gut": 172,
+      "Sehr gut": 1
+    },
+    "n_examples": 360,
+    "n_train": 289,
+    "n_test": 71,
+    "held_out": {
+      "mae": 0.34,
+      "exact_accuracy": 0.761,
+      "within_one_class_accuracy": 0.986
+    }
+  },
+  "s_description_trust": {
+    "type": "score",
+    "criteria": [
+      "Sehr unglaubwürdig",
+      "Unglaubwürdig",
+      "Durchschnittlich",
+      "Glaubwürdig",
+      "Sehr glaubwürdig"
+    ],
+    "class_counts": {
+      "Durchschnittlich": 119,
+      "Glaubwürdig": 140,
+      "Unglaubwürdig": 39,
+      "Sehr glaubwürdig": 46,
+      "Sehr unglaubwürdig": 16
+    },
+    "n_examples": 360,
+    "n_train": 288,
+    "n_test": 72,
+    "held_out": {
+      "mae": 0.518,
+      "exact_accuracy": 0.569,
+      "within_one_class_accuracy": 0.889
+    }
+  }
+}
