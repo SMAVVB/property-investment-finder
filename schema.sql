@@ -121,6 +121,32 @@ CREATE TABLE IF NOT EXISTS labels (
     FOREIGN KEY (listing_id) REFERENCES listing(listing_id)
 );
 
+-- Tabelle 6: region_scouting — Scout-Stage-Cache (guenstige Voreinschaetzung
+-- pro Stadt, ohne teure Expose-Detail-Fetches)
+CREATE TABLE IF NOT EXISTS region_scouting (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    city                    TEXT    NOT NULL,
+    kreis_ags               TEXT,                   -- hier: "{bl_slug}/{city_slug}" bis echte AGS vorliegt
+    scouted_at              TEXT    NOT NULL,
+    n_sale_hits             INTEGER,
+    median_price_per_sqm    REAL,
+    median_rent_per_sqm     REAL,
+    est_kaufpreisfaktor     REAL,
+    status                  TEXT    NOT NULL         -- 'ok', 'failed', 'no_slug'
+);
+
+-- Tabelle 7: tuning_runs — Audit-Trail des Autotune-Loops
+CREATE TABLE IF NOT EXISTS tuning_runs (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    cycle_at                TEXT    NOT NULL,
+    preset_json             TEXT    NOT NULL,        -- die versuchten Criteria als JSON
+    shortlist_size          INTEGER NOT NULL,
+    mean_score              REAL    NOT NULL,
+    promoted                BOOLEAN NOT NULL DEFAULT 0,
+    commit_hash             TEXT,                     -- gesetzt, falls promoted=1
+    source                  TEXT    NOT NULL DEFAULT 'autotune'  -- 'autotune' oder 'llm_analyst'
+);
+
 -- Indizes für häufige Abfragen
 CREATE INDEX IF NOT EXISTS idx_listing_price ON listing(price);
 CREATE INDEX IF NOT EXISTS idx_listing_city ON listing(city);
