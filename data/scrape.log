@@ -1,0 +1,164 @@
+2026-09-26 11:31:53,427 [INFO] ============================================================
+2026-09-26 11:31:53,427 [INFO] Starting multi-source property scraper
+2026-09-26 11:31:53,427 [INFO] Price range: 80000-150000€, Area: 30-55m²
+2026-09-26 11:31:53,427 [INFO] ============================================================
+2026-09-26 11:31:53,427 [INFO] 
+=== Scraping Immowelt ===
+2026-09-26 11:31:53,452 [INFO] City: Berlin
+2026-09-26 11:31:53,452 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:31:53,693 [INFO]   Immowelt Berlin page 0: https://www.immowelt.de/suche/kaufen/wohnung/berlin/ad02de1
+2026-09-26 11:32:00,700 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:00,786 [INFO]   → 2 listings
+2026-09-26 11:32:00,786 [INFO] City: Leipzig
+2026-09-26 11:32:00,786 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:01,003 [INFO]   Immowelt Leipzig page 0: https://www.immowelt.de/suche/kaufen/wohnung/leipzig/ad02de1
+2026-09-26 11:32:08,648 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:08,731 [INFO]   → 2 listings
+2026-09-26 11:32:08,731 [INFO] City: Cottbus
+2026-09-26 11:32:08,731 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:08,942 [INFO]   Immowelt Cottbus page 0: https://www.immowelt.de/suche/kaufen/wohnung/cottbus/ad02de1
+2026-09-26 11:32:14,090 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:14,165 [INFO]   → 2 listings
+2026-09-26 11:32:14,165 [INFO] City: Frankfurt (Oder)
+2026-09-26 11:32:14,165 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:14,375 [INFO]   Immowelt Frankfurt (Oder) page 0: https://www.immowelt.de/suche/kaufen/wohnung/frankfurt-(oder)/ad02de1
+2026-09-26 11:32:21,353 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:21,438 [INFO]   → 2 listings
+2026-09-26 11:32:21,438 [INFO] City: Potsdam
+2026-09-26 11:32:21,438 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:21,655 [INFO]   Immowelt Potsdam page 0: https://www.immowelt.de/suche/kaufen/wohnung/potsdam/ad02de1
+2026-09-26 11:32:28,726 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:28,804 [INFO]   → 2 listings
+2026-09-26 11:32:28,804 [INFO] City: Dessau-Roßlau
+2026-09-26 11:32:28,805 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:29,029 [INFO]   Immowelt Dessau-Roßlau page 0: https://www.immowelt.de/suche/kaufen/wohnung/dessau-roßlau/ad02de1
+2026-09-26 11:32:35,777 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:35,859 [INFO]   → 2 listings
+2026-09-26 11:32:35,859 [INFO] City: Wittenberg
+2026-09-26 11:32:35,859 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:36,095 [INFO]   Immowelt Wittenberg page 0: https://www.immowelt.de/suche/kaufen/wohnung/wittenberg/ad02de1
+2026-09-26 11:32:42,877 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:42,955 [INFO]   → 2 listings
+2026-09-26 11:32:42,955 [INFO] City: Senftenberg
+2026-09-26 11:32:42,955 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:43,165 [INFO]   Immowelt Senftenberg page 0: https://www.immowelt.de/suche/kaufen/wohnung/senftenberg/ad02de1
+2026-09-26 11:32:50,040 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:50,124 [INFO]   → 2 listings
+2026-09-26 11:32:50,124 [INFO] City: Brandenburg an der Havel
+2026-09-26 11:32:50,124 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:50,345 [INFO]   Immowelt Brandenburg an der Havel page 0: https://www.immowelt.de/suche/kaufen/wohnung/brandenburg-an-der-havel/ad02de1
+2026-09-26 11:32:57,385 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:32:57,470 [INFO]   → 2 listings
+2026-09-26 11:32:57,470 [INFO] City: Königs Wusterhausen
+2026-09-26 11:32:57,470 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:32:57,685 [INFO]   Immowelt Königs Wusterhausen page 0: https://www.immowelt.de/suche/kaufen/wohnung/königs-wusterhausen/ad02de1
+2026-09-26 11:33:04,679 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:04,755 [INFO]   → 2 listings
+2026-09-26 11:33:04,755 [INFO] City: Falkensee
+2026-09-26 11:33:04,755 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:04,963 [INFO]   Immowelt Falkensee page 0: https://www.immowelt.de/suche/kaufen/wohnung/falkensee/ad02de1
+2026-09-26 11:33:12,033 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:12,115 [INFO]   → 2 listings
+2026-09-26 11:33:12,115 [INFO] City: Eberswalde
+2026-09-26 11:33:12,115 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:12,335 [INFO]   Immowelt Eberswalde page 0: https://www.immowelt.de/suche/kaufen/wohnung/eberswalde/ad02de1
+2026-09-26 11:33:19,211 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:19,291 [INFO]   → 2 listings
+2026-09-26 11:33:19,291 [INFO] City: Bernau
+2026-09-26 11:33:19,292 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:19,515 [INFO]   Immowelt Bernau page 0: https://www.immowelt.de/suche/kaufen/wohnung/bernau/ad02de1
+2026-09-26 11:33:26,457 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:26,537 [INFO]   → 2 listings
+2026-09-26 11:33:26,537 [INFO] City: Schwedt
+2026-09-26 11:33:26,537 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:26,752 [INFO]   Immowelt Schwedt page 0: https://www.immowelt.de/suche/kaufen/wohnung/schwedt/ad02de1
+2026-09-26 11:33:33,680 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:33,765 [INFO]   → 2 listings
+2026-09-26 11:33:33,765 [INFO] City: Oranienburg
+2026-09-26 11:33:33,765 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:33,971 [INFO]   Immowelt Oranienburg page 0: https://www.immowelt.de/suche/kaufen/wohnung/oranienburg/ad02de1
+2026-09-26 11:33:41,161 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:41,246 [INFO]   → 2 listings
+2026-09-26 11:33:41,247 [INFO] City: Kleinmachnow
+2026-09-26 11:33:41,247 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:41,454 [INFO]   Immowelt Kleinmachnow page 0: https://www.immowelt.de/suche/kaufen/wohnung/kleinmachnow/ad02de1
+2026-09-26 11:33:48,378 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:48,463 [INFO]   → 2 listings
+2026-09-26 11:33:48,463 [INFO] City: Stahnsdorf
+2026-09-26 11:33:48,463 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:48,691 [INFO]   Immowelt Stahnsdorf page 0: https://www.immowelt.de/suche/kaufen/wohnung/stahnsdorf/ad02de1
+2026-09-26 11:33:55,784 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:33:55,867 [INFO]   → 2 listings
+2026-09-26 11:33:55,867 [INFO] City: Ketzin
+2026-09-26 11:33:55,867 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:33:56,070 [INFO]   Immowelt Ketzin page 0: https://www.immowelt.de/suche/kaufen/wohnung/ketzin/ad02de1
+2026-09-26 11:34:03,138 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:03,228 [INFO]   → 2 listings
+2026-09-26 11:34:03,228 [INFO] City: Wandlitz
+2026-09-26 11:34:03,228 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:03,437 [INFO]   Immowelt Wandlitz page 0: https://www.immowelt.de/suche/kaufen/wohnung/wandlitz/ad02de1
+2026-09-26 11:34:10,403 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:10,478 [INFO]   → 2 listings
+2026-09-26 11:34:10,479 [INFO] City: Hennigsdorf
+2026-09-26 11:34:10,479 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:10,686 [INFO]   Immowelt Hennigsdorf page 0: https://www.immowelt.de/suche/kaufen/wohnung/hennigsdorf/ad02de1
+2026-09-26 11:34:17,703 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:17,780 [INFO]   → 2 listings
+2026-09-26 11:34:17,780 [INFO] City: Teltow
+2026-09-26 11:34:17,780 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:17,989 [INFO]   Immowelt Teltow page 0: https://www.immowelt.de/suche/kaufen/wohnung/teltow/ad02de1
+2026-09-26 11:34:24,925 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:25,004 [INFO]   → 2 listings
+2026-09-26 11:34:25,004 [INFO] City: Zossen
+2026-09-26 11:34:25,004 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:25,210 [INFO]   Immowelt Zossen page 0: https://www.immowelt.de/suche/kaufen/wohnung/zossen/ad02de1
+2026-09-26 11:34:32,418 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:32,510 [INFO]   → 2 listings
+2026-09-26 11:34:32,510 [INFO] City: Ludwigsfelde
+2026-09-26 11:34:32,510 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:32,726 [INFO]   Immowelt Ludwigsfelde page 0: https://www.immowelt.de/suche/kaufen/wohnung/ludwigsfelde/ad02de1
+2026-09-26 11:34:39,615 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:39,694 [INFO]   → 2 listings
+2026-09-26 11:34:39,694 [INFO] City: Rathenow
+2026-09-26 11:34:39,694 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:39,908 [INFO]   Immowelt Rathenow page 0: https://www.immowelt.de/suche/kaufen/wohnung/rathenow/ad02de1
+2026-09-26 11:34:46,922 [INFO]   Found 30 links, 30 cards
+2026-09-26 11:34:47,000 [INFO]   → 2 listings
+2026-09-26 11:34:47,000 [INFO] 
+=== Scraping ImmoScout24 ===
+2026-09-26 11:34:47,000 [INFO] City: Berlin
+2026-09-26 11:34:47,000 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:47,218 [INFO]   ImmoScout24 Berlin page 0: https://www.immobilienscout24.de/Suche/berlin/deutschland/wohnung-kaufen
+2026-09-26 11:34:47,728 [WARNING]   ImmoScout24 blocked (status 404) — requires login
+2026-09-26 11:34:47,752 [INFO]   → 0 listings
+2026-09-26 11:34:47,752 [INFO] City: Leipzig
+2026-09-26 11:34:47,752 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:47,965 [INFO]   ImmoScout24 Leipzig page 0: https://www.immobilienscout24.de/Suche/leipzig/deutschland/wohnung-kaufen
+2026-09-26 11:34:48,311 [WARNING]   ImmoScout24 blocked (status 404) — requires login
+2026-09-26 11:34:48,338 [INFO]   → 0 listings
+2026-09-26 11:34:48,338 [INFO] City: Cottbus
+2026-09-26 11:34:48,338 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:48,545 [INFO]   ImmoScout24 Cottbus page 0: https://www.immobilienscout24.de/Suche/cottbus/deutschland/wohnung-kaufen
+2026-09-26 11:34:48,931 [WARNING]   ImmoScout24 blocked (status 404) — requires login
+2026-09-26 11:34:48,956 [INFO]   → 0 listings
+2026-09-26 11:34:48,956 [INFO] City: Frankfurt (Oder)
+2026-09-26 11:34:48,956 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:49,161 [INFO]   ImmoScout24 Frankfurt (Oder) page 0: https://www.immobilienscout24.de/Suche/frankfurt-(oder)/deutschland/wohnung-kaufen
+2026-09-26 11:34:49,498 [WARNING]   ImmoScout24 blocked (status 404) — requires login
+2026-09-26 11:34:49,526 [INFO]   → 0 listings
+2026-09-26 11:34:49,526 [INFO] City: Potsdam
+2026-09-26 11:34:49,526 [DEBUG] Using selector: EpollSelector
+2026-09-26 11:34:49,739 [INFO]   ImmoScout24 Potsdam page 0: https://www.immobilienscout24.de/Suche/potsdam/deutschland/wohnung-kaufen
+2026-09-26 11:34:50,092 [WARNING]   ImmoScout24 blocked (status 404) — requires login
+2026-09-26 11:34:50,115 [INFO]   → 0 listings
+
+============================================================
+SCRAPING SUMMARY
+============================================================
+Total listings: 48
+  Immowelt: 48
+  ImmoScout24: 0
+Output: data/all_listings.json
+
+Price range: 128000€ - 150000€
+Area range: 31m² - 34m²
