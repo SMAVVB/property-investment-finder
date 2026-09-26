@@ -24,7 +24,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 import time
 from pathlib import Path
 from typing import Any, Optional
@@ -43,19 +42,14 @@ META_PATH = MODEL_DIR / "metadata.json"
 _state: dict[str, Any] = {}  # lazy-loaded cache: tokenizer, embed model, heads, metadata
 
 
-def _ensure_hf_home() -> None:
-    hf_home = os.environ.get("HF_HOME")
-    if hf_home is None:
-        project_root = Path(__file__).parent.parent
-        cache_dir = project_root / ".hf_cache"
-        cache_dir.mkdir(exist_ok=True)
-        os.environ["HF_HOME"] = str(cache_dir)
-
-
 def _load() -> None:
     if _state:
         return
-    _ensure_hf_home()
+    # NOTE: deliberately does NOT call _ensure_hf_home() -- that redirects HF_HOME to an
+    # empty project-local cache dir (a workaround for Laya's own sandboxed downloads in
+    # src/judge.py) which breaks finding BAAI/bge-m3 in its real cache at
+    # ~/.cache/huggingface. scripts/embed_listings.py (used for training) never touches
+    # HF_HOME either, for the same reason -- keep both consistent.
     from transformers import AutoTokenizer, AutoModel
 
     with open(META_PATH) as f:
