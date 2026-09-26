@@ -25,6 +25,10 @@ import yaml
 from calculator import load_criteria
 from regions import add_active, load_candidate_batch, load_regions
 
+sys.path.insert(0, REPO_DIR)
+from run_v1_pipeline import load_listings  # existing loader, unchanged
+from threshold_search import search_best_criteria
+
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 CRITERIA_PATH = f"{REPO_DIR}/criteria.yaml"
 TUNING_HISTORY_PATH = f"{REPO_DIR}/data/tuning_history.md"
@@ -64,6 +68,10 @@ def get_state(conn: sqlite3.Connection) -> dict:
 
 
 def rank_scouted_cities(conn: sqlite3.Connection, top_k: int) -> list[sqlite3.Row]:
+    # Not fully redundant with run_cycle()'s conn.row_factory assignment:
+    # tests/test_autotune_state.py (and any other direct caller) passes a
+    # plain connection without that already set, and needs dict-style row
+    # access here to work regardless.
     conn.row_factory = sqlite3.Row
     return conn.execute(
         """
@@ -127,6 +135,25 @@ def _git(*args: str) -> str:
     ).stdout.strip()
 
 
+def _commit_and_push_or_rollback(paths: list[str], message: str) -> str | None:
+    """git add+commit+push the given paths. On any failure (push rejected,
+    network blip, etc.) roll the repo back to the pre-existing HEAD rather
+    than leaving a committed-but-unpushed change sitting on local main --
+    that would permanently wedge every future cycle with no record of
+    what happened. Returns the new commit hash, or None if nothing landed."""
+    pre_sha = _git("rev-parse", "HEAD")
+    try:
+        _git("add", *paths)
+        _git("commit", "-m", message)
+        commit_hash = _git("rev-parse", "HEAD")
+        _git("push", "origin", "main")
+        return commit_hash
+    except subprocess.CalledProcessError as e:
+        print(f"autotune: commit of {paths} failed to land ({e}); rolling back to {pre_sha}", file=sys.stderr)
+        _git("reset", "--hard", pre_sha)
+        return None
+
+
 def run_cycle() -> None:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -146,13 +173,23 @@ def run_cycle() -> None:
     top_cities = rank_scouted_cities(conn, TOP_K_PROMOTE)
     promote_to_deep_dive(top_cities)
 
-    sys.path.insert(0, REPO_DIR)
-    from run_v1_pipeline import load_listings  # existing loader, unchanged
+    # regions.yaml changes are committed/pushed independently of the
+    # criteria grid-search outcome below -- a region promotion can
+    # trigger a real, costly scrape and must not sit uncommitted for
+    # cycles just because this cycle's criteria didn't clear the
+    # improvement margin.
+    regions_changed = bool(_git("status", "--porcelain", "regions.yaml").strip())
+    if regions_changed:
+        _commit_and_push_or_rollback(
+            ["regions.yaml"],
+            f"autotune: promote {len(top_cities)} scouted region(s) to active deep-scraping\n\n"
+            "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n"
+            "Claude-Session: https://claude.ai/code/session_011mDK3TmcgpPLGPpzCaGB93",
+        )
 
     listings = load_listings(conn)
     base_criteria = load_criteria(CRITERIA_PATH)
 
-    from threshold_search import search_best_criteria
     best_criteria, mean_score, shortlist_size = search_best_criteria(
         listings, base_criteria, PARAM_GRID, MIN_SHORTLIST_SIZE
     )
@@ -163,15 +200,13 @@ def run_cycle() -> None:
     if promoted:
         with open(CRITERIA_PATH, "w", encoding="utf-8") as f:
             yaml.dump(best_criteria, f, allow_unicode=True, sort_keys=False)
-        _git("add", "criteria.yaml", "regions.yaml")
-        _git(
-            "commit", "-m",
+        commit_hash = _commit_and_push_or_rollback(
+            ["criteria.yaml"],
             f"autotune: new best preset (mean score {mean_score:.2f}, shortlist {shortlist_size})\n\n"
             "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n"
             "Claude-Session: https://claude.ai/code/session_011mDK3TmcgpPLGPpzCaGB93",
         )
-        commit_hash = _git("rev-parse", "HEAD")
-        _git("push", "origin", "main")
+        promoted = commit_hash is not None
 
     conn.execute(
         """
