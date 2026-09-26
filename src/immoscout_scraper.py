@@ -39,7 +39,9 @@ TRACKS = [
     ("berlin/berlin", "treptow-koepenick", "Berlin (Treptow-Koepenick)", "Berlin"),
 ]
 
-PAGES_PER_CITY = 8  # ~20 listings/page -> up to 160/city for the bigger markets (Leipzig has 305 hits)
+PAGES_PER_CITY = 30  # safety ceiling only (~20 listings/page -> 600/city); the inner loop
+                      # already stops naturally once page * 20 >= numberOfHits, so this just
+                      # needs to be above the largest city's real hit count (Leipzig: 305).
 CONCURRENCY = 5
 
 
