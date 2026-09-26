@@ -369,6 +369,11 @@ def _apply_filters(listing: Listing, result: CalculationResult, criteria: dict) 
     if listing.price > pp["max"]:
         reasons.append(f"Kaufpreis {listing.price:.0f}€ > {pp['max']}€ Maximum")
 
+    # 1b. Baujahr
+    by = criteria.get("built_year", {})
+    if by.get("min") and listing.built_year and listing.built_year < by["min"]:
+        reasons.append(f"Baujahr {listing.built_year} < {by['min']} Minimum")
+
     # 2. Wohnfläche
     ls = criteria["living_space"]
     if listing.living_space < ls["allowed_min"]:

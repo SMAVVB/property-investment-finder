@@ -14,6 +14,13 @@ purchase_price:
   comment: "Gesamter Kaufpreis inkl. aller Nebenkosten"
 
 # ------------------------------------------------------------
+# 1b. Construction Year (Baujahr)
+# ------------------------------------------------------------
+built_year:
+  min: 1990       # As-new-as-possible preference; no hard energy-class requirement yet
+  comment: "Bevorzugt Baujahr 1990+, um GDR-/Vorkriegsbestand mit hohem Sanierungsrisiko zu meiden. Kein Mindest-Energieausweis (noch keine Praeferenz)."
+
+# ------------------------------------------------------------
 # 2. Living Space (Wohnfläche in m²)
 # ------------------------------------------------------------
 living_space:

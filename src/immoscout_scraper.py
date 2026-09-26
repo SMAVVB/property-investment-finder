@@ -44,6 +44,12 @@ PAGES_PER_CITY = 30  # safety ceiling only (~20 listings/page -> 600/city); the 
                       # needs to be above the largest city's real hit count (Leipzig: 305).
 CONCURRENCY = 5
 
+MIN_BUILT_YEAR = 1990  # skip pre-1990 buildings before the (expensive) per-listing expose
+                        # fetch -- constructionYear is already in the cheap search-result JSON.
+                        # Listings with no constructionYear in the search result are kept (not
+                        # rejected on missing data); Calculator._apply_filters() still enforces
+                        # this too, as a backstop and for non-IS24 sources.
+
 
 @dataclass
 class RawListing:
@@ -180,12 +186,15 @@ def scrape_search_pages() -> list[RawListing]:
             if not entries:
                 print(f"  [{city_name} p{page}] 0 entries (numberOfHits={num_hits}), stopping this city")
                 break
-            new = 0
+            new, too_old = 0, 0
             for e in entries:
+                if e.built_year is not None and e.built_year < MIN_BUILT_YEAR:
+                    too_old += 1
+                    continue
                 if e.is24_id not in all_listings:
                     all_listings[e.is24_id] = e
                     new += 1
-            print(f"  [{city_name} p{page}] {len(entries)} entries, {new} new, numberOfHits={num_hits}, total_so_far={len(all_listings)}")
+            print(f"  [{city_name} p{page}] {len(entries)} entries, {new} new, {too_old} pre-{MIN_BUILT_YEAR} skipped, numberOfHits={num_hits}, total_so_far={len(all_listings)}")
             if page * 20 >= num_hits:
                 break
     return list(all_listings.values())
