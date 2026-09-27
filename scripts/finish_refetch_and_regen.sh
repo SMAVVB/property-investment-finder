@@ -1,9 +1,9 @@
 #!/bin/bash
-# Waits for the currently-running refetch_expose_text.py to exit, re-runs it
-# once more just in case it stopped short (it's idempotent/resumable -- a
-# no-op if already complete), then regenerates financials/judgments/shortlist
-# and commits+pushes the result. Meant to survive unattended after the user
-# reboots this machine into Windows and back.
+# Runs the refetch under scripts/supervise_refetch.sh (auto-restarts on any
+# hang/crash, hard-killed externally via `timeout` -- see that script for
+# why), then regenerates financials/judgments/shortlist and commits+pushes
+# the result. Meant to survive unattended after the user reboots this
+# machine into Windows and back.
 set -e
 cd /tmp/property-investment-finder
 
@@ -11,7 +11,7 @@ while pgrep -f "scripts/refetch_expose_text.py" > /dev/null; do
   sleep 10
 done
 
-/home/vincent/multica-lab/venv-scrape/bin/python scripts/refetch_expose_text.py
+./scripts/supervise_refetch.sh
 
 /home/vincent/laya_venv/bin/python run_v1_pipeline.py --judge finetuned
 
