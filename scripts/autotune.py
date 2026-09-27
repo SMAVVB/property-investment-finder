@@ -187,7 +187,10 @@ def run_cycle() -> None:
             "Claude-Session: https://claude.ai/code/session_011mDK3TmcgpPLGPpzCaGB93",
         )
 
-    listings = load_listings(conn)
+    # load_listings' own type hint says list[Listing], but it actually returns
+    # list[tuple[Listing, raw_data]] (see run_v1_pipeline.main()'s own
+    # "for listing, _raw in listings" usage) -- unpack here, not there.
+    listings = [listing for listing, _raw in load_listings(conn)]
     base_criteria = load_criteria(CRITERIA_PATH)
 
     best_criteria, mean_score, shortlist_size = search_best_criteria(
