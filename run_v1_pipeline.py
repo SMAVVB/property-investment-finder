@@ -80,6 +80,21 @@ def load_listings(conn: sqlite3.Connection) -> list[Listing]:
     return listings
 
 
+ERBPACHT_KEYWORDS = ("erbpacht", "erbbaurecht", "erbbaugrundstück", "erbbauzins", "erbbaurechtsvertrag")
+
+
+def has_erbpacht_keyword(raw_data: str) -> bool:
+    """criteria.yaml hard-excludes Erbpacht (exclusions.erbpacht: true), but that
+    exclusion only ever consulted the scraper's is_erbpacht column (a structured
+    IS24 field) -- never free text. Found live: is24-168245548's own description
+    says outright "befindet sich auf einem Erbbaugrundstück" with is_erbpacht=0,
+    and the judge's f_erbpacht flag always predicts false (documented gap: <15
+    positive training examples). A keyword scan of raw_data is independent of
+    both and catches what actually appeared in production."""
+    text = (raw_data or "").lower()
+    return any(kw in text for kw in ERBPACHT_KEYWORDS)
+
+
 def estimate_missing_rents(listings: list, rent_index: dict[str, float]) -> int:
     """Fill in rent_monthly (in place) for any (Listing, raw_data) pair that
     doesn't already have it, using size x local kreis_ags rent index.
@@ -175,12 +190,18 @@ def main() -> None:
           f"(no rent_monthly in scrape + kreis_ags matched location table)")
 
     calc_results = {}
+    erbpacht_caught = 0
     for listing, _raw in listings:
         result = calculate(listing, criteria)
+        if result.passed_filter and has_erbpacht_keyword(_raw):
+            result.passed_filter = False
+            result.rejection_reasons.append("Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text)")
+            erbpacht_caught += 1
         store_financials(conn, result)
         calc_results[listing.listing_id] = result
     conn.commit()
-    print(f"Calculator ran on {len(calc_results)} listings, stored in financials table")
+    print(f"Calculator ran on {len(calc_results)} listings, stored in financials table "
+          f"({erbpacht_caught} additionally excluded via Erbpacht keyword scan)")
 
     judged = 0
     judge_errors = 0
