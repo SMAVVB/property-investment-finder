@@ -36,9 +36,7 @@ REPO_DIR = os.path.dirname(SCRIPTS_DIR)
 sys.path.insert(0, os.path.join(REPO_DIR, "src"))
 
 from immoscout_scraper import RawListing, fetch_expose_text  # noqa: E402
-from vpn import connect as vpn_connect, disconnect as vpn_disconnect, rotate as vpn_rotate  # noqa: E402
-
-ROTATE_EVERY_N_BATCHES = 5
+from vpn import connect_for as vpn_connect_for, disconnect as vpn_disconnect  # noqa: E402
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 PROGRESS_PATH = f"{REPO_DIR}/data/.refetch_progress.json"
@@ -73,25 +71,35 @@ async def refetch_batch(rows: list[tuple[str, str]], sem: asyncio.Semaphore) -> 
 def main() -> None:
     conn = sqlite3.connect(DB_PATH)
     all_rows = conn.execute(
-        "SELECT listing_id, url FROM listing WHERE url IS NOT NULL AND url != ''"
+        "SELECT listing_id, url, bundesland FROM listing WHERE url IS NOT NULL AND url != ''"
     ).fetchall()
 
     done = load_progress()
-    pending = [(lid, url) for lid, url in all_rows if lid not in done]
+    pending = [(lid, url, bl) for lid, url, bl in all_rows if lid not in done]
+    # Group by bundesland so each batch of 20 maps to (mostly) one VPN exit
+    # city instead of an arbitrary mix -- the user wants the exit IP to look
+    # locally-sourced for whatever region is actually being scraped.
+    pending.sort(key=lambda row: row[2] or "")
     print(f"{len(all_rows)} listings total, {len(done)} already done, {len(pending)} remaining")
-
-    if pending:
-        vpn_connect()
 
     sem = asyncio.Semaphore(CONCURRENCY)
     grew = 0
     try:
-        for batch_num, i in enumerate(range(0, len(pending), BATCH_SIZE)):
-            if batch_num > 0 and batch_num % ROTATE_EVERY_N_BATCHES == 0:
-                vpn_rotate()
-            batch = pending[i:i + BATCH_SIZE]
+        for i in range(0, len(pending), BATCH_SIZE):
+            batch_rows = pending[i:i + BATCH_SIZE]
+            batch = [(lid, url) for lid, url, _bl in batch_rows]
+            majority_bl = max({bl for _, _, bl in batch_rows}, key=lambda bl: sum(1 for *_, b in batch_rows if b == bl))
+            vpn_connect_for(majority_bl)
             t0 = time.time()
-            texts = asyncio.run(refetch_batch(batch, sem))
+            try:
+                # Outer safety net on top of fetch_expose_text's own per-fetch
+                # watchdog: 20 fetches / concurrency 5 capped at 45s each should
+                # never exceed ~4*45=180s; give it a further margin before
+                # giving up on the whole batch rather than hanging forever.
+                texts = asyncio.run(asyncio.wait_for(refetch_batch(batch, sem), timeout=240))
+            except asyncio.TimeoutError:
+                print(f"  batch {i}-{i + len(batch)}: TIMED OUT after 240s, skipping -- will retry next run")
+                texts = {}
             for listing_id, _url in batch:
                 new_text = texts.get(listing_id, "")
                 if not new_text:

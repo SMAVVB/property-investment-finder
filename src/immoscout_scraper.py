@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from scrapling.fetchers import StealthyFetcher
 
 from regions import get_active_tracks
-from vpn import connect as vpn_connect, disconnect as vpn_disconnect, rotate as vpn_rotate
+from vpn import connect_for as vpn_connect_for, disconnect as vpn_disconnect
 
 TRACKS = get_active_tracks()
 
@@ -162,6 +162,7 @@ def _to_int(v):
 def scrape_search_pages() -> list[RawListing]:
     all_listings: dict[str, RawListing] = {}
     for bl_slug, city_slug, city_name, bl_name in TRACKS:
+        vpn_connect_for(bl_slug)
         for page in range(1, PAGES_PER_CITY + 1):
             url = (
                 f"https://www.immobilienscout24.de/Suche/de/{bl_slug}/{city_slug}/wohnung-kaufen"
@@ -200,12 +201,22 @@ def scrape_search_pages() -> list[RawListing]:
     return list(all_listings.values())
 
 
+FETCH_WATCHDOG_SECONDS = 45  # StealthyFetcher's own timeout=30000 is a page-load
+# timeout, not a guarantee against the underlying browser subprocess hanging
+# without raising (observed live: a fetch stuck at 0% CPU with no child
+# process, in ep_poll, for 46 minutes straight -- a real asyncio-level
+# wait_for is the only thing that can force such a hang to give up).
+
+
 async def fetch_expose_text(listing: RawListing, sem: asyncio.Semaphore) -> tuple[str, str]:
     async with sem:
         try:
-            r = await StealthyFetcher.async_fetch(
-                listing.url, headless=True, disable_resources=True,
-                network_idle=True, timeout=30000,
+            r = await asyncio.wait_for(
+                StealthyFetcher.async_fetch(
+                    listing.url, headless=True, disable_resources=True,
+                    network_idle=True, timeout=30000,
+                ),
+                timeout=FETCH_WATCHDOG_SECONDS,
             )
         except Exception as e:
             return listing.is24_id, ""
@@ -229,8 +240,14 @@ async def fetch_all_expose_texts(listings: list[RawListing]) -> dict[str, str]:
     sem = asyncio.Semaphore(CONCURRENCY)
     results = {}
     batch_size = 20
+    # Group by region so each batch maps to (mostly) one VPN exit city rather
+    # than an arbitrary mix -- scrape_search_pages() already inserts roughly
+    # in per-city order, but sort defensively for any other caller.
+    listings = sorted(listings, key=lambda l: l.bundesland or "")
     for i in range(0, len(listings), batch_size):
         batch = listings[i:i + batch_size]
+        majority_bl = max({l.bundesland for l in batch}, key=lambda bl: sum(1 for l in batch if l.bundesland == bl))
+        vpn_connect_for(majority_bl)
         t0 = time.time()
         pairs = await asyncio.gather(*[fetch_expose_text(l, sem) for l in batch])
         for lid, text in pairs:
@@ -241,17 +258,15 @@ async def fetch_all_expose_texts(listings: list[RawListing]) -> dict[str, str]:
 
 
 def main():
-    vpn_connect()
     try:
         print("=== Phase 1: search result pages ===")
-        listings = scrape_search_pages()
+        listings = scrape_search_pages()  # connects VPN per-city as it goes
         print(f"\nTotal unique listings from search: {len(listings)}")
 
         with open("is24_listings_meta.json", "w") as f:
             json.dump([l.__dict__ for l in listings], f, ensure_ascii=False, indent=2)
         print("Saved metadata to is24_listings_meta.json")
 
-        vpn_rotate()  # fresh exit IP before the higher-volume per-listing expose fetches
         print("\n=== Phase 2: expose pages (real description text) ===")
         texts = asyncio.run(fetch_all_expose_texts(listings))
         with open("is24_expose_texts.json", "w") as f:
