@@ -34,6 +34,13 @@ while true; do
   echo "$(date -u +%FT%TZ) supervisor: launching refetch_expose_text.py (done so far: $before/364)"
   timeout --signal=KILL 300 /home/vincent/multica-lab/venv-scrape/bin/python scripts/refetch_expose_text.py
   rc=$?
+  # `timeout --signal=KILL` only kills the direct python process, not its
+  # Chromium subprocess tree -- confirmed live: 13 restarts left 55+ orphaned
+  # chrome-linux64 processes behind, each cycle worse than the last as they
+  # piled up competing for CPU/memory. Nothing should legitimately still be
+  # running once this exits (success, crash, or killed), so clean up
+  # unconditionally every iteration.
+  pkill -9 -f "ms-playwright.*chrome-linux64/chrome" 2>/dev/null
   after=$(get_done)
   echo "$(date -u +%FT%TZ) supervisor: exited rc=$rc, done now: $after/364"
 
