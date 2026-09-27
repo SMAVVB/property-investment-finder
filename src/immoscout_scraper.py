@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import re
 import sys
 import time
@@ -25,6 +26,17 @@ from scrapling.fetchers import StealthyFetcher
 from regions import get_active_tracks
 
 TRACKS = get_active_tracks()
+
+# Optional scope-down for callers that only want to (re-)scrape specific
+# active cities this run (e.g. autotune.py's promote_to_deep_dive(), so a
+# cycle doesn't re-scrape every active city every time as the active list
+# grows -- that's what originally blew past the Multica task execution
+# timeout on the first live autotune run). Comma-separated "bl_slug/city_slug"
+# keys; unset (the default) scrapes every active track, same as always.
+_scope = os.environ.get("IS24_SCRAPE_CITIES")
+if _scope:
+    _scope_keys = set(_scope.split(","))
+    TRACKS = [t for t in TRACKS if f"{t[0]}/{t[1]}" in _scope_keys]
 
 PAGES_PER_CITY = 30  # safety ceiling only (~20 listings/page -> 600/city); the inner loop
                       # already stops naturally once page * 20 >= numberOfHits, so this just

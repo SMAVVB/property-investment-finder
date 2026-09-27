@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.join(REPO_DIR, "src"))
 import yaml
 
 from calculator import load_criteria
-from regions import add_active, load_candidate_batch, load_regions
+from regions import add_active, get_active_tracks, load_candidate_batch, load_regions
 
 sys.path.insert(0, REPO_DIR)
 from run_v1_pipeline import load_listings  # existing loader, unchanged
@@ -101,16 +101,32 @@ def _lookup_display_bundesland(bl_slug: str, city_slug: str) -> str:
 
 def promote_to_deep_dive(top_cities: list) -> None:
     """Add the given cities to regions.yaml's active list, then run the
-    existing scrape -> import chain so they get real listing data."""
+    existing scrape -> import chain -- but ONLY for cities that are
+    genuinely new this cycle, scoped via IS24_SCRAPE_CITIES.
+
+    Without this scoping, immoscout_scraper.py re-scrapes every already-
+    active city every single cycle (rank_scouted_cities() returns the same
+    top-K almost every time once scouting has any 'ok' rows, so top_cities
+    is essentially never empty) -- that's what blew past the Multica task
+    execution timeout on the first live run once the active list grew.
+    Refreshing already-active cities' listings periodically is a real need
+    too, but out of scope here -- run src/immoscout_scraper.py by hand (no
+    IS24_SCRAPE_CITIES set) for a full refresh when that's wanted.
+    """
+    already_active_keys = {(t[0], t[1]) for t in get_active_tracks()}
+    newly_added_keys = []
     for row in top_cities:
         bl_slug, city_slug = row["kreis_ags"].split("/", 1)
+        if (bl_slug, city_slug) not in already_active_keys:
+            newly_added_keys.append(f"{bl_slug}/{city_slug}")
         display_bundesland = _lookup_display_bundesland(bl_slug, city_slug)
         add_active(bl_slug, city_slug, row["city"], display_bundesland)
-    if not top_cities:
+    if not newly_added_keys:
         return
+    scoped_env = {**os.environ, "IS24_SCRAPE_CITIES": ",".join(newly_added_keys)}
     subprocess.run(
         ["/home/vincent/multica-lab/venv-scrape/bin/python", "src/immoscout_scraper.py"],
-        check=True, cwd=REPO_DIR,
+        check=True, cwd=REPO_DIR, env=scoped_env,
     )
     subprocess.run(
         ["/home/vincent/laya_venv/bin/python", "scripts/import_immoscout.py"],
