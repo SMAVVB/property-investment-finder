@@ -26,7 +26,7 @@ from calculator import load_criteria
 from regions import add_active, get_active_tracks, load_candidate_batch, load_regions
 
 sys.path.insert(0, REPO_DIR)
-from run_v1_pipeline import load_listings  # existing loader, unchanged
+from run_v1_pipeline import estimate_missing_rents, load_listings, load_rent_index
 from threshold_search import search_best_criteria
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
@@ -205,8 +205,14 @@ def run_cycle() -> None:
 
     # load_listings' own type hint says list[Listing], but it actually returns
     # list[tuple[Listing, raw_data]] (see run_v1_pipeline.main()'s own
-    # "for listing, _raw in listings" usage) -- unpack here, not there.
-    listings = [listing for listing, _raw in load_listings(conn)]
+    # "for listing, _raw in listings" usage). Estimate missing rents the same
+    # way main() does BEFORE unpacking -- otherwise every listing with no
+    # scraped rent_monthly shows a 0 gross yield and fails every yield-based
+    # filter regardless of anything else being tuned (caught by a live run:
+    # 422/422 listings failing on "Brutto-Yield" alone).
+    listing_pairs = load_listings(conn)
+    estimate_missing_rents(listing_pairs, load_rent_index(conn))
+    listings = [listing for listing, _raw in listing_pairs]
     base_criteria = load_criteria(CRITERIA_PATH)
 
     best_criteria, mean_score, shortlist_size = search_best_criteria(

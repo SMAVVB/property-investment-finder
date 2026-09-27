@@ -80,6 +80,28 @@ def load_listings(conn: sqlite3.Connection) -> list[Listing]:
     return listings
 
 
+def estimate_missing_rents(listings: list, rent_index: dict[str, float]) -> int:
+    """Fill in rent_monthly (in place) for any (Listing, raw_data) pair that
+    doesn't already have it, using size x local kreis_ags rent index.
+    Returns how many listings got an estimate. Shared by main() below and by
+    scripts/autotune.py -- both need this before running the Calculator,
+    otherwise every listing with no scraped rent_monthly shows a 0 gross
+    yield and fails every yield-based filter regardless of any other
+    criteria being tuned.
+
+    Build-plan fallback: size x local rent index when not currently let.
+    No separate Mietspiegel figure available in location_data.csv yet, so
+    the "+10% cap" from the build plan can't be applied here -- documented
+    gap, not silently ignored.
+    """
+    estimated = 0
+    for listing, _raw in listings:
+        if not listing.rent_monthly and listing.kreis_ags in rent_index and listing.living_space:
+            listing.rent_monthly = round(listing.living_space * rent_index[listing.kreis_ags], 2)
+            estimated += 1
+    return estimated
+
+
 def store_financials(conn: sqlite3.Connection, result) -> None:
     """Write only the financials row (schema.sql) -- never touches `listing`.
 
@@ -137,15 +159,7 @@ def main() -> None:
     print(f"Loaded {len(listings)} listings from {DB_PATH}")
 
     rent_index = load_rent_index(conn)
-    estimated = 0
-    for listing, _raw in listings:
-        if not listing.rent_monthly and listing.kreis_ags in rent_index and listing.living_space:
-            # Build-plan fallback: size x local rent index when not currently let.
-            # No separate Mietspiegel figure available in location_data.csv yet, so
-            # the "+10% cap" from the build plan can't be applied here -- documented
-            # gap, not silently ignored.
-            listing.rent_monthly = round(listing.living_space * rent_index[listing.kreis_ags], 2)
-            estimated += 1
+    estimated = estimate_missing_rents(listings, rent_index)
     print(f"Estimated rent for {estimated}/{len(listings)} listings via kreis_ags rent_index "
           f"(no rent_monthly in scrape + kreis_ags matched location table)")
 
