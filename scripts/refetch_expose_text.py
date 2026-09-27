@@ -12,11 +12,14 @@ it into raw_data). That extraction bug is fixed now (concatenates all
 sections) -- this script re-runs the fixed fetcher against the URLs already
 on file, it does not re-run the search-page scrape.
 
-Crash-safe / resumable: writes each batch to the DB immediately (not
-buffered to the end) and records completed listing_ids in
-data/.refetch_progress.json, so killing this process (deliberately, or via
-a host reboot/shutdown) and re-running it later only re-fetches whatever
-wasn't finished yet.
+Crash-safe / resumable: commits and checkpoints after EVERY SINGLE listing
+(not batched -- a batched version of this hid a real bug: kleinanzeigen.de
+fetches take ~32s each, so a 5-item batch could take ~160s, longer than the
+external supervisor's kill window, so the process was being killed mid-batch
+before its one commit-at-the-end ever ran -- looked exactly like an
+indefinite hang, for HOURS, when it was actually silently discarding real
+progress on every single restart). Per-item commits make checkpoint
+granularity match reality regardless of how slow any given site's fetch is.
 
 Run: /home/vincent/multica-lab/venv-scrape/bin/python scripts/refetch_expose_text.py
 Follow with: /home/vincent/laya_venv/bin/python run_v1_pipeline.py --judge finetuned
@@ -40,15 +43,7 @@ from vpn import connect_for as vpn_connect_for, disconnect as vpn_disconnect  # 
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 PROGRESS_PATH = f"{REPO_DIR}/data/.refetch_progress.json"
-# Sequential, small batches: repeated hangs never tripped either asyncio-level
-# watchdog even after 4+ minutes stuck with zero CPU and zero child processes
-# -- consistent with a synchronous blocking call inside the "async" fetch
-# freezing the whole single-threaded event loop, which no in-process timeout
-# can preempt (only an external OS kill can). Concurrency>1 multiplies how
-# often that can happen per batch; sequential fetches trade throughput for
-# actually finishing.
-CONCURRENCY = 1
-BATCH_SIZE = 5
+PER_ITEM_TIMEOUT = 60  # generous margin over fetch_expose_text's own internal 45s watchdog
 
 
 def load_progress() -> set[str]:
@@ -65,14 +60,15 @@ def save_progress(done: set[str]) -> None:
     os.replace(tmp_path, PROGRESS_PATH)  # atomic -- never leaves a half-written progress file
 
 
-async def refetch_batch(rows: list[tuple[str, str]], sem: asyncio.Semaphore) -> dict[str, str]:
-    stub_listings = [RawListing(
+async def fetch_one(lid: str, url: str) -> str:
+    listing = RawListing(
         is24_id=lid, title="", price=None, living_space=None, rooms=None,
         plz=None, city="", bundesland="", built_year=None, energy_class=None,
         broker_fee_pct=None, url=url,
-    ) for lid, url in rows]
-    pairs = await asyncio.gather(*[fetch_expose_text(l, sem) for l in stub_listings])
-    return dict(pairs)
+    )
+    sem = asyncio.Semaphore(1)
+    _lid, text = await asyncio.wait_for(fetch_expose_text(listing, sem), timeout=PER_ITEM_TIMEOUT)
+    return text
 
 
 def main() -> None:
@@ -83,46 +79,33 @@ def main() -> None:
 
     done = load_progress()
     pending = [(lid, url, bl) for lid, url, bl in all_rows if lid not in done]
-    # Group by bundesland so each batch of 20 maps to (mostly) one VPN exit
-    # city instead of an arbitrary mix -- the user wants the exit IP to look
-    # locally-sourced for whatever region is actually being scraped.
-    pending.sort(key=lambda row: row[2] or "")
+    pending.sort(key=lambda row: row[2] or "")  # group by region for VPN city matching (currently disabled)
     print(f"{len(all_rows)} listings total, {len(done)} already done, {len(pending)} remaining")
 
-    sem = asyncio.Semaphore(CONCURRENCY)
     grew = 0
     try:
-        for i in range(0, len(pending), BATCH_SIZE):
-            batch_rows = pending[i:i + BATCH_SIZE]
-            batch = [(lid, url) for lid, url, _bl in batch_rows]
-            majority_bl = max({bl for _, _, bl in batch_rows}, key=lambda bl: sum(1 for *_, b in batch_rows if b == bl))
-            vpn_connect_for(majority_bl)
+        for lid, url, bl in pending:
+            vpn_connect_for(bl)
             t0 = time.time()
             try:
-                # Outer safety net on top of fetch_expose_text's own per-fetch
-                # watchdog: 20 fetches / concurrency 5 capped at 45s each should
-                # never exceed ~4*45=180s; give it a further margin before
-                # giving up on the whole batch rather than hanging forever.
-                texts = asyncio.run(asyncio.wait_for(refetch_batch(batch, sem), timeout=240))
+                new_text = asyncio.run(fetch_one(lid, url))
             except asyncio.TimeoutError:
-                print(f"  batch {i}-{i + len(batch)}: TIMED OUT after 240s, skipping -- will retry next run")
-                texts = {}
-            for listing_id, _url in batch:
-                new_text = texts.get(listing_id, "")
-                if not new_text:
-                    continue  # leave raw_data untouched, don't mark done -- retry next run
-                old_len = conn.execute(
-                    "SELECT LENGTH(raw_data) FROM listing WHERE listing_id = ?", (listing_id,)
-                ).fetchone()[0] or 0
-                conn.execute("UPDATE listing SET raw_data = ? WHERE listing_id = ?", (new_text, listing_id))
-                if len(new_text) > old_len:
-                    grew += 1
-                done.add(listing_id)
-            conn.commit()  # persist this batch's raw_data before touching progress file
+                print(f"  {lid}: TIMED OUT after {PER_ITEM_TIMEOUT}s, skipping -- will retry next run")
+                continue
+            elapsed = time.time() - t0
+            if not new_text:
+                print(f"  {lid}: no text ({elapsed:.0f}s)")
+                continue  # leave raw_data untouched, don't mark done -- retry next run
+            old_len = conn.execute(
+                "SELECT LENGTH(raw_data) FROM listing WHERE listing_id = ?", (lid,)
+            ).fetchone()[0] or 0
+            conn.execute("UPDATE listing SET raw_data = ? WHERE listing_id = ?", (new_text, lid))
+            conn.commit()  # persist THIS listing before touching progress file
+            if len(new_text) > old_len:
+                grew += 1
+            done.add(lid)
             save_progress(done)
-            ok = sum(1 for _, t in texts.items() if len(t) > 100)
-            print(f"  batch {i}-{i + len(batch)}: {ok}/{len(batch)} with real text, "
-                  f"{time.time() - t0:.0f}s, {len(done)}/{len(all_rows)} done overall")
+            print(f"  {lid}: {len(new_text)} chars ({elapsed:.0f}s), {len(done)}/{len(all_rows)} done overall")
     finally:
         if pending:
             vpn_disconnect()

@@ -32,7 +32,7 @@ while true; do
     exit 0
   fi
   echo "$(date -u +%FT%TZ) supervisor: launching refetch_expose_text.py (done so far: $before/364)"
-  timeout --signal=KILL 150 /home/vincent/multica-lab/venv-scrape/bin/python scripts/refetch_expose_text.py
+  timeout --signal=KILL 100 /home/vincent/multica-lab/venv-scrape/bin/python scripts/refetch_expose_text.py
   rc=$?
   # `timeout --signal=KILL` only kills the direct python process, not its
   # Chromium subprocess tree -- confirmed live: 13 restarts left 55+ orphaned
