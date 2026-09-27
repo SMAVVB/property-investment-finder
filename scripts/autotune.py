@@ -251,8 +251,11 @@ def run_cycle() -> None:
     # commit/push it every time too, or the human-readable audit trail this
     # loop's whole "no approval gate" premise depends on only ever exists
     # locally, never actually reaching origin/main.
+    # data/listings.db holds the tuning_runs row this cycle just wrote --
+    # same "audit trail stays local-only" problem as tuning_history.md,
+    # just on the SQL side. Commit both together.
     _commit_and_push_or_rollback(
-        ["data/tuning_history.md"],
+        ["data/tuning_history.md", "data/listings.db"],
         f"autotune: log cycle {cycle_at} (mean score {mean_score:.2f}, "
         f"shortlist {shortlist_size}, promoted={promoted})\n\n"
         "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n"
