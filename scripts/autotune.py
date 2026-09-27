@@ -26,7 +26,7 @@ from calculator import load_criteria
 from regions import add_active, get_active_tracks, load_candidate_batch, load_regions
 
 sys.path.insert(0, REPO_DIR)
-from run_v1_pipeline import estimate_missing_rents, load_listings, load_rent_index
+from run_v1_pipeline import estimate_missing_rents, get_renovation_flagged_ids, load_listings, load_rent_index
 from threshold_search import search_best_criteria
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
@@ -212,7 +212,8 @@ def run_cycle() -> None:
     # 422/422 listings failing on "Brutto-Yield" alone).
     listing_pairs = load_listings(conn)
     estimate_missing_rents(listing_pairs, load_rent_index(conn))
-    listings = [listing for listing, _raw in listing_pairs]
+    renovation_ids = get_renovation_flagged_ids(conn)
+    listings = [listing for listing, _raw in listing_pairs if listing.listing_id not in renovation_ids]
     base_criteria = load_criteria(CRITERIA_PATH)
 
     best_criteria, mean_score, shortlist_size = search_best_criteria(

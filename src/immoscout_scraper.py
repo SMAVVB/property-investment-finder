@@ -210,10 +210,16 @@ async def fetch_expose_text(listing: RawListing, sem: asyncio.Semaphore) -> tupl
             return listing.is24_id, ""
         if r.status != 200:
             return listing.is24_id, ""
-        m = re.search(r'expose-description-body">(.*?)</span>', r.html_content, re.DOTALL)
-        if not m:
+        # The expose page renders one expose-description-body span PER SECTION
+        # (Objektbeschreibung, Sonstiges, Ausstattung, Lage, ...) -- re.search
+        # only grabbed the first (usually the short teaser), silently dropping
+        # every other section including "Sonstiges", which is exactly where
+        # sellers disclose caveats (sitting tenant at below-market rent,
+        # electrics needing renewal, etc.). Concatenate all of them.
+        sections = re.findall(r'expose-description-body">(.*?)</span>', r.html_content, re.DOTALL)
+        if not sections:
             return listing.is24_id, ""
-        text = re.sub(r"<[^>]+>", " ", m.group(1))
+        text = re.sub(r"<[^>]+>", " ", " ".join(sections))
         text = re.sub(r"\s+", " ", text).strip()
         return listing.is24_id, text
 

@@ -6,203 +6,203 @@ Judge risk flags below come from linear heads trained on 360 ground-truth labels
 
 | # | listing_id | city | price | m2 | rent/mo | kaufpreisfaktor | tier | passed | score | reasons | risk_flags |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | is24-168704884 | Berlin | 90000 | 54 | 727 | 10.3 | phenomenal | YES | 77.9 |  | f_renovation |
-| 2 | is24-167951332 | Berlin | 90000 | 47 | 634 | 11.8 | phenomenal | YES | 71.2 |  |  |
-| 3 | is24-150601885 | Berlin | 99000 | 50 | 675 | 12.2 | phenomenal | YES | 64.4 |  | f_renovation |
-| 4 | is24-170936504 | Berlin | 88000 | 38 | 512 | 14.3 | very_good | YES | 57.1 |  |  |
-| 5 | is24-170936496 | Berlin | 109000 | 47 | 638 | 14.2 | very_good | YES | 57.0 |  |  |
-| 6 | is24-168245548 | Berlin | 88110 | 37 | 498 | 14.7 | very_good | YES | 54.3 |  |  |
-| 7 | is24-171032230 | Berlin | 122000 | 51 | 688 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
-| 8 | is24-170604306 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
-| 9 | is24-170924614 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
-| 10 | is24-170759480 | Berlin | 122000 | 51 | 687 | 14.8 | very_good | YES | 53.2 |  | f_heating_fossil |
-| 11 | is24-168702079 | Berlin | 120000 | 50 | 675 | 14.8 | very_good | YES | 53.1 |  | f_renovation |
-| 12 | is24-168245592 | Berlin | 91800 | 37 | 498 | 15.4 | very_good | YES | 50.5 |  |  |
-| 13 | is24-170075455 | Berlin | 119900 | 48 | 647 | 15.4 | very_good | YES | 49.1 |  | f_heating_fossil, f_renovation |
-| 14 | is24-167480549 | Berlin | 99000 | 39 | 524 | 15.7 | very_good | YES | 48.0 |  |  |
-| 15 | is24-171105664 | Berlin | 110000 | 43 | 580 | 15.8 | very_good | YES | 47.3 |  |  |
-| 16 | is24-170980530 | Berlin | 95000 | 37 | 498 | 15.9 | very_good | YES | 47.2 |  | f_heating_fossil |
-| 17 | is24-169473719 | Berlin | 139900 | 55 | 742 | 15.7 | very_good | YES | 46.9 |  |  |
-| 18 | is24-170927950 | Berlin | 119000 | 45 | 608 | 16.3 | very_good | YES | 44.0 |  | f_renovation |
-| 19 | is24-167458068 | Berlin | 140000 | 53 | 716 | 16.3 | very_good | YES | 43.3 |  | f_heating_fossil, f_renovation |
-| 20 | is24-171045546 | Berlin | 125000 | 47 | 633 | 16.4 | very_good | YES | 43.0 |  | f_renovation |
-| 21 | is24-166737022 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | YES | 42.2 |  | f_heating_fossil, f_renovation |
-| 22 | is24-166737145 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | YES | 42.2 |  | f_heating_fossil, f_renovation |
-| 23 | is24-169973024 | Berlin | 124000 | 46 | 621 | 16.6 | very_good | YES | 41.9 |  |  |
-| 24 | is24-165522418 | Berlin | 89000 | 32 | 433 | 17.1 | very_good | YES | 40.6 |  |  |
-| 25 | is24-160214365 | Berlin | 135000 | 48 | 648 | 17.4 | very_good | YES | 37.5 |  |  |
-| 26 | is24-166242558 | Berlin | 106000 | 36 | 493 | 17.9 | very_good | YES | 35.7 |  |  |
-| 27 | is24-170321676 | Berlin | 129000 | 44 | 601 | 17.9 | very_good | YES | 34.9 |  |  |
-| 28 | is24-170050852 | Berlin | 150000 | 55 | 742 | 16.8 | very_good | YES | 34.9 |  | f_renovation |
-| 29 | is24-170679817 | Berlin | 120000 | 41 | 554 | 18.1 | acceptable | YES | 34.4 |  | f_heating_fossil |
-| 30 | is24-170646605 | Berlin | 98000 | 33 | 446 | 18.3 | acceptable | YES | 34.0 |  | f_renovation |
-| 31 | is24-170337022 | Berlin | 149000 | 54 | 727 | 17.1 | very_good | YES | 33.6 |  | f_heating_fossil, f_renovation |
-| 32 | is24-163901385 | Leipzig | 98000 | 49 | 448 | 18.2 | acceptable | YES | 33.4 |  |  |
-| 33 | is24-170761472 | Berlin | 97000 | 32 | 438 | 18.4 | acceptable | YES | 33.4 |  |  |
-| 34 | is24-167210504 | Leipzig | 95000 | 47 | 431 | 18.4 | acceptable | YES | 33.0 |  |  |
-| 35 | is24-170078177 | Berlin | 100000 | 33 | 448 | 18.6 | acceptable | YES | 32.5 |  | f_heating_fossil |
-| 36 | is24-170943086 | Berlin | 128000 | 43 | 580 | 18.4 | acceptable | YES | 32.4 |  |  |
-| 37 | is24-165953117 | Berlin | 110000 | 36 | 493 | 18.6 | acceptable | YES | 32.1 |  | f_heating_fossil, f_renovation |
-| 38 | is24-171007118 | Berlin | 100000 | 33 | 445 | 18.7 | acceptable | YES | 32.0 |  | f_heating_fossil |
-| 39 | is24-167867115 | Berlin | 95000 | 31 | 418 | 18.9 | acceptable | YES | 31.2 |  | f_renovation |
-| 40 | is24-171106103 | Berlin | 124900 | 41 | 554 | 18.8 | acceptable | YES | 30.4 |  | f_heating_fossil |
-| 41 | is24-169975599 | Leipzig | 95000 | 46 | 419 | 18.9 | acceptable | YES | 30.4 |  |  |
-| 42 | is24-170265932 | Leipzig | 99000 | 48 | 436 | 18.9 | acceptable | YES | 30.1 |  | f_heating_fossil |
-| 43 | is24-170038946 | Leipzig | 100000 | 48 | 436 | 19.1 | acceptable | YES | 29.2 |  | f_heating_fossil |
-| 44 | is24-155854134 | Halle (Saale) | 110000 | 52 | 479 | 19.1 | acceptable | YES | 28.6 |  |  |
-| 45 | is24-171117823 | Leipzig | 100000 | 48 | 432 | 19.3 | acceptable | YES | 28.3 |  |  |
-| 46 | is24-168765421 | Berlin | 149000 | 51 | 688 | 18.0 | acceptable | YES | 28.3 |  | f_heating_fossil |
-| 47 | is24-169171082 | Leipzig | 95000 | 45 | 408 | 19.4 | acceptable | YES | 28.1 |  |  |
-| 48 | is24-164790551 | Berlin | 137470 | 47 | 629 | 18.2 | acceptable | YES | 27.9 |  |  |
-| 49 | is24-168717151 | Berlin | 134900 | 46 | 617 | 18.2 | acceptable | YES | 27.9 |  | f_heating_fossil |
-| 50 | is24-169972719 | Leipzig | 104000 | 49 | 445 | 19.5 | acceptable | YES | 27.2 |  |  |
-| 51 | is24-165395853 | Berlin | 110000 | 34 | 465 | 19.7 | acceptable | YES | 26.8 |  | f_heating_fossil |
-| 52 | is24-170922095 | Berlin | 149000 | 50 | 675 | 18.4 | acceptable | YES | 26.5 |  | f_heating_fossil |
-| 53 | is24-170311936 | Leipzig | 99000 | 46 | 418 | 19.7 | acceptable | YES | 26.3 |  | f_heating_fossil |
-| 54 | is24-170394108 | Berlin | 119000 | 37 | 500 | 19.9 | acceptable | YES | 25.7 |  |  |
-| 55 | is24-167725206 | Berlin | 139900 | 46 | 624 | 18.7 | acceptable | YES | 25.3 |  | f_renovation |
-| 56 | is24-169492304 | Berlin | 145000 | 48 | 648 | 18.6 | acceptable | YES | 25.3 |  | f_heating_fossil |
-| 57 | is24-167335165 | Berlin | 129000 | 42 | 567 | 19.0 | acceptable | YES | 24.4 |  | f_heating_fossil |
-| 58 | is24-168945027 | Berlin | 149500 | 49 | 662 | 18.8 | acceptable | YES | 24.2 |  |  |
-| 59 | is24-168907279 | Berlin | 141000 | 46 | 621 | 18.9 | acceptable | YES | 24.2 |  |  |
-| 60 | is24-170862832 | Leipzig | 95000 | 43 | 391 | 20.2 | acceptable | YES | 24.1 |  |  |
-| 61 | is24-169648772 | Leipzig | 95000 | 43 | 390 | 20.3 | acceptable | YES | 23.8 |  | f_heating_fossil |
-| 62 | is24-169812827 | Berlin | 115000 | 35 | 472 | 20.3 | acceptable | YES | 23.8 |  | f_renovation |
-| 63 | is24-166668872 | Leipzig | 109000 | 50 | 451 | 20.1 | acceptable | YES | 23.7 |  |  |
-| 64 | is24-160431544 | Berlin | 139500 | 45 | 608 | 19.1 | acceptable | YES | 23.1 |  |  |
-| 65 | is24-170288526 | Berlin | 150000 | 49 | 656 | 19.0 | acceptable | YES | 23.1 |  |  |
-| 66 | is24-170673874 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  | f_heating_fossil |
-| 67 | is24-170408593 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  | f_heating_fossil |
-| 68 | is24-166345736 | Berlin | 149000 | 48 | 651 | 19.1 | acceptable | YES | 23.0 |  | f_renovation |
-| 69 | is24-168788114 | Berlin | 128000 | 41 | 550 | 19.4 | acceptable | YES | 22.5 |  | f_heating_fossil |
-| 70 | is24-169200408 | Leipzig | 99000 | 44 | 400 | 20.6 | acceptable | YES | 22.2 |  | f_heating_fossil |
-| 71 | is24-170512369 | Berlin | 135000 | 43 | 579 | 19.4 | acceptable | YES | 21.9 |  |  |
-| 72 | is24-170275887 | Leipzig | 97000 | 43 | 388 | 20.9 | acceptable | YES | 21.4 |  |  |
-| 73 | is24-169925187 | Berlin | 138500 | 44 | 590 | 19.6 | acceptable | YES | 21.1 |  | f_heating_fossil, f_renovation |
-| 74 | is24-168404225 | Berlin | 145000 | 46 | 618 | 19.6 | acceptable | YES | 20.9 |  |  |
-| 75 | is24-170966561 | Leipzig | 94500 | 41 | 374 | 21.0 | acceptable | YES | 20.6 |  |  |
-| 76 | is24-167032492 | Berlin | 150000 | 47 | 637 | 19.6 | acceptable | YES | 20.3 |  | f_heating_fossil |
-| 77 | is24-168253841 | Leipzig | 98000 | 42 | 382 | 21.4 | acceptable | YES | 18.9 |  |  |
-| 78 | is24-170641603 | Berlin | 139000 | 43 | 578 | 20.1 | acceptable | YES | 18.8 |  |  |
-| 79 | is24-169416486 | Berlin | 105000 | 30 | 405 | 21.6 | acceptable | YES | 18.5 |  | f_heating_fossil |
-| 80 | is24-170984818 | Leipzig | 99000 | 42 | 382 | 21.6 | acceptable | YES | 17.9 |  |  |
-| 81 | is24-170918245 | Berlin | 130000 | 40 | 533 | 20.3 | acceptable | YES | 17.9 |  |  |
-| 82 | is24-161135562 | Leipzig | 99000 | 42 | 381 | 21.6 | acceptable | YES | 17.8 |  |  |
-| 83 | is24-166238984 | Berlin | 121000 | 36 | 493 | 20.5 | acceptable | YES | 17.7 |  |  |
-| 84 | is24-167599902 | Leipzig | 100000 | 42 | 382 | 21.8 | acceptable | YES | 16.9 |  |  |
-| 85 | is24-159739391 | Leipzig | 110000 | 49 | 444 | 20.6 | acceptable | YES | 16.4 |  |  |
-| 86 | is24-169643348 | Halle (Saale) | 115000 | 50 | 463 | 20.7 | acceptable | YES | 15.9 |  | f_heating_fossil |
-| 87 | is24-166523139 | Berlin | 140000 | 42 | 562 | 20.8 | acceptable | YES | 15.4 |  |  |
-| 88 | is24-170082436 | Berlin | 139000 | 41 | 557 | 20.8 | acceptable | YES | 15.3 |  |  |
-| 89 | is24-170496834 | Berlin | 139000 | 41 | 554 | 20.9 | acceptable | YES | 14.7 |  | f_renovation |
-| 90 | is24-165800418 | Berlin | 124000 | 36 | 488 | 21.2 | acceptable | YES | 14.3 |  |  |
-| 91 | is24-165775270 | Berlin | 134000 | 39 | 526 | 21.2 | acceptable | YES | 13.6 |  | f_heating_fossil, f_renovation |
-| 92 | is24-169713182 | Berlin | 147000 | 43 | 578 | 21.2 | acceptable | YES | 13.0 |  | f_renovation |
-| 93 | is24-162006418 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
-| 94 | is24-168376765 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
-| 95 | is24-168452012 | Berlin | 145000 | 42 | 567 | 21.3 | acceptable | YES | 12.6 |  |  |
-| 96 | is24-170246745 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
-| 97 | is24-170247177 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
-| 98 | is24-89353290 | Halle (Saale) | 130000 | 55 | 507 | 21.4 | acceptable | YES | 12.1 |  | f_heating_fossil |
-| 99 | is24-170929496 | Berlin | 140000 | 40 | 540 | 21.6 | acceptable | YES | 11.6 |  |  |
-| 100 | is24-169529109 | Halle (Saale) | 127000 | 53 | 491 | 21.6 | acceptable | YES | 11.4 |  |  |
-| 101 | is24-170973897 | Berlin | 149900 | 43 | 579 | 21.6 | acceptable | YES | 11.3 |  |  |
-| 102 | is24-166271265 | Leipzig | 110000 | 46 | 418 | 21.9 | acceptable | YES | 10.9 |  |  |
-| 103 | is24-165386797 | Berlin | 149950 | 43 | 577 | 21.6 | acceptable | YES | 10.9 |  |  |
-| 104 | is24-169684022 | Leipzig | 110000 | 46 | 417 | 22.0 | acceptable | YES | 10.6 |  |  |
-| 105 | is24-168146590 | Leipzig | 109000 | 45 | 409 | 22.2 | market | YES | 10.3 |  |  |
-| 106 | is24-170447807 | Berlin | 140000 | 39 | 531 | 22.0 | acceptable | YES | 9.9 |  | f_heating_fossil, f_renovation |
-| 107 | is24-167336413 | Berlin | 145000 | 40 | 547 | 22.1 | market | YES | 9.4 |  |  |
-| 108 | is24-102951297 | Berlin | 144000 | 40 | 540 | 22.2 | market | YES | 9.2 |  |  |
-| 109 | is24-170936482 | Berlin | 80000 | 35 | 468 | 14.2 | very_good | no | 57.6 | Erforderliches Eigenkapital 19800€ < 20000€ Minimum |  |
-| 110 | is24-170727867 | Leipzig | 84000 | 51 | 461 | 15.2 | very_good | no | 50.8 | Leipzig: Wohnfläche 51m² > 50m² Limit; Erforderliches Eigenkapital 19620€ < 20000€ Minimum |  |
-| 111 | is24-170727822 | Leipzig | 90000 | 54 | 487 | 15.4 | very_good | no | 49.1 | Leipzig: Wohnfläche 54m² > 50m² Limit; Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
-| 112 | is24-169470323 | Halle (Saale) | 87000 | 50 | 461 | 15.7 | very_good | no | 47.5 | Erforderliches Eigenkapital 19350€ < 20000€ Minimum | f_heating_fossil |
-| 113 | is24-169685364 | Halle (Saale) | 89000 | 51 | 470 | 15.8 | very_good | no | 47.1 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
-| 114 | is24-170649186 | Leipzig | 84000 | 48 | 439 | 16.0 | very_good | no | 46.2 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum | f_heating_fossil |
-| 115 | is24-144506295 | Halle (Saale) | 84600 | 47 | 433 | 16.3 | very_good | no | 44.5 | Erforderliches Eigenkapital 19230€ < 20000€ Minimum | f_heating_fossil |
-| 116 | is24-170541514 | Leipzig | 92500 | 52 | 473 | 16.3 | very_good | no | 43.9 | Leipzig: Wohnfläche 52m² > 50m² Limit |  |
-| 117 | is24-169345022 | Leipzig | 99000 | 54 | 492 | 16.8 | very_good | no | 41.0 | Leipzig: Wohnfläche 54m² > 50m² Limit |  |
-| 118 | is24-170574817 | Leipzig | 80000 | 43 | 389 | 17.1 | very_good | no | 39.9 | Erforderliches Eigenkapital 19400€ < 20000€ Minimum |  |
-| 119 | is24-168981966 | Leipzig | 99995 | 53 | 482 | 17.3 | very_good | no | 38.2 | Leipzig: Wohnfläche 53m² > 50m² Limit |  |
-| 120 | is24-168814348 | Magdeburg | 85000 | 55 | 409 | 17.3 | very_good | no | 38.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
-| 121 | is24-171030186 | Magdeburg | 80000 | 52 | 384 | 17.4 | very_good | no | 38.1 | Erforderliches Eigenkapital 19000€ < 20000€ Minimum | f_heating_fossil |
-| 122 | is24-170766097 | Halle (Saale) | 96000 | 48 | 446 | 17.9 | very_good | no | 35.0 | Erforderliches Eigenkapital 19800€ < 20000€ Minimum |  |
-| 123 | is24-165670742 | Magdeburg | 85000 | 53 | 395 | 17.9 | very_good | no | 35.0 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
-| 124 | is24-168247504 | Leipzig | 89000 | 45 | 411 | 18.1 | acceptable | no | 34.8 | Erforderliches Eigenkapital 19895€ < 20000€ Minimum |  |
-| 125 | is24-169515953 | Magdeburg | 82000 | 50 | 372 | 18.4 | acceptable | no | 33.1 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum |  |
-| 126 | is24-162170677 | Magdeburg | 88900 | 54 | 402 | 18.4 | acceptable | no | 32.3 | Erforderliches Eigenkapital 19445€ < 20000€ Minimum | f_heating_fossil |
-| 127 | is24-169613651 | Magdeburg | 89000 | 54 | 400 | 18.6 | acceptable | no | 31.8 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
-| 128 | is24-168716768 | Magdeburg | 90000 | 54 | 402 | 18.7 | acceptable | no | 31.2 | Erforderliches Eigenkapital 19500€ < 20000€ Minimum | f_heating_fossil |
-| 129 | is24-170166888 | Halle (Saale) | 85000 | 41 | 375 | 18.9 | acceptable | no | 31.0 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
-| 130 | is24-164263873 | Magdeburg | 82000 | 48 | 359 | 19.1 | acceptable | no | 29.8 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum | f_heating_fossil |
-| 131 | is24-165169109 | Halle (Saale) | 99000 | 47 | 433 | 19.0 | acceptable | no | 29.5 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum | f_heating_fossil |
-| 132 | is24-162110953 | Magdeburg | 82000 | 48 | 357 | 19.1 | acceptable | no | 29.5 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum | f_heating_fossil |
-| 133 | is24-170516531 | Magdeburg | 80000 | 46 | 345 | 19.3 | acceptable | no | 28.6 | Erforderliches Eigenkapital 19000€ < 20000€ Minimum | f_heating_fossil |
-| 134 | is24-170259658 | Magdeburg | 89000 | 52 | 385 | 19.2 | acceptable | no | 28.5 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
-| 135 | poschmann-0008 | Leipzig | 170000 | 89 | 805 | 17.6 | very_good | no | 28.1 | Kaufpreis 170000€ > 150000€ Maximum; Wohnfläche 88.6m² > 55m² Maximum; Leipzig: Wohnfläche 89m² > 50m² Limit; Leipzig: Kaufpreis 170000€ > 117000€ Limit |  |
-| 136 | is24-164121494 | Leipzig | 85000 | 40 | 362 | 19.6 | acceptable | no | 27.8 | Erforderliches Eigenkapital 19675€ < 20000€ Minimum | f_heating_fossil |
-| 137 | is24-169944449 | Magdeburg | 95000 | 55 | 409 | 19.4 | acceptable | no | 27.7 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
-| 138 | is24-169944712 | Magdeburg | 95000 | 54 | 402 | 19.7 | acceptable | no | 26.0 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
-| 139 | is24-170971077 | Leipzig | 89900 | 41 | 375 | 20.0 | acceptable | no | 25.6 | Erforderliches Eigenkapital 19944€ < 20000€ Minimum | f_heating_fossil |
-| 140 | is24-170806704 | Magdeburg | 81000 | 45 | 337 | 20.0 | acceptable | no | 25.5 | Erforderliches Eigenkapital 19050€ < 20000€ Minimum |  |
-| 141 | is24-165231442 | Leipzig | 82500 | 37 | 339 | 20.3 | acceptable | no | 24.6 | Erforderliches Eigenkapital 19538€ < 20000€ Minimum |  |
-| 142 | is24-169925288 | Leipzig | 89000 | 40 | 364 | 20.4 | acceptable | no | 23.9 | Erforderliches Eigenkapital 19895€ < 20000€ Minimum | f_renovation |
-| 143 | is24-170645267 | Magdeburg | 85000 | 46 | 342 | 20.7 | acceptable | no | 22.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
-| 144 | is24-170939628 | Magdeburg | 91000 | 49 | 366 | 20.7 | acceptable | no | 21.6 | Erforderliches Eigenkapital 19550€ < 20000€ Minimum |  |
-| 145 | is24-164478117 | Magdeburg | 80500 | 43 | 321 | 20.9 | acceptable | no | 21.6 | Erforderliches Eigenkapital 19025€ < 20000€ Minimum | f_heating_fossil, f_renovation |
-| 146 | is24-168612618 | Leipzig | 115000 | 54 | 490 | 19.6 | acceptable | no | 21.2 | Leipzig: Wohnfläche 54m² > 50m² Limit |  |
-| 147 | is24-164479261 | Magdeburg | 85600 | 45 | 338 | 21.1 | acceptable | no | 20.4 | Erforderliches Eigenkapital 19280€ < 20000€ Minimum |  |
-| 148 | is24-170678152 | Magdeburg | 99000 | 53 | 394 | 20.9 | acceptable | no | 20.3 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
-| 149 | poschmann-0002 | Taucha | 690000 | 170 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 690000€ > 150000€ Maximum; Wohnfläche 170.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 4420€ > 500€ Maximum; Erforderliches Eigenkapital 52950€ > 40000€ Maximum |  |
-| 150 | poschmann-0013 | Leipzig | 169000 | 0 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 169000€ > 150000€ Maximum; Wohnfläche 0.0m² < 30m² Minimum; Leipzig: Kaufpreis 169000€ > 117000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 958€ > 500€ Maximum |  |
-| 151 | poschmann-0014 | Frohburg | 97700 | 450 | 0 | 0.0 | phenomenal | no | 20.0 | Wohnfläche 450.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1904€ > 500€ Maximum |  |
-| 152 | is24-168691907 | Cottbus | 85000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Wohnfläche 50m² > 45m² Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 632€ > 500€ Maximum |  |
-| 153 | is24-170743880 | Cottbus | 120000 | 41 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Kaufpreis 120000€ > 99000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 803€ > 500€ Maximum |  |
-| 154 | is24-169848147 | Brandenburg an der Havel | 110000 | 47 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 764€ > 500€ Maximum | f_heating_fossil |
-| 155 | is24-169615921 | Brandenburg an der Havel | 135000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 918€ > 500€ Maximum |  |
-| 156 | is24-171196663 | Brandenburg an der Havel | 136000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 933€ > 500€ Maximum | f_renovation |
-| 157 | is24-171073768 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum | f_renovation |
-| 158 | is24-170982968 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum | f_renovation |
-| 159 | is24-166739981 | Brandenburg an der Havel | 149000 | 37 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 954€ > 500€ Maximum | f_heating_fossil |
-| 160 | is24-166601545 | Brandenburg an der Havel | 129000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 893€ > 500€ Maximum |  |
-| 161 | is24-171201160 | Brandenburg an der Havel | 138000 | 45 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 916€ > 500€ Maximum |  |
-| 162 | is24-162658139 | Leipzig | 85000 | 36 | 332 | 21.4 | acceptable | no | 19.8 | Erforderliches Eigenkapital 19675€ < 20000€ Minimum |  |
-| 163 | is24-169970456 | Leipzig | 84000 | 36 | 327 | 21.4 | acceptable | no | 19.7 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum | f_heating_fossil |
-| 164 | is24-169925297 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | no | 19.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
-| 165 | is24-169993532 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | no | 19.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
-| 166 | is24-170336668 | Leipzig | 80000 | 34 | 309 | 21.6 | acceptable | no | 19.3 | Erforderliches Eigenkapital 19400€ < 20000€ Minimum |  |
-| 167 | is24-170508496 | Leipzig | 110000 | 50 | 456 | 20.1 | acceptable | no | 19.0 | Leipzig: Wohnfläche 50m² > 50m² Limit |  |
-| 168 | is24-157076072 | Leipzig | 90000 | 38 | 349 | 21.5 | acceptable | no | 19.0 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum | f_heating_fossil |
-| 169 | is24-162367311 | Leipzig | 87000 | 37 | 336 | 21.6 | acceptable | no | 18.9 | Erforderliches Eigenkapital 19785€ < 20000€ Minimum | f_heating_fossil |
-| 170 | is24-162293322 | Magdeburg | 99000 | 52 | 387 | 21.3 | acceptable | no | 18.6 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
-| 171 | is24-164478734 | Magdeburg | 90500 | 47 | 351 | 21.5 | acceptable | no | 18.4 | Erforderliches Eigenkapital 19525€ < 20000€ Minimum |  |
-| 172 | is24-170973694 | Magdeburg | 85000 | 44 | 327 | 21.6 | acceptable | no | 18.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
-| 173 | is24-169497600 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 54m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
-| 174 | is24-169967652 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 54m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit | f_renovation |
-| 175 | is24-165785400 | Leipzig | 118000 | 53 | 486 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 118000€ > 117000€ Limit | f_heating_fossil |
-| 176 | is24-168387399 | Leipzig | 115000 | 52 | 473 | 20.3 | acceptable | no | 17.8 | Leipzig: Wohnfläche 52m² > 50m² Limit | f_heating_fossil |
-| 177 | is24-171219350 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | no | 17.4 | Leipzig: Wohnfläche 52m² > 50m² Limit |  |
-| 178 | is24-171115981 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | no | 17.4 | Leipzig: Wohnfläche 52m² > 50m² Limit | f_heating_fossil, f_renovation |
-| 179 | is24-168281005 | Leipzig | 84000 | 35 | 317 | 22.1 | market | no | 17.1 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum |  |
-| 180 | is24-170660512 | Leipzig | 89900 | 37 | 334 | 22.4 | market | no | 16.1 | Brutto-Yield 4.46% < 4.5% Minimum; Erforderliches Eigenkapital 19944€ < 20000€ Minimum |  |
-| 181 | is24-170983229 | Magdeburg | 95000 | 48 | 361 | 22.0 | acceptable | no | 16.1 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
-| 182 | klz-f7b0f292f251 | Leipzig | 142000 | 64 | 582 | 20.3 | acceptable | no | 16.0 | Wohnfläche 64.0m² > 55m² Maximum; Leipzig: Wohnfläche 64m² > 50m² Limit; Leipzig: Kaufpreis 142000€ > 117000€ Limit |  |
-| 183 | is24-169531750 | Halle (Saale) | 95000 | 38 | 350 | 22.6 | market | no | 15.6 | Brutto-Yield 4.43% < 4.5% Minimum; Erforderliches Eigenkapital 19750€ < 20000€ Minimum |  |
-| 184 | is24-171198152 | Leipzig | 124000 | 55 | 500 | 20.7 | acceptable | no | 15.5 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 124000€ > 117000€ Limit |  |
-| 185 | is24-164912811 | Leipzig | 99000 | 40 | 366 | 22.5 | market | no | 15.4 | Brutto-Yield 4.44% < 4.5% Minimum | f_heating_fossil |
-| 186 | is24-170233259 | Leipzig | 120000 | 53 | 480 | 20.8 | acceptable | no | 15.0 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 120000€ > 117000€ Limit |  |
-| 187 | is24-170211870 | Halle (Saale) | 98000 | 38 | 350 | 23.3 | market | no | 14.3 | Brutto-Yield 4.29% < 4.5% Minimum; Erforderliches Eigenkapital 19900€ < 20000€ Minimum |  |
-| 188 | is24-169809647 | Magdeburg | 95000 | 45 | 335 | 23.6 | market | no | 13.4 | Brutto-Yield 4.23% < 4.5% Minimum; Erforderliches Eigenkapital 19750€ < 20000€ Minimum |  |
-| 189 | is24-170869630 | Leipzig | 125000 | 53 | 485 | 21.5 | acceptable | no | 11.8 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit | f_heating_fossil |
-| 190 | is24-167163170 | Leipzig | 128000 | 55 | 496 | 21.5 | acceptable | no | 11.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 128000€ > 117000€ Limit | f_heating_fossil |
-| 191 | is24-167882420 | Leipzig | 129000 | 55 | 500 | 21.5 | acceptable | no | 11.5 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 129000€ > 117000€ Limit |  |
-| 192 | is24-169636438 | Leipzig | 125000 | 53 | 482 | 21.6 | acceptable | no | 11.2 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit | f_heating_fossil |
-| 193 | is24-170926442 | Leipzig | 95000 | 34 | 309 | 25.6 | market | no | 11.2 | Brutto-Yield 3.90% < 4.5% Minimum |  |
-| 194 | is24-169698395 | Leipzig | 126500 | 53 | 486 | 21.7 | acceptable | no | 10.8 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 126500€ > 117000€ Limit |  |
-| 195 | is24-171071798 | Leipzig | 130000 | 55 | 500 | 21.7 | acceptable | no | 10.7 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 130000€ > 117000€ Limit | f_heating_fossil |
-| 196 | is24-171138715 | Magdeburg | 85000 | 36 | 269 | 26.4 | market | no | 10.6 | Brutto-Yield 3.79% < 4.5% Minimum; Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
-| 197 | is24-170857406 | Leipzig | 125000 | 52 | 476 | 21.9 | acceptable | no | 10.1 | Leipzig: Wohnfläche 52m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit |  |
+| 1 | is24-167951332 | Berlin | 90000 | 47 | 634 | 11.8 | phenomenal | YES | 71.2 |  |  |
+| 2 | is24-170936504 | Berlin | 88000 | 38 | 512 | 14.3 | very_good | YES | 57.1 |  |  |
+| 3 | is24-170936496 | Berlin | 109000 | 47 | 638 | 14.2 | very_good | YES | 57.0 |  |  |
+| 4 | is24-168245548 | Berlin | 88110 | 37 | 498 | 14.7 | very_good | YES | 54.3 |  |  |
+| 5 | is24-171032230 | Berlin | 122000 | 51 | 688 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
+| 6 | is24-170604306 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
+| 7 | is24-170924614 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  | f_heating_fossil |
+| 8 | is24-170759480 | Berlin | 122000 | 51 | 687 | 14.8 | very_good | YES | 53.2 |  | f_heating_fossil |
+| 9 | is24-168245592 | Berlin | 91800 | 37 | 498 | 15.4 | very_good | YES | 50.5 |  |  |
+| 10 | is24-167480549 | Berlin | 99000 | 39 | 524 | 15.7 | very_good | YES | 48.0 |  |  |
+| 11 | is24-171105664 | Berlin | 110000 | 43 | 580 | 15.8 | very_good | YES | 47.3 |  |  |
+| 12 | is24-170980530 | Berlin | 95000 | 37 | 498 | 15.9 | very_good | YES | 47.2 |  | f_heating_fossil |
+| 13 | is24-169473719 | Berlin | 139900 | 55 | 742 | 15.7 | very_good | YES | 46.9 |  |  |
+| 14 | is24-169973024 | Berlin | 124000 | 46 | 621 | 16.6 | very_good | YES | 41.9 |  |  |
+| 15 | is24-165522418 | Berlin | 89000 | 32 | 433 | 17.1 | very_good | YES | 40.6 |  |  |
+| 16 | is24-160214365 | Berlin | 135000 | 48 | 648 | 17.4 | very_good | YES | 37.5 |  |  |
+| 17 | is24-166242558 | Berlin | 106000 | 36 | 493 | 17.9 | very_good | YES | 35.7 |  |  |
+| 18 | is24-170321676 | Berlin | 129000 | 44 | 601 | 17.9 | very_good | YES | 34.9 |  |  |
+| 19 | is24-170679817 | Berlin | 120000 | 41 | 554 | 18.1 | acceptable | YES | 34.4 |  | f_heating_fossil |
+| 20 | is24-163901385 | Leipzig | 98000 | 49 | 448 | 18.2 | acceptable | YES | 33.4 |  |  |
+| 21 | is24-170761472 | Berlin | 97000 | 32 | 438 | 18.4 | acceptable | YES | 33.4 |  |  |
+| 22 | is24-167210504 | Leipzig | 95000 | 47 | 431 | 18.4 | acceptable | YES | 33.0 |  |  |
+| 23 | is24-170078177 | Berlin | 100000 | 33 | 448 | 18.6 | acceptable | YES | 32.5 |  | f_heating_fossil |
+| 24 | is24-170943086 | Berlin | 128000 | 43 | 580 | 18.4 | acceptable | YES | 32.4 |  |  |
+| 25 | is24-171007118 | Berlin | 100000 | 33 | 445 | 18.7 | acceptable | YES | 32.0 |  | f_heating_fossil |
+| 26 | is24-171106103 | Berlin | 124900 | 41 | 554 | 18.8 | acceptable | YES | 30.4 |  | f_heating_fossil |
+| 27 | is24-169975599 | Leipzig | 95000 | 46 | 419 | 18.9 | acceptable | YES | 30.4 |  |  |
+| 28 | is24-170265932 | Leipzig | 99000 | 48 | 436 | 18.9 | acceptable | YES | 30.1 |  | f_heating_fossil |
+| 29 | is24-170038946 | Leipzig | 100000 | 48 | 436 | 19.1 | acceptable | YES | 29.2 |  | f_heating_fossil |
+| 30 | is24-155854134 | Halle (Saale) | 110000 | 52 | 479 | 19.1 | acceptable | YES | 28.6 |  |  |
+| 31 | is24-171117823 | Leipzig | 100000 | 48 | 432 | 19.3 | acceptable | YES | 28.3 |  |  |
+| 32 | is24-168765421 | Berlin | 149000 | 51 | 688 | 18.0 | acceptable | YES | 28.3 |  | f_heating_fossil |
+| 33 | is24-169171082 | Leipzig | 95000 | 45 | 408 | 19.4 | acceptable | YES | 28.1 |  |  |
+| 34 | is24-164790551 | Berlin | 137470 | 47 | 629 | 18.2 | acceptable | YES | 27.9 |  |  |
+| 35 | is24-168717151 | Berlin | 134900 | 46 | 617 | 18.2 | acceptable | YES | 27.9 |  | f_heating_fossil |
+| 36 | is24-169972719 | Leipzig | 104000 | 49 | 445 | 19.5 | acceptable | YES | 27.2 |  |  |
+| 37 | is24-165395853 | Berlin | 110000 | 34 | 465 | 19.7 | acceptable | YES | 26.8 |  | f_heating_fossil |
+| 38 | is24-170922095 | Berlin | 149000 | 50 | 675 | 18.4 | acceptable | YES | 26.5 |  | f_heating_fossil |
+| 39 | is24-170311936 | Leipzig | 99000 | 46 | 418 | 19.7 | acceptable | YES | 26.3 |  | f_heating_fossil |
+| 40 | is24-170394108 | Berlin | 119000 | 37 | 500 | 19.9 | acceptable | YES | 25.7 |  |  |
+| 41 | is24-169492304 | Berlin | 145000 | 48 | 648 | 18.6 | acceptable | YES | 25.3 |  | f_heating_fossil |
+| 42 | is24-167335165 | Berlin | 129000 | 42 | 567 | 19.0 | acceptable | YES | 24.4 |  | f_heating_fossil |
+| 43 | is24-168945027 | Berlin | 149500 | 49 | 662 | 18.8 | acceptable | YES | 24.2 |  |  |
+| 44 | is24-168907279 | Berlin | 141000 | 46 | 621 | 18.9 | acceptable | YES | 24.2 |  |  |
+| 45 | is24-170862832 | Leipzig | 95000 | 43 | 391 | 20.2 | acceptable | YES | 24.1 |  |  |
+| 46 | is24-169648772 | Leipzig | 95000 | 43 | 390 | 20.3 | acceptable | YES | 23.8 |  | f_heating_fossil |
+| 47 | is24-166668872 | Leipzig | 109000 | 50 | 451 | 20.1 | acceptable | YES | 23.7 |  |  |
+| 48 | is24-160431544 | Berlin | 139500 | 45 | 608 | 19.1 | acceptable | YES | 23.1 |  |  |
+| 49 | is24-170288526 | Berlin | 150000 | 49 | 656 | 19.0 | acceptable | YES | 23.1 |  |  |
+| 50 | is24-170673874 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  | f_heating_fossil |
+| 51 | is24-170408593 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  | f_heating_fossil |
+| 52 | is24-168788114 | Berlin | 128000 | 41 | 550 | 19.4 | acceptable | YES | 22.5 |  | f_heating_fossil |
+| 53 | is24-169200408 | Leipzig | 99000 | 44 | 400 | 20.6 | acceptable | YES | 22.2 |  | f_heating_fossil |
+| 54 | is24-170512369 | Berlin | 135000 | 43 | 579 | 19.4 | acceptable | YES | 21.9 |  |  |
+| 55 | is24-170275887 | Leipzig | 97000 | 43 | 388 | 20.9 | acceptable | YES | 21.4 |  |  |
+| 56 | is24-168404225 | Berlin | 145000 | 46 | 618 | 19.6 | acceptable | YES | 20.9 |  |  |
+| 57 | is24-170966561 | Leipzig | 94500 | 41 | 374 | 21.0 | acceptable | YES | 20.6 |  |  |
+| 58 | is24-167032492 | Berlin | 150000 | 47 | 637 | 19.6 | acceptable | YES | 20.3 |  | f_heating_fossil |
+| 59 | is24-168253841 | Leipzig | 98000 | 42 | 382 | 21.4 | acceptable | YES | 18.9 |  |  |
+| 60 | is24-170641603 | Berlin | 139000 | 43 | 578 | 20.1 | acceptable | YES | 18.8 |  |  |
+| 61 | is24-169416486 | Berlin | 105000 | 30 | 405 | 21.6 | acceptable | YES | 18.5 |  | f_heating_fossil |
+| 62 | is24-170984818 | Leipzig | 99000 | 42 | 382 | 21.6 | acceptable | YES | 17.9 |  |  |
+| 63 | is24-170918245 | Berlin | 130000 | 40 | 533 | 20.3 | acceptable | YES | 17.9 |  |  |
+| 64 | is24-161135562 | Leipzig | 99000 | 42 | 381 | 21.6 | acceptable | YES | 17.8 |  |  |
+| 65 | is24-166238984 | Berlin | 121000 | 36 | 493 | 20.5 | acceptable | YES | 17.7 |  |  |
+| 66 | is24-167599902 | Leipzig | 100000 | 42 | 382 | 21.8 | acceptable | YES | 16.9 |  |  |
+| 67 | is24-159739391 | Leipzig | 110000 | 49 | 444 | 20.6 | acceptable | YES | 16.4 |  |  |
+| 68 | is24-169643348 | Halle (Saale) | 115000 | 50 | 463 | 20.7 | acceptable | YES | 15.9 |  | f_heating_fossil |
+| 69 | is24-166523139 | Berlin | 140000 | 42 | 562 | 20.8 | acceptable | YES | 15.4 |  |  |
+| 70 | is24-170082436 | Berlin | 139000 | 41 | 557 | 20.8 | acceptable | YES | 15.3 |  |  |
+| 71 | is24-165800418 | Berlin | 124000 | 36 | 488 | 21.2 | acceptable | YES | 14.3 |  |  |
+| 72 | is24-162006418 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
+| 73 | is24-168376765 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
+| 74 | is24-168452012 | Berlin | 145000 | 42 | 567 | 21.3 | acceptable | YES | 12.6 |  |  |
+| 75 | is24-170246745 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
+| 76 | is24-170247177 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
+| 77 | is24-89353290 | Halle (Saale) | 130000 | 55 | 507 | 21.4 | acceptable | YES | 12.1 |  | f_heating_fossil |
+| 78 | is24-170929496 | Berlin | 140000 | 40 | 540 | 21.6 | acceptable | YES | 11.6 |  |  |
+| 79 | is24-169529109 | Halle (Saale) | 127000 | 53 | 491 | 21.6 | acceptable | YES | 11.4 |  |  |
+| 80 | is24-170973897 | Berlin | 149900 | 43 | 579 | 21.6 | acceptable | YES | 11.3 |  |  |
+| 81 | is24-166271265 | Leipzig | 110000 | 46 | 418 | 21.9 | acceptable | YES | 10.9 |  |  |
+| 82 | is24-165386797 | Berlin | 149950 | 43 | 577 | 21.6 | acceptable | YES | 10.9 |  |  |
+| 83 | is24-169684022 | Leipzig | 110000 | 46 | 417 | 22.0 | acceptable | YES | 10.6 |  |  |
+| 84 | is24-168146590 | Leipzig | 109000 | 45 | 409 | 22.2 | market | YES | 10.3 |  |  |
+| 85 | is24-167336413 | Berlin | 145000 | 40 | 547 | 22.1 | market | YES | 9.4 |  |  |
+| 86 | is24-102951297 | Berlin | 144000 | 40 | 540 | 22.2 | market | YES | 9.2 |  |  |
+| 87 | is24-168704884 | Berlin | 90000 | 54 | 727 | 10.3 | phenomenal | no | 77.9 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 88 | is24-150601885 | Berlin | 99000 | 50 | 675 | 12.2 | phenomenal | no | 64.4 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 89 | is24-170936482 | Berlin | 80000 | 35 | 468 | 14.2 | very_good | no | 57.6 | Erforderliches Eigenkapital 19800€ < 20000€ Minimum |  |
+| 90 | is24-168702079 | Berlin | 120000 | 50 | 675 | 14.8 | very_good | no | 53.1 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 91 | is24-170727867 | Leipzig | 84000 | 51 | 461 | 15.2 | very_good | no | 50.8 | Leipzig: Wohnfläche 51m² > 50m² Limit; Erforderliches Eigenkapital 19620€ < 20000€ Minimum |  |
+| 92 | is24-170727822 | Leipzig | 90000 | 54 | 487 | 15.4 | very_good | no | 49.1 | Leipzig: Wohnfläche 54m² > 50m² Limit; Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
+| 93 | is24-170075455 | Berlin | 119900 | 48 | 647 | 15.4 | very_good | no | 49.1 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 94 | is24-169470323 | Halle (Saale) | 87000 | 50 | 461 | 15.7 | very_good | no | 47.5 | Erforderliches Eigenkapital 19350€ < 20000€ Minimum | f_heating_fossil |
+| 95 | is24-169685364 | Halle (Saale) | 89000 | 51 | 470 | 15.8 | very_good | no | 47.1 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
+| 96 | is24-170649186 | Leipzig | 84000 | 48 | 439 | 16.0 | very_good | no | 46.2 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum | f_heating_fossil |
+| 97 | is24-144506295 | Halle (Saale) | 84600 | 47 | 433 | 16.3 | very_good | no | 44.5 | Erforderliches Eigenkapital 19230€ < 20000€ Minimum | f_heating_fossil |
+| 98 | is24-170927950 | Berlin | 119000 | 45 | 608 | 16.3 | very_good | no | 44.0 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 99 | is24-170541514 | Leipzig | 92500 | 52 | 473 | 16.3 | very_good | no | 43.9 | Leipzig: Wohnfläche 52m² > 50m² Limit |  |
+| 100 | is24-167458068 | Berlin | 140000 | 53 | 716 | 16.3 | very_good | no | 43.3 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 101 | is24-171045546 | Berlin | 125000 | 47 | 633 | 16.4 | very_good | no | 43.0 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 102 | is24-166737022 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | no | 42.2 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 103 | is24-166737145 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | no | 42.2 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 104 | is24-169345022 | Leipzig | 99000 | 54 | 492 | 16.8 | very_good | no | 41.0 | Leipzig: Wohnfläche 54m² > 50m² Limit |  |
+| 105 | is24-170574817 | Leipzig | 80000 | 43 | 389 | 17.1 | very_good | no | 39.9 | Erforderliches Eigenkapital 19400€ < 20000€ Minimum |  |
+| 106 | is24-168981966 | Leipzig | 99995 | 53 | 482 | 17.3 | very_good | no | 38.2 | Leipzig: Wohnfläche 53m² > 50m² Limit |  |
+| 107 | is24-168814348 | Magdeburg | 85000 | 55 | 409 | 17.3 | very_good | no | 38.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
+| 108 | is24-171030186 | Magdeburg | 80000 | 52 | 384 | 17.4 | very_good | no | 38.1 | Erforderliches Eigenkapital 19000€ < 20000€ Minimum | f_heating_fossil |
+| 109 | is24-170766097 | Halle (Saale) | 96000 | 48 | 446 | 17.9 | very_good | no | 35.0 | Erforderliches Eigenkapital 19800€ < 20000€ Minimum |  |
+| 110 | is24-165670742 | Magdeburg | 85000 | 53 | 395 | 17.9 | very_good | no | 35.0 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
+| 111 | is24-170050852 | Berlin | 150000 | 55 | 742 | 16.8 | very_good | no | 34.9 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 112 | is24-168247504 | Leipzig | 89000 | 45 | 411 | 18.1 | acceptable | no | 34.8 | Erforderliches Eigenkapital 19895€ < 20000€ Minimum |  |
+| 113 | is24-170646605 | Berlin | 98000 | 33 | 446 | 18.3 | acceptable | no | 34.0 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 114 | is24-170337022 | Berlin | 149000 | 54 | 727 | 17.1 | very_good | no | 33.6 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 115 | is24-169515953 | Magdeburg | 82000 | 50 | 372 | 18.4 | acceptable | no | 33.1 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum |  |
+| 116 | is24-162170677 | Magdeburg | 88900 | 54 | 402 | 18.4 | acceptable | no | 32.3 | Erforderliches Eigenkapital 19445€ < 20000€ Minimum | f_heating_fossil |
+| 117 | is24-165953117 | Berlin | 110000 | 36 | 493 | 18.6 | acceptable | no | 32.1 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 118 | is24-169613651 | Magdeburg | 89000 | 54 | 400 | 18.6 | acceptable | no | 31.8 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
+| 119 | is24-167867115 | Berlin | 95000 | 31 | 418 | 18.9 | acceptable | no | 31.2 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 120 | is24-168716768 | Magdeburg | 90000 | 54 | 402 | 18.7 | acceptable | no | 31.2 | Erforderliches Eigenkapital 19500€ < 20000€ Minimum | f_heating_fossil |
+| 121 | is24-170166888 | Halle (Saale) | 85000 | 41 | 375 | 18.9 | acceptable | no | 31.0 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
+| 122 | is24-164263873 | Magdeburg | 82000 | 48 | 359 | 19.1 | acceptable | no | 29.8 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum | f_heating_fossil |
+| 123 | is24-165169109 | Halle (Saale) | 99000 | 47 | 433 | 19.0 | acceptable | no | 29.5 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum | f_heating_fossil |
+| 124 | is24-162110953 | Magdeburg | 82000 | 48 | 357 | 19.1 | acceptable | no | 29.5 | Erforderliches Eigenkapital 19100€ < 20000€ Minimum | f_heating_fossil |
+| 125 | is24-170516531 | Magdeburg | 80000 | 46 | 345 | 19.3 | acceptable | no | 28.6 | Erforderliches Eigenkapital 19000€ < 20000€ Minimum | f_heating_fossil |
+| 126 | is24-170259658 | Magdeburg | 89000 | 52 | 385 | 19.2 | acceptable | no | 28.5 | Erforderliches Eigenkapital 19450€ < 20000€ Minimum |  |
+| 127 | poschmann-0008 | Leipzig | 170000 | 89 | 805 | 17.6 | very_good | no | 28.1 | Kaufpreis 170000€ > 150000€ Maximum; Wohnfläche 88.6m² > 55m² Maximum; Leipzig: Wohnfläche 89m² > 50m² Limit; Leipzig: Kaufpreis 170000€ > 117000€ Limit |  |
+| 128 | is24-164121494 | Leipzig | 85000 | 40 | 362 | 19.6 | acceptable | no | 27.8 | Erforderliches Eigenkapital 19675€ < 20000€ Minimum | f_heating_fossil |
+| 129 | is24-169944449 | Magdeburg | 95000 | 55 | 409 | 19.4 | acceptable | no | 27.7 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
+| 130 | is24-169944712 | Magdeburg | 95000 | 54 | 402 | 19.7 | acceptable | no | 26.0 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
+| 131 | is24-170971077 | Leipzig | 89900 | 41 | 375 | 20.0 | acceptable | no | 25.6 | Erforderliches Eigenkapital 19944€ < 20000€ Minimum | f_heating_fossil |
+| 132 | is24-170806704 | Magdeburg | 81000 | 45 | 337 | 20.0 | acceptable | no | 25.5 | Erforderliches Eigenkapital 19050€ < 20000€ Minimum |  |
+| 133 | is24-167725206 | Berlin | 139900 | 46 | 624 | 18.7 | acceptable | no | 25.3 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 134 | is24-165231442 | Leipzig | 82500 | 37 | 339 | 20.3 | acceptable | no | 24.6 | Erforderliches Eigenkapital 19538€ < 20000€ Minimum |  |
+| 135 | is24-169925288 | Leipzig | 89000 | 40 | 364 | 20.4 | acceptable | no | 23.9 | Erforderliches Eigenkapital 19895€ < 20000€ Minimum | f_renovation |
+| 136 | is24-169812827 | Berlin | 115000 | 35 | 472 | 20.3 | acceptable | no | 23.8 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 137 | is24-166345736 | Berlin | 149000 | 48 | 651 | 19.1 | acceptable | no | 23.0 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 138 | is24-170645267 | Magdeburg | 85000 | 46 | 342 | 20.7 | acceptable | no | 22.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
+| 139 | is24-170939628 | Magdeburg | 91000 | 49 | 366 | 20.7 | acceptable | no | 21.6 | Erforderliches Eigenkapital 19550€ < 20000€ Minimum |  |
+| 140 | is24-164478117 | Magdeburg | 80500 | 43 | 321 | 20.9 | acceptable | no | 21.6 | Erforderliches Eigenkapital 19025€ < 20000€ Minimum | f_heating_fossil, f_renovation |
+| 141 | is24-168612618 | Leipzig | 115000 | 54 | 490 | 19.6 | acceptable | no | 21.2 | Leipzig: Wohnfläche 54m² > 50m² Limit |  |
+| 142 | is24-169925187 | Berlin | 138500 | 44 | 590 | 19.6 | acceptable | no | 21.1 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 143 | is24-164479261 | Magdeburg | 85600 | 45 | 338 | 21.1 | acceptable | no | 20.4 | Erforderliches Eigenkapital 19280€ < 20000€ Minimum |  |
+| 144 | is24-170678152 | Magdeburg | 99000 | 53 | 394 | 20.9 | acceptable | no | 20.3 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
+| 145 | poschmann-0002 | Taucha | 690000 | 170 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 690000€ > 150000€ Maximum; Wohnfläche 170.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 4420€ > 500€ Maximum; Erforderliches Eigenkapital 52950€ > 40000€ Maximum |  |
+| 146 | poschmann-0013 | Leipzig | 169000 | 0 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 169000€ > 150000€ Maximum; Wohnfläche 0.0m² < 30m² Minimum; Leipzig: Kaufpreis 169000€ > 117000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 958€ > 500€ Maximum |  |
+| 147 | poschmann-0014 | Frohburg | 97700 | 450 | 0 | 0.0 | phenomenal | no | 20.0 | Wohnfläche 450.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1904€ > 500€ Maximum |  |
+| 148 | is24-168691907 | Cottbus | 85000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Wohnfläche 50m² > 45m² Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 632€ > 500€ Maximum |  |
+| 149 | is24-170743880 | Cottbus | 120000 | 41 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Kaufpreis 120000€ > 99000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 803€ > 500€ Maximum |  |
+| 150 | is24-169848147 | Brandenburg an der Havel | 110000 | 47 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 764€ > 500€ Maximum | f_heating_fossil |
+| 151 | is24-169615921 | Brandenburg an der Havel | 135000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 918€ > 500€ Maximum |  |
+| 152 | is24-171196663 | Brandenburg an der Havel | 136000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 933€ > 500€ Maximum | f_renovation |
+| 153 | is24-171073768 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum | f_renovation |
+| 154 | is24-170982968 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum | f_renovation |
+| 155 | is24-166739981 | Brandenburg an der Havel | 149000 | 37 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 954€ > 500€ Maximum | f_heating_fossil |
+| 156 | is24-166601545 | Brandenburg an der Havel | 129000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 893€ > 500€ Maximum |  |
+| 157 | is24-171201160 | Brandenburg an der Havel | 138000 | 45 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 916€ > 500€ Maximum |  |
+| 158 | is24-162658139 | Leipzig | 85000 | 36 | 332 | 21.4 | acceptable | no | 19.8 | Erforderliches Eigenkapital 19675€ < 20000€ Minimum |  |
+| 159 | is24-169970456 | Leipzig | 84000 | 36 | 327 | 21.4 | acceptable | no | 19.7 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum | f_heating_fossil |
+| 160 | is24-169925297 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | no | 19.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
+| 161 | is24-169993532 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | no | 19.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
+| 162 | is24-170336668 | Leipzig | 80000 | 34 | 309 | 21.6 | acceptable | no | 19.3 | Erforderliches Eigenkapital 19400€ < 20000€ Minimum |  |
+| 163 | is24-170508496 | Leipzig | 110000 | 50 | 456 | 20.1 | acceptable | no | 19.0 | Leipzig: Wohnfläche 50m² > 50m² Limit |  |
+| 164 | is24-157076072 | Leipzig | 90000 | 38 | 349 | 21.5 | acceptable | no | 19.0 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum | f_heating_fossil |
+| 165 | is24-162367311 | Leipzig | 87000 | 37 | 336 | 21.6 | acceptable | no | 18.9 | Erforderliches Eigenkapital 19785€ < 20000€ Minimum | f_heating_fossil |
+| 166 | is24-162293322 | Magdeburg | 99000 | 52 | 387 | 21.3 | acceptable | no | 18.6 | Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
+| 167 | is24-164478734 | Magdeburg | 90500 | 47 | 351 | 21.5 | acceptable | no | 18.4 | Erforderliches Eigenkapital 19525€ < 20000€ Minimum |  |
+| 168 | is24-170973694 | Magdeburg | 85000 | 44 | 327 | 21.6 | acceptable | no | 18.2 | Erforderliches Eigenkapital 19250€ < 20000€ Minimum | f_heating_fossil |
+| 169 | is24-169497600 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 54m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit |  |
+| 170 | is24-169967652 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 54m² > 50m² Limit; Leipzig: Kaufpreis 119000€ > 117000€ Limit | f_renovation |
+| 171 | is24-165785400 | Leipzig | 118000 | 53 | 486 | 20.2 | acceptable | no | 17.9 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 118000€ > 117000€ Limit | f_heating_fossil |
+| 172 | is24-168387399 | Leipzig | 115000 | 52 | 473 | 20.3 | acceptable | no | 17.8 | Leipzig: Wohnfläche 52m² > 50m² Limit | f_heating_fossil |
+| 173 | is24-171219350 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | no | 17.4 | Leipzig: Wohnfläche 52m² > 50m² Limit |  |
+| 174 | is24-171115981 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | no | 17.4 | Leipzig: Wohnfläche 52m² > 50m² Limit | f_heating_fossil, f_renovation |
+| 175 | is24-168281005 | Leipzig | 84000 | 35 | 317 | 22.1 | market | no | 17.1 | Erforderliches Eigenkapital 19620€ < 20000€ Minimum |  |
+| 176 | is24-170660512 | Leipzig | 89900 | 37 | 334 | 22.4 | market | no | 16.1 | Brutto-Yield 4.46% < 4.5% Minimum; Erforderliches Eigenkapital 19944€ < 20000€ Minimum |  |
+| 177 | is24-170983229 | Magdeburg | 95000 | 48 | 361 | 22.0 | acceptable | no | 16.1 | Erforderliches Eigenkapital 19750€ < 20000€ Minimum | f_heating_fossil |
+| 178 | klz-f7b0f292f251 | Leipzig | 142000 | 64 | 582 | 20.3 | acceptable | no | 16.0 | Wohnfläche 64.0m² > 55m² Maximum; Leipzig: Wohnfläche 64m² > 50m² Limit; Leipzig: Kaufpreis 142000€ > 117000€ Limit |  |
+| 179 | is24-169531750 | Halle (Saale) | 95000 | 38 | 350 | 22.6 | market | no | 15.6 | Brutto-Yield 4.43% < 4.5% Minimum; Erforderliches Eigenkapital 19750€ < 20000€ Minimum |  |
+| 180 | is24-171198152 | Leipzig | 124000 | 55 | 500 | 20.7 | acceptable | no | 15.5 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 124000€ > 117000€ Limit |  |
+| 181 | is24-164912811 | Leipzig | 99000 | 40 | 366 | 22.5 | market | no | 15.4 | Brutto-Yield 4.44% < 4.5% Minimum | f_heating_fossil |
+| 182 | is24-170233259 | Leipzig | 120000 | 53 | 480 | 20.8 | acceptable | no | 15.0 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 120000€ > 117000€ Limit |  |
+| 183 | is24-170496834 | Berlin | 139000 | 41 | 554 | 20.9 | acceptable | no | 14.7 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 184 | is24-170211870 | Halle (Saale) | 98000 | 38 | 350 | 23.3 | market | no | 14.3 | Brutto-Yield 4.29% < 4.5% Minimum; Erforderliches Eigenkapital 19900€ < 20000€ Minimum |  |
+| 185 | is24-165775270 | Berlin | 134000 | 39 | 526 | 21.2 | acceptable | no | 13.6 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
+| 186 | is24-169809647 | Magdeburg | 95000 | 45 | 335 | 23.6 | market | no | 13.4 | Brutto-Yield 4.23% < 4.5% Minimum; Erforderliches Eigenkapital 19750€ < 20000€ Minimum |  |
+| 187 | is24-169713182 | Berlin | 147000 | 43 | 578 | 21.2 | acceptable | no | 13.0 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_renovation |
+| 188 | is24-170869630 | Leipzig | 125000 | 53 | 485 | 21.5 | acceptable | no | 11.8 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit | f_heating_fossil |
+| 189 | is24-167163170 | Leipzig | 128000 | 55 | 496 | 21.5 | acceptable | no | 11.6 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 128000€ > 117000€ Limit | f_heating_fossil |
+| 190 | is24-167882420 | Leipzig | 129000 | 55 | 500 | 21.5 | acceptable | no | 11.5 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 129000€ > 117000€ Limit |  |
+| 191 | is24-169636438 | Leipzig | 125000 | 53 | 482 | 21.6 | acceptable | no | 11.2 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit | f_heating_fossil |
+| 192 | is24-170926442 | Leipzig | 95000 | 34 | 309 | 25.6 | market | no | 11.2 | Brutto-Yield 3.90% < 4.5% Minimum |  |
+| 193 | is24-169698395 | Leipzig | 126500 | 53 | 486 | 21.7 | acceptable | no | 10.8 | Leipzig: Wohnfläche 53m² > 50m² Limit; Leipzig: Kaufpreis 126500€ > 117000€ Limit |  |
+| 194 | is24-171071798 | Leipzig | 130000 | 55 | 500 | 21.7 | acceptable | no | 10.7 | Leipzig: Wohnfläche 55m² > 50m² Limit; Leipzig: Kaufpreis 130000€ > 117000€ Limit | f_heating_fossil |
+| 195 | is24-171138715 | Magdeburg | 85000 | 36 | 269 | 26.4 | market | no | 10.6 | Brutto-Yield 3.79% < 4.5% Minimum; Erforderliches Eigenkapital 19250€ < 20000€ Minimum |  |
+| 196 | is24-170857406 | Leipzig | 125000 | 52 | 476 | 21.9 | acceptable | no | 10.1 | Leipzig: Wohnfläche 52m² > 50m² Limit; Leipzig: Kaufpreis 125000€ > 117000€ Limit |  |
+| 197 | is24-170447807 | Berlin | 140000 | 39 | 531 | 22.0 | acceptable | no | 9.9 | Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation) | f_heating_fossil, f_renovation |
 | 198 | is24-171197713 | Leipzig | 90000 | 30 | 277 | 27.1 | market | no | 9.9 | Brutto-Yield 3.69% < 4.5% Minimum; Erforderliches Eigenkapital 19950€ < 20000€ Minimum |  |
 | 199 | is24-171198412 | Leipzig | 115000 | 47 | 429 | 22.4 | market | no | 9.6 | Brutto-Yield 4.47% < 4.5% Minimum |  |
 | 200 | is24-170850952 | Magdeburg | 105000 | 52 | 390 | 22.4 | market | no | 9.6 | Brutto-Yield 4.46% < 4.5% Minimum |  |

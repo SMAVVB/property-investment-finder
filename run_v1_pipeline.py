@@ -102,6 +102,17 @@ def estimate_missing_rents(listings: list, rent_index: dict[str, float]) -> int:
     return estimated
 
 
+def get_renovation_flagged_ids(conn: sqlite3.Connection) -> set[str]:
+    """listing_ids the judge marked f_renovation=true -- unbuilt Rohbau/attic-shell
+    projects sold with a projected post-construction living_space, not real
+    current square meters. These are excluded from the shortlist entirely
+    (see is24-168704884 and is24-150601885, both scored 'phenomenal' purely
+    because kaufpreisfaktor was computed against space that doesn't exist yet)."""
+    cur = conn.cursor()
+    cur.execute("SELECT listing_id FROM judgments WHERE question_id = 'f_renovation' AND answer = 'true'")
+    return {row[0] for row in cur.fetchall()}
+
+
 def store_financials(conn: sqlite3.Connection, result) -> None:
     """Write only the financials row (schema.sql) -- never touches `listing`.
 
@@ -185,6 +196,24 @@ def main() -> None:
             print(f"  judge failed for {listing.listing_id}: {e}", file=sys.stderr)
     conn.commit()
     print(f"Judge ran on {judged} listings ({judge_errors} errors), stored in judgments table")
+
+    # Exclude Rohbau/unbuilt-shell listings the judge flagged f_renovation=true --
+    # this runs as a post-pass (not inside calculate()'s own filters) because the
+    # flag only exists after the judge has run, which happens after calculate().
+    renovation_ids = get_renovation_flagged_ids(conn)
+    excluded = 0
+    for lid in renovation_ids:
+        result = calc_results.get(lid)
+        if result and result.passed_filter:
+            result.passed_filter = False
+            result.rejection_reasons.append("Unausgebauter Rohbau / Dachgeschoss-Projekt (Judge f_renovation)")
+            conn.execute(
+                "UPDATE financials SET passed_filter = 0, rejection_reasons = ? WHERE listing_id = ?",
+                (json.dumps(result.rejection_reasons), lid),
+            )
+            excluded += 1
+    conn.commit()
+    print(f"Excluded {excluded} Rohbau/f_renovation-flagged listing(s) from the shortlist")
 
     # Ranked shortlist: passed_filter first, then by score desc
     ranked = sorted(
