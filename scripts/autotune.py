@@ -246,6 +246,18 @@ def run_cycle() -> None:
         "mean_score": mean_score, "promoted": promoted, "preset": best_criteria,
     })
     conn.close()
+
+    # Every cycle appends to tuning_history.md (not just promoted ones) --
+    # commit/push it every time too, or the human-readable audit trail this
+    # loop's whole "no approval gate" premise depends on only ever exists
+    # locally, never actually reaching origin/main.
+    _commit_and_push_or_rollback(
+        ["data/tuning_history.md"],
+        f"autotune: log cycle {cycle_at} (mean score {mean_score:.2f}, "
+        f"shortlist {shortlist_size}, promoted={promoted})\n\n"
+        "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\n"
+        "Claude-Session: https://claude.ai/code/session_011mDK3TmcgpPLGPpzCaGB93",
+    )
     print(f"Cycle done: mean_score={mean_score:.2f} shortlist_size={shortlist_size} promoted={promoted}")
 
 
