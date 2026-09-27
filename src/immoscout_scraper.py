@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 from scrapling.fetchers import StealthyFetcher
 
 from regions import get_active_tracks
+from vpn import connect as vpn_connect, disconnect as vpn_disconnect, rotate as vpn_rotate
 
 TRACKS = get_active_tracks()
 
@@ -240,21 +241,26 @@ async def fetch_all_expose_texts(listings: list[RawListing]) -> dict[str, str]:
 
 
 def main():
-    print("=== Phase 1: search result pages ===")
-    listings = scrape_search_pages()
-    print(f"\nTotal unique listings from search: {len(listings)}")
+    vpn_connect()
+    try:
+        print("=== Phase 1: search result pages ===")
+        listings = scrape_search_pages()
+        print(f"\nTotal unique listings from search: {len(listings)}")
 
-    with open("is24_listings_meta.json", "w") as f:
-        json.dump([l.__dict__ for l in listings], f, ensure_ascii=False, indent=2)
-    print("Saved metadata to is24_listings_meta.json")
+        with open("is24_listings_meta.json", "w") as f:
+            json.dump([l.__dict__ for l in listings], f, ensure_ascii=False, indent=2)
+        print("Saved metadata to is24_listings_meta.json")
 
-    print("\n=== Phase 2: expose pages (real description text) ===")
-    texts = asyncio.run(fetch_all_expose_texts(listings))
-    with open("is24_expose_texts.json", "w") as f:
-        json.dump(texts, f, ensure_ascii=False, indent=2)
-    n_real = sum(1 for t in texts.values() if len(t) > 100)
-    print(f"\nTotal with real description text (>100 chars): {n_real}/{len(listings)}")
-    print("Saved to is24_expose_texts.json")
+        vpn_rotate()  # fresh exit IP before the higher-volume per-listing expose fetches
+        print("\n=== Phase 2: expose pages (real description text) ===")
+        texts = asyncio.run(fetch_all_expose_texts(listings))
+        with open("is24_expose_texts.json", "w") as f:
+            json.dump(texts, f, ensure_ascii=False, indent=2)
+        n_real = sum(1 for t in texts.values() if len(t) > 100)
+        print(f"\nTotal with real description text (>100 chars): {n_real}/{len(listings)}")
+        print("Saved to is24_expose_texts.json")
+    finally:
+        vpn_disconnect()
 
 
 if __name__ == "__main__":

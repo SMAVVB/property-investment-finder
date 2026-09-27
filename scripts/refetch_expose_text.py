@@ -36,6 +36,9 @@ REPO_DIR = os.path.dirname(SCRIPTS_DIR)
 sys.path.insert(0, os.path.join(REPO_DIR, "src"))
 
 from immoscout_scraper import RawListing, fetch_expose_text  # noqa: E402
+from vpn import connect as vpn_connect, disconnect as vpn_disconnect, rotate as vpn_rotate  # noqa: E402
+
+ROTATE_EVERY_N_BATCHES = 5
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 PROGRESS_PATH = f"{REPO_DIR}/data/.refetch_progress.json"
@@ -77,28 +80,37 @@ def main() -> None:
     pending = [(lid, url) for lid, url in all_rows if lid not in done]
     print(f"{len(all_rows)} listings total, {len(done)} already done, {len(pending)} remaining")
 
+    if pending:
+        vpn_connect()
+
     sem = asyncio.Semaphore(CONCURRENCY)
     grew = 0
-    for i in range(0, len(pending), BATCH_SIZE):
-        batch = pending[i:i + BATCH_SIZE]
-        t0 = time.time()
-        texts = asyncio.run(refetch_batch(batch, sem))
-        for listing_id, _url in batch:
-            new_text = texts.get(listing_id, "")
-            if not new_text:
-                continue  # leave raw_data untouched, don't mark done -- retry next run
-            old_len = conn.execute(
-                "SELECT LENGTH(raw_data) FROM listing WHERE listing_id = ?", (listing_id,)
-            ).fetchone()[0] or 0
-            conn.execute("UPDATE listing SET raw_data = ? WHERE listing_id = ?", (new_text, listing_id))
-            if len(new_text) > old_len:
-                grew += 1
-            done.add(listing_id)
-        conn.commit()  # persist this batch's raw_data before touching progress file
-        save_progress(done)
-        ok = sum(1 for _, t in texts.items() if len(t) > 100)
-        print(f"  batch {i}-{i + len(batch)}: {ok}/{len(batch)} with real text, "
-              f"{time.time() - t0:.0f}s, {len(done)}/{len(all_rows)} done overall")
+    try:
+        for batch_num, i in enumerate(range(0, len(pending), BATCH_SIZE)):
+            if batch_num > 0 and batch_num % ROTATE_EVERY_N_BATCHES == 0:
+                vpn_rotate()
+            batch = pending[i:i + BATCH_SIZE]
+            t0 = time.time()
+            texts = asyncio.run(refetch_batch(batch, sem))
+            for listing_id, _url in batch:
+                new_text = texts.get(listing_id, "")
+                if not new_text:
+                    continue  # leave raw_data untouched, don't mark done -- retry next run
+                old_len = conn.execute(
+                    "SELECT LENGTH(raw_data) FROM listing WHERE listing_id = ?", (listing_id,)
+                ).fetchone()[0] or 0
+                conn.execute("UPDATE listing SET raw_data = ? WHERE listing_id = ?", (new_text, listing_id))
+                if len(new_text) > old_len:
+                    grew += 1
+                done.add(listing_id)
+            conn.commit()  # persist this batch's raw_data before touching progress file
+            save_progress(done)
+            ok = sum(1 for _, t in texts.items() if len(t) > 100)
+            print(f"  batch {i}-{i + len(batch)}: {ok}/{len(batch)} with real text, "
+                  f"{time.time() - t0:.0f}s, {len(done)}/{len(all_rows)} done overall")
+    finally:
+        if pending:
+            vpn_disconnect()
 
     conn.close()
     if len(done) >= len(all_rows):
