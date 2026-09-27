@@ -44,6 +44,14 @@ from vpn import connect_for as vpn_connect_for, disconnect as vpn_disconnect  # 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 PROGRESS_PATH = f"{REPO_DIR}/data/.refetch_progress.json"
 PER_ITEM_TIMEOUT = 60  # generous margin over fetch_expose_text's own internal 45s watchdog
+IS24_MARKER = "immobilienscout24.de"  # this backfill's regex targets IS24's specific markup
+# (expose-description-body per section) -- kleinanzeigen.de/poschmann-immobilien.com listings
+# were scraped by a different mechanism entirely and never had this bug, so fetch_expose_text()
+# can never succeed on them (0 matches, always empty text). Without filtering these out
+# upfront, they can never be marked done and get retried forever on every restart -- several
+# happened to sort consecutively (~32s each), forming a wall that ate the entire external
+# timeout window before any fixable IS24 listing got a turn. Confirmed live: this, not an
+# actual hang, was why the backfill looked frozen for hours.
 
 
 def load_progress() -> set[str]:
@@ -78,6 +86,14 @@ def main() -> None:
     ).fetchall()
 
     done = load_progress()
+    non_is24 = {lid for lid, url, _bl in all_rows if IS24_MARKER not in (url or "")}
+    newly_skipped = non_is24 - done
+    if newly_skipped:
+        done |= newly_skipped
+        save_progress(done)
+        print(f"Marked {len(newly_skipped)} non-IS24 listing(s) done (not applicable -- "
+              f"different scraper, this backfill's regex only targets IS24's markup)")
+
     pending = [(lid, url, bl) for lid, url, bl in all_rows if lid not in done]
     pending.sort(key=lambda row: row[2] or "")  # group by region for VPN city matching (currently disabled)
     print(f"{len(all_rows)} listings total, {len(done)} already done, {len(pending)} remaining")
