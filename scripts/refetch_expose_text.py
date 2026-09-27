@@ -40,8 +40,15 @@ from vpn import connect_for as vpn_connect_for, disconnect as vpn_disconnect  # 
 
 DB_PATH = f"{REPO_DIR}/data/listings.db"
 PROGRESS_PATH = f"{REPO_DIR}/data/.refetch_progress.json"
-CONCURRENCY = 5
-BATCH_SIZE = 20
+# Sequential, small batches: repeated hangs never tripped either asyncio-level
+# watchdog even after 4+ minutes stuck with zero CPU and zero child processes
+# -- consistent with a synchronous blocking call inside the "async" fetch
+# freezing the whole single-threaded event loop, which no in-process timeout
+# can preempt (only an external OS kill can). Concurrency>1 multiplies how
+# often that can happen per batch; sequential fetches trade throughput for
+# actually finishing.
+CONCURRENCY = 1
+BATCH_SIZE = 5
 
 
 def load_progress() -> set[str]:
