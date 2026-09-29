@@ -103,6 +103,14 @@ active:
   city_slug: wolfsburg
   display_city: Wolfsburg
   display_bundesland: Niedersachsen
+- bl_slug: nordrhein-westfalen
+  city_slug: bochum
+  display_city: Bochum
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: gelsenkirchen
+  display_city: Gelsenkirchen
+  display_bundesland: Nordrhein-Westfalen
 candidates:
 - bl_slug: sachsen
   city_slug: dresden
@@ -440,4 +448,20 @@ scouted:
 - bl_slug: nordrhein-westfalen
   city_slug: duisburg
   display_city: Duisburg
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: gelsenkirchen
+  display_city: Gelsenkirchen
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: bochum
+  display_city: Bochum
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: dortmund
+  display_city: Dortmund
+  display_bundesland: Nordrhein-Westfalen
+- bl_slug: nordrhein-westfalen
+  city_slug: hagen
+  display_city: Hagen
   display_bundesland: Nordrhein-Westfalen
