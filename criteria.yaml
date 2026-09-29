@@ -57,6 +57,7 @@ target_regions:
   - Kreuzberg
   s_bahn_belt:
   - Potsdam
+  - Dresden
   - Königs Wusterhausen
   - Falkensee
   - Eberswalde
@@ -81,7 +82,8 @@ target_regions:
   - Senftenberg
   - Brandenburg an der Havel
   - Potsdam
-  comment: Berlin Außenbezirke + S-Bahn/RE-Gürtel + Brandenburger Universitätsstädte
+  - Dresden
+  comment: Berlin Außenbezirke + S-Bahn/RE-Gürtel + Brandenburger Universitätsstädte (+ Dresden: 197 scout hits, 0 DB listings — data gap)
 location_must_have:
   max_distance_to_station_minutes: 5
   comment: Muss innerhalb von ≤10 Min. Fußweg zu einem Bahnanschluss haben
