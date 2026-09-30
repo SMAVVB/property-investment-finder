@@ -13,7 +13,7 @@ living_space:
   allowed_max: 55
   comment: Zielbereich 35-50m², mit Toleranz nach unten/oben bis 30/55m²
 equity:
-  min: 20000
+  min: 15000
   max: 40000
   comment: Verfügbares Eigenkapital für Anzahlung und Nebenkosten
 financing:
@@ -83,7 +83,7 @@ target_regions:
   - Brandenburg an der Havel
   - Potsdam
   - Dresden
-  comment: Berlin Außenbezirke + S-Bahn/RE-Gürtel + Brandenburger Universitätsstädte (+ Dresden: 197 scout hits, 0 DB listings — data gap)
+  comment: 'Berlin Außenbezirke + S-Bahn/RE-Gürtel + Brandenburger Universitätsstädte (+ Dresden: 197 scout hits, 0 DB listings — data gap)'
 location_must_have:
   max_distance_to_station_minutes: 5
   comment: Muss innerhalb von ≤10 Min. Fußweg zu einem Bahnanschluss haben
