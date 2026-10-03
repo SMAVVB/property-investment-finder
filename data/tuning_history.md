@@ -83,3 +83,32 @@ for what this loop does and why.
   4. 3 land-type listings in DB (poschmann-0002, 0009, 0014) — already filtered out
   5. Grid search PARAM_GRID only tests 3 params (built_year.min, yield.gross.min,
      max_distance_to_station_minutes); equity and renovation_budget never tested
+
+## 2026-10-03T03:00:00+00:00 [llm_analyst]
+
+- Shortlist size: 71 (current, from autotune run 5)
+- Mean score: 25.73 (not promoted)
+- Promoted: no (LLM analyst recommending criteria change)
+- Changes: Raised Leipzig city-specific limits in criteria.yaml:
+  - max_living_space: 50 -> 55 (matching global allowed_max)
+  - max_price: 117000 -> 120000
+- Rationale: The Leipzig-specific living space limit (50m²) is 5m² tighter
+  than the global allowed_max (55m²), blocking 68 Leipzig listings with
+  yield >= 4.5%. Analysis shows 37 additional listings would pass with the
+  raised limits. Top unblocked listings have scores 43.9 (yield 6.13%),
+  41.0 (yield 5.96%), 38.2 (yield 5.78%) — quality deals currently excluded
+  by an arbitrary 5m² city-specific cap. The price increase to 120000€
+  captures listings in the 117000-120000€ range that are otherwise blocked.
+- Key findings:
+  1. Equity.min=15000 was already applied in previous LLM analyst cycle
+  2. Dresden: still 197 scout hits, 0 DB listings (data collection gap)
+  3. Hannover: 75 scout hits, 0 DB listings (data collection gap)
+  4. Dortmund: 52 scout hits, only 5 DB listings (data gap)
+  5. All 363 listings have rent_monthly=0 or NULL — rent estimation relies
+     entirely on location table's rent_index (known, handled by estimate_missing_rents())
+  6. f_heating_fossil (119 true) and f_renovation (77 true) are the only
+     meaningful risk flags; all other flags always predict false
+  7. Yield >= 4.5% is the single biggest blocker (187 listings) — already
+     tested by the grid search
+  8. Grid search PARAM_GRID only tests 3 params (built_year.min, yield.gross.min,
+     max_distance_to_station_minutes); city-specific limits never tested

@@ -109,8 +109,8 @@ exclusions:
       max_living_space: 45
       max_price: 81000
     leipzig:
-      max_living_space: 50
-      max_price: 117000
+      max_living_space: 55
+      max_price: 120000
   comment: Erbpacht, Ferienwohnung, Zwangsversteigerung, Betreutes Wohnen, Sozialbindung
     immer ausschließen; städtespezifische Limits als zusätzlicher Filter
 monthly_nk_per_sqm: 3.0
