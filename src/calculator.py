@@ -382,7 +382,7 @@ def _apply_filters(listing: Listing, result: CalculationResult, criteria: dict) 
         reasons.append(f"Wohnfläche {listing.living_space:.1f}m² > {ls['allowed_max']}m² Maximum")
 
     # 3. Ausschlüsse (boolesche Flags, keine Preis-Schwellenwerte)
-    if listing.is_erbpacht:
+    if criteria.get("exclusions", {}).get("erbpacht", True) and listing.is_erbpacht:
         reasons.append("Erbpacht (Erbbaurecht) ausgeschlossen")
     if listing.is_vacation:
         reasons.append("Ferienwohnung ausgeschlossen")

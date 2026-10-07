@@ -193,7 +193,7 @@ def main() -> None:
     erbpacht_caught = 0
     for listing, _raw in listings:
         result = calculate(listing, criteria)
-        if result.passed_filter and has_erbpacht_keyword(_raw):
+        if criteria.get("exclusions", {}).get("erbpacht", True) and result.passed_filter and has_erbpacht_keyword(_raw):
             result.passed_filter = False
             result.rejection_reasons.append("Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text)")
             erbpacht_caught += 1

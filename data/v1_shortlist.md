@@ -1,8 +1,6 @@
 # Property Investment Finder — v1 Shortlist
 
-389 real listings (Kleinanzeigen + poschmann-immobilien.com), 387 judged by the fine-tuned judge (models/finetune_v1), ranked by score / passed_filter.
-
-Judge risk flags below come from linear heads trained on 360 ground-truth labels (scripts/train_finetune.py). f_sonderumlage, f_milieuschutz, f_staffelmiete, f_wg_layout, f_erbpacht, f_tenant_issue, f_small_weg had too few positive examples (<15) to train reliably and currently always predict false (majority-class fallback, see models/finetune_v1/metadata.json) -- known gap, revisit once more labels exist. f_renovation and f_heating_fossil are trained (held-out F1 0.21 and 0.39 respectively -- real signal, not perfect).
+389 real listings (Kleinanzeigen + poschmann-immobilien.com), 387 judged by Laya (zero-shot), ranked by score / passed_filter.
 
 | # | listing_id | city | price | m2 | rent/mo | kaufpreisfaktor | tier | passed | score | reasons | risk_flags |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -12,212 +10,212 @@ Judge risk flags below come from linear heads trained on 360 ground-truth labels
 | 4 | is24-170936482 | Berlin | 80000 | 35 | 468 | 14.2 | very_good | YES | 57.6 |  |  |
 | 5 | is24-170936504 | Berlin | 88000 | 38 | 512 | 14.3 | very_good | YES | 57.1 |  |  |
 | 6 | is24-170936496 | Berlin | 109000 | 47 | 638 | 14.2 | very_good | YES | 57.0 |  |  |
-| 7 | is24-171032230 | Berlin | 122000 | 51 | 688 | 14.8 | very_good | YES | 53.3 |  |  |
-| 8 | is24-170604306 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  |  |
-| 9 | is24-170924614 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  |  |
-| 10 | is24-170759480 | Berlin | 122000 | 51 | 687 | 14.8 | very_good | YES | 53.2 |  |  |
-| 11 | is24-168702079 | Berlin | 120000 | 50 | 675 | 14.8 | very_good | YES | 53.1 |  |  |
-| 12 | is24-170727867 | Leipzig | 84000 | 51 | 461 | 15.2 | very_good | YES | 50.8 |  |  |
-| 13 | is24-170727822 | Leipzig | 90000 | 54 | 487 | 15.4 | very_good | YES | 49.1 |  |  |
-| 14 | is24-170075455 | Berlin | 119900 | 48 | 647 | 15.4 | very_good | YES | 49.1 |  |  |
-| 15 | is24-167480549 | Berlin | 99000 | 39 | 524 | 15.7 | very_good | YES | 48.0 |  |  |
-| 16 | is24-169470323 | Halle (Saale) | 87000 | 50 | 461 | 15.7 | very_good | YES | 47.5 |  |  |
-| 17 | is24-171105664 | Berlin | 110000 | 43 | 580 | 15.8 | very_good | YES | 47.3 |  |  |
-| 18 | is24-169685364 | Halle (Saale) | 89000 | 51 | 470 | 15.8 | very_good | YES | 47.1 |  |  |
-| 19 | is24-169473719 | Berlin | 139900 | 55 | 742 | 15.7 | very_good | YES | 46.9 |  |  |
-| 20 | is24-170649186 | Leipzig | 84000 | 48 | 439 | 16.0 | very_good | YES | 46.2 |  |  |
-| 21 | is24-144506295 | Halle (Saale) | 84600 | 47 | 433 | 16.3 | very_good | YES | 44.5 |  |  |
-| 22 | is24-170927950 | Berlin | 119000 | 45 | 608 | 16.3 | very_good | YES | 44.0 |  |  |
-| 23 | is24-170541514 | Leipzig | 92500 | 52 | 473 | 16.3 | very_good | YES | 43.9 |  |  |
-| 24 | is24-167458068 | Berlin | 140000 | 53 | 716 | 16.3 | very_good | YES | 43.3 |  |  |
-| 25 | is24-171045546 | Berlin | 125000 | 47 | 633 | 16.4 | very_good | YES | 43.0 |  |  |
-| 26 | is24-169973024 | Berlin | 124000 | 46 | 621 | 16.6 | very_good | YES | 41.9 |  |  |
-| 27 | is24-169345022 | Leipzig | 99000 | 54 | 492 | 16.8 | very_good | YES | 41.0 |  |  |
-| 28 | is24-165522418 | Berlin | 89000 | 32 | 433 | 17.1 | very_good | YES | 40.6 |  |  |
-| 29 | is24-170574817 | Leipzig | 80000 | 43 | 389 | 17.1 | very_good | YES | 39.9 |  |  |
-| 30 | is24-168981966 | Leipzig | 99995 | 53 | 482 | 17.3 | very_good | YES | 38.2 |  |  |
-| 31 | is24-168814348 | Magdeburg | 85000 | 55 | 409 | 17.3 | very_good | YES | 38.2 |  |  |
-| 32 | is24-171030186 | Magdeburg | 80000 | 52 | 384 | 17.4 | very_good | YES | 38.1 |  |  |
-| 33 | is24-160214365 | Berlin | 135000 | 48 | 648 | 17.4 | very_good | YES | 37.5 |  |  |
-| 34 | is24-170766097 | Halle (Saale) | 96000 | 48 | 446 | 17.9 | very_good | YES | 35.0 |  |  |
-| 35 | is24-165670742 | Magdeburg | 85000 | 53 | 395 | 17.9 | very_good | YES | 35.0 |  |  |
-| 36 | is24-170321676 | Berlin | 129000 | 44 | 601 | 17.9 | very_good | YES | 34.9 |  |  |
-| 37 | is24-168247504 | Leipzig | 89000 | 45 | 411 | 18.1 | acceptable | YES | 34.8 |  |  |
-| 38 | is24-170679817 | Berlin | 120000 | 41 | 554 | 18.1 | acceptable | YES | 34.4 |  |  |
-| 39 | is24-170646605 | Berlin | 98000 | 33 | 446 | 18.3 | acceptable | YES | 34.0 |  |  |
-| 40 | is24-170337022 | Berlin | 149000 | 54 | 727 | 17.1 | very_good | YES | 33.6 |  |  |
-| 41 | is24-163901385 | Leipzig | 98000 | 49 | 448 | 18.2 | acceptable | YES | 33.4 |  |  |
-| 42 | is24-170761472 | Berlin | 97000 | 32 | 438 | 18.4 | acceptable | YES | 33.4 |  |  |
-| 43 | is24-169515953 | Magdeburg | 82000 | 50 | 372 | 18.4 | acceptable | YES | 33.1 |  |  |
-| 44 | is24-167210504 | Leipzig | 95000 | 47 | 431 | 18.4 | acceptable | YES | 33.0 |  |  |
-| 45 | is24-170943086 | Berlin | 128000 | 43 | 580 | 18.4 | acceptable | YES | 32.4 |  |  |
-| 46 | is24-162170677 | Magdeburg | 88900 | 54 | 402 | 18.4 | acceptable | YES | 32.3 |  |  |
-| 47 | is24-169613651 | Magdeburg | 89000 | 54 | 400 | 18.6 | acceptable | YES | 31.8 |  |  |
-| 48 | is24-167867115 | Berlin | 95000 | 31 | 418 | 18.9 | acceptable | YES | 31.2 |  |  |
-| 49 | is24-168716768 | Magdeburg | 90000 | 54 | 402 | 18.7 | acceptable | YES | 31.2 |  |  |
-| 50 | is24-170166888 | Halle (Saale) | 85000 | 41 | 375 | 18.9 | acceptable | YES | 31.0 |  |  |
-| 51 | is24-171106103 | Berlin | 124900 | 41 | 554 | 18.8 | acceptable | YES | 30.4 |  |  |
-| 52 | is24-169975599 | Leipzig | 95000 | 46 | 419 | 18.9 | acceptable | YES | 30.4 |  |  |
-| 53 | is24-170265932 | Leipzig | 99000 | 48 | 436 | 18.9 | acceptable | YES | 30.1 |  |  |
-| 54 | is24-164263873 | Magdeburg | 82000 | 48 | 359 | 19.1 | acceptable | YES | 29.8 |  |  |
-| 55 | is24-165169109 | Halle (Saale) | 99000 | 47 | 433 | 19.0 | acceptable | YES | 29.5 |  |  |
-| 56 | is24-162110953 | Magdeburg | 82000 | 48 | 357 | 19.1 | acceptable | YES | 29.5 |  |  |
-| 57 | is24-170038946 | Leipzig | 100000 | 48 | 436 | 19.1 | acceptable | YES | 29.2 |  |  |
-| 58 | is24-170516531 | Magdeburg | 80000 | 46 | 345 | 19.3 | acceptable | YES | 28.6 |  |  |
-| 59 | is24-155854134 | Halle (Saale) | 110000 | 52 | 479 | 19.1 | acceptable | YES | 28.6 |  |  |
-| 60 | is24-170259658 | Magdeburg | 89000 | 52 | 385 | 19.2 | acceptable | YES | 28.5 |  |  |
-| 61 | is24-171117823 | Leipzig | 100000 | 48 | 432 | 19.3 | acceptable | YES | 28.3 |  |  |
-| 62 | is24-168765421 | Berlin | 149000 | 51 | 688 | 18.0 | acceptable | YES | 28.3 |  |  |
-| 63 | is24-169171082 | Leipzig | 95000 | 45 | 408 | 19.4 | acceptable | YES | 28.1 |  |  |
-| 64 | is24-164790551 | Berlin | 137470 | 47 | 629 | 18.2 | acceptable | YES | 27.9 |  |  |
-| 65 | is24-168717151 | Berlin | 134900 | 46 | 617 | 18.2 | acceptable | YES | 27.9 |  |  |
-| 66 | is24-164121494 | Leipzig | 85000 | 40 | 362 | 19.6 | acceptable | YES | 27.8 |  |  |
-| 67 | is24-169944449 | Magdeburg | 95000 | 55 | 409 | 19.4 | acceptable | YES | 27.7 |  |  |
-| 68 | is24-169972719 | Leipzig | 104000 | 49 | 445 | 19.5 | acceptable | YES | 27.2 |  |  |
-| 69 | is24-165395853 | Berlin | 110000 | 34 | 465 | 19.7 | acceptable | YES | 26.8 |  |  |
-| 70 | is24-170922095 | Berlin | 149000 | 50 | 675 | 18.4 | acceptable | YES | 26.5 |  |  |
-| 71 | is24-170311936 | Leipzig | 99000 | 46 | 418 | 19.7 | acceptable | YES | 26.3 |  |  |
-| 72 | is24-169944712 | Magdeburg | 95000 | 54 | 402 | 19.7 | acceptable | YES | 26.0 |  |  |
-| 73 | is24-170971077 | Leipzig | 89900 | 41 | 375 | 20.0 | acceptable | YES | 25.6 |  |  |
-| 74 | is24-170806704 | Magdeburg | 81000 | 45 | 337 | 20.0 | acceptable | YES | 25.5 |  |  |
-| 75 | is24-167725206 | Berlin | 139900 | 46 | 624 | 18.7 | acceptable | YES | 25.3 |  |  |
-| 76 | is24-169492304 | Berlin | 145000 | 48 | 648 | 18.6 | acceptable | YES | 25.3 |  |  |
-| 77 | is24-165231442 | Leipzig | 82500 | 37 | 339 | 20.3 | acceptable | YES | 24.6 |  |  |
-| 78 | is24-167335165 | Berlin | 129000 | 42 | 567 | 19.0 | acceptable | YES | 24.4 |  |  |
-| 79 | is24-168945027 | Berlin | 149500 | 49 | 662 | 18.8 | acceptable | YES | 24.2 |  |  |
-| 80 | is24-168907279 | Berlin | 141000 | 46 | 621 | 18.9 | acceptable | YES | 24.2 |  |  |
-| 81 | is24-170862832 | Leipzig | 95000 | 43 | 391 | 20.2 | acceptable | YES | 24.1 |  |  |
-| 82 | is24-169925288 | Leipzig | 89000 | 40 | 364 | 20.4 | acceptable | YES | 23.9 |  |  |
-| 83 | is24-169648772 | Leipzig | 95000 | 43 | 390 | 20.3 | acceptable | YES | 23.8 |  |  |
-| 84 | is24-169812827 | Berlin | 115000 | 35 | 472 | 20.3 | acceptable | YES | 23.8 |  |  |
-| 85 | is24-166668872 | Leipzig | 109000 | 50 | 451 | 20.1 | acceptable | YES | 23.7 |  |  |
-| 86 | is24-160431544 | Berlin | 139500 | 45 | 608 | 19.1 | acceptable | YES | 23.1 |  |  |
-| 87 | is24-170288526 | Berlin | 150000 | 49 | 656 | 19.0 | acceptable | YES | 23.1 |  |  |
-| 88 | is24-170673874 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  |  |
-| 89 | is24-170408593 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  |  |
-| 90 | is24-166345736 | Berlin | 149000 | 48 | 651 | 19.1 | acceptable | YES | 23.0 |  |  |
-| 91 | is24-168788114 | Berlin | 128000 | 41 | 550 | 19.4 | acceptable | YES | 22.5 |  |  |
-| 92 | is24-169200408 | Leipzig | 99000 | 44 | 400 | 20.6 | acceptable | YES | 22.2 |  |  |
-| 93 | is24-170645267 | Magdeburg | 85000 | 46 | 342 | 20.7 | acceptable | YES | 22.2 |  |  |
-| 94 | is24-170512369 | Berlin | 135000 | 43 | 579 | 19.4 | acceptable | YES | 21.9 |  |  |
-| 95 | is24-170939628 | Magdeburg | 91000 | 49 | 366 | 20.7 | acceptable | YES | 21.6 |  |  |
-| 96 | is24-164478117 | Magdeburg | 80500 | 43 | 321 | 20.9 | acceptable | YES | 21.6 |  |  |
-| 97 | is24-170275887 | Leipzig | 97000 | 43 | 388 | 20.9 | acceptable | YES | 21.4 |  |  |
-| 98 | is24-168612618 | Leipzig | 115000 | 54 | 490 | 19.6 | acceptable | YES | 21.2 |  |  |
-| 99 | is24-169925187 | Berlin | 138500 | 44 | 590 | 19.6 | acceptable | YES | 21.1 |  |  |
-| 100 | is24-168404225 | Berlin | 145000 | 46 | 618 | 19.6 | acceptable | YES | 20.9 |  |  |
-| 101 | is24-170966561 | Leipzig | 94500 | 41 | 374 | 21.0 | acceptable | YES | 20.6 |  |  |
-| 102 | is24-164479261 | Magdeburg | 85600 | 45 | 338 | 21.1 | acceptable | YES | 20.4 |  |  |
-| 103 | is24-170678152 | Magdeburg | 99000 | 53 | 394 | 20.9 | acceptable | YES | 20.3 |  |  |
-| 104 | is24-167032492 | Berlin | 150000 | 47 | 637 | 19.6 | acceptable | YES | 20.3 |  |  |
-| 105 | is24-162658139 | Leipzig | 85000 | 36 | 332 | 21.4 | acceptable | YES | 19.8 |  |  |
-| 106 | is24-169970456 | Leipzig | 84000 | 36 | 327 | 21.4 | acceptable | YES | 19.7 |  |  |
-| 107 | is24-169925297 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | YES | 19.6 |  |  |
-| 108 | is24-169993532 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | YES | 19.6 |  |  |
-| 109 | is24-170336668 | Leipzig | 80000 | 34 | 309 | 21.6 | acceptable | YES | 19.3 |  |  |
-| 110 | is24-170508496 | Leipzig | 110000 | 50 | 456 | 20.1 | acceptable | YES | 19.0 |  |  |
-| 111 | is24-157076072 | Leipzig | 90000 | 38 | 349 | 21.5 | acceptable | YES | 19.0 |  |  |
-| 112 | is24-162367311 | Leipzig | 87000 | 37 | 336 | 21.6 | acceptable | YES | 18.9 |  |  |
-| 113 | is24-168253841 | Leipzig | 98000 | 42 | 382 | 21.4 | acceptable | YES | 18.9 |  |  |
-| 114 | is24-170641603 | Berlin | 139000 | 43 | 578 | 20.1 | acceptable | YES | 18.8 |  |  |
-| 115 | is24-162293322 | Magdeburg | 99000 | 52 | 387 | 21.3 | acceptable | YES | 18.6 |  |  |
-| 116 | is24-169416486 | Berlin | 105000 | 30 | 405 | 21.6 | acceptable | YES | 18.5 |  |  |
-| 117 | is24-164478734 | Magdeburg | 90500 | 47 | 351 | 21.5 | acceptable | YES | 18.4 |  |  |
-| 118 | is24-170973694 | Magdeburg | 85000 | 44 | 327 | 21.6 | acceptable | YES | 18.2 |  |  |
-| 119 | is24-169497600 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | YES | 17.9 |  |  |
-| 120 | is24-169967652 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | YES | 17.9 |  |  |
-| 121 | is24-170984818 | Leipzig | 99000 | 42 | 382 | 21.6 | acceptable | YES | 17.9 |  |  |
-| 122 | is24-170918245 | Berlin | 130000 | 40 | 533 | 20.3 | acceptable | YES | 17.9 |  |  |
-| 123 | is24-165785400 | Leipzig | 118000 | 53 | 486 | 20.2 | acceptable | YES | 17.9 |  |  |
-| 124 | is24-168387399 | Leipzig | 115000 | 52 | 473 | 20.3 | acceptable | YES | 17.8 |  |  |
-| 125 | is24-161135562 | Leipzig | 99000 | 42 | 381 | 21.6 | acceptable | YES | 17.8 |  |  |
-| 126 | is24-171219350 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | YES | 17.4 |  |  |
-| 127 | is24-171115981 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | YES | 17.4 |  |  |
-| 128 | is24-168281005 | Leipzig | 84000 | 35 | 317 | 22.1 | market | YES | 17.1 |  |  |
-| 129 | is24-167599902 | Leipzig | 100000 | 42 | 382 | 21.8 | acceptable | YES | 16.9 |  |  |
-| 130 | is24-159739391 | Leipzig | 110000 | 49 | 444 | 20.6 | acceptable | YES | 16.4 |  |  |
-| 131 | is24-170983229 | Magdeburg | 95000 | 48 | 361 | 22.0 | acceptable | YES | 16.1 |  |  |
-| 132 | is24-169643348 | Halle (Saale) | 115000 | 50 | 463 | 20.7 | acceptable | YES | 15.9 |  |  |
-| 133 | is24-166523139 | Berlin | 140000 | 42 | 562 | 20.8 | acceptable | YES | 15.4 |  |  |
-| 134 | is24-170082436 | Berlin | 139000 | 41 | 557 | 20.8 | acceptable | YES | 15.3 |  |  |
-| 135 | is24-170233259 | Leipzig | 120000 | 53 | 480 | 20.8 | acceptable | YES | 15.0 |  |  |
-| 136 | is24-170496834 | Berlin | 139000 | 41 | 554 | 20.9 | acceptable | YES | 14.7 |  |  |
-| 137 | is24-165800418 | Berlin | 124000 | 36 | 488 | 21.2 | acceptable | YES | 14.3 |  |  |
-| 138 | is24-169713182 | Berlin | 147000 | 43 | 578 | 21.2 | acceptable | YES | 13.0 |  |  |
-| 139 | is24-162006418 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
-| 140 | is24-168376765 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
-| 141 | is24-168452012 | Berlin | 145000 | 42 | 567 | 21.3 | acceptable | YES | 12.6 |  |  |
-| 142 | is24-170246745 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
-| 143 | is24-170247177 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
-| 144 | is24-89353290 | Halle (Saale) | 130000 | 55 | 507 | 21.4 | acceptable | YES | 12.1 |  |  |
-| 145 | is24-170929496 | Berlin | 140000 | 40 | 540 | 21.6 | acceptable | YES | 11.6 |  |  |
-| 146 | is24-169529109 | Halle (Saale) | 127000 | 53 | 491 | 21.6 | acceptable | YES | 11.4 |  |  |
-| 147 | is24-170973897 | Berlin | 149900 | 43 | 579 | 21.6 | acceptable | YES | 11.3 |  |  |
-| 148 | is24-166271265 | Leipzig | 110000 | 46 | 418 | 21.9 | acceptable | YES | 10.9 |  |  |
-| 149 | is24-165386797 | Berlin | 149950 | 43 | 577 | 21.6 | acceptable | YES | 10.9 |  |  |
-| 150 | is24-169684022 | Leipzig | 110000 | 46 | 417 | 22.0 | acceptable | YES | 10.6 |  |  |
-| 151 | is24-168146590 | Leipzig | 109000 | 45 | 409 | 22.2 | market | YES | 10.3 |  |  |
-| 152 | is24-170447807 | Berlin | 140000 | 39 | 531 | 22.0 | acceptable | YES | 9.9 |  |  |
-| 153 | is24-167336413 | Berlin | 145000 | 40 | 547 | 22.1 | market | YES | 9.4 |  |  |
-| 154 | is24-102951297 | Berlin | 144000 | 40 | 540 | 22.2 | market | YES | 9.2 |  |  |
-| 155 | is24-168245548 | Berlin | 88110 | 37 | 498 | 14.7 | very_good | no | 54.3 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 156 | is24-168245592 | Berlin | 91800 | 37 | 498 | 15.4 | very_good | no | 50.5 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 157 | is24-170980530 | Berlin | 95000 | 37 | 498 | 15.9 | very_good | no | 47.2 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 158 | is24-166737022 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | no | 42.2 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 159 | is24-166737145 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | no | 42.2 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 160 | is24-166242558 | Berlin | 106000 | 36 | 493 | 17.9 | very_good | no | 35.7 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 161 | is24-170050852 | Berlin | 150000 | 55 | 742 | 16.8 | very_good | no | 34.9 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 162 | is24-170078177 | Berlin | 100000 | 33 | 448 | 18.6 | acceptable | no | 32.5 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 163 | is24-165953117 | Berlin | 110000 | 36 | 493 | 18.6 | acceptable | no | 32.1 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 164 | is24-171007118 | Berlin | 100000 | 33 | 445 | 18.7 | acceptable | no | 32.0 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 165 | poschmann-0008 | Leipzig | 170000 | 89 | 805 | 17.6 | very_good | no | 28.1 | Kaufpreis 170000€ > 150000€ Maximum; Wohnfläche 88.6m² > 55m² Maximum; Leipzig: Wohnfläche 89m² > 55m² Limit; Leipzig: Kaufpreis 170000€ > 120000€ Limit |  |
-| 166 | is24-170394108 | Berlin | 119000 | 37 | 500 | 19.9 | acceptable | no | 25.7 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 167 | poschmann-0002 | Taucha | 690000 | 170 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 690000€ > 150000€ Maximum; Wohnfläche 170.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 4420€ > 500€ Maximum; Erforderliches Eigenkapital 52950€ > 40000€ Maximum |  |
-| 168 | poschmann-0013 | Leipzig | 169000 | 0 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 169000€ > 150000€ Maximum; Wohnfläche 0.0m² < 30m² Minimum; Leipzig: Kaufpreis 169000€ > 120000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 958€ > 500€ Maximum |  |
-| 169 | poschmann-0014 | Frohburg | 97700 | 450 | 0 | 0.0 | phenomenal | no | 20.0 | Wohnfläche 450.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1904€ > 500€ Maximum |  |
-| 170 | is24-168691907 | Cottbus | 85000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Wohnfläche 50m² > 45m² Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 632€ > 500€ Maximum |  |
-| 171 | is24-170743880 | Cottbus | 120000 | 41 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Kaufpreis 120000€ > 99000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 803€ > 500€ Maximum |  |
-| 172 | is24-169848147 | Brandenburg an der Havel | 110000 | 47 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 764€ > 500€ Maximum |  |
-| 173 | is24-169615921 | Brandenburg an der Havel | 135000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 918€ > 500€ Maximum |  |
-| 174 | is24-171196663 | Brandenburg an der Havel | 136000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 933€ > 500€ Maximum |  |
-| 175 | is24-171073768 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum |  |
-| 176 | is24-170982968 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum |  |
-| 177 | is24-166739981 | Brandenburg an der Havel | 149000 | 37 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 954€ > 500€ Maximum |  |
-| 178 | is24-166601545 | Brandenburg an der Havel | 129000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 893€ > 500€ Maximum |  |
-| 179 | is24-171201160 | Brandenburg an der Havel | 138000 | 45 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 916€ > 500€ Maximum |  |
-| 180 | is24-168987972 | Schwerin | 115000 | 42 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 777€ > 500€ Maximum |  |
-| 181 | is24-165926923 | Schwerin | 105000 | 46 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 733€ > 500€ Maximum |  |
-| 182 | is24-170085626 | Kassel | 82000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 555€ > 500€ Maximum |  |
-| 183 | is24-171199222 | Kassel (Wesertor) | 149000 | 32 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 940€ > 500€ Maximum |  |
-| 184 | is24-171135328 | Niestetal / Sandershausen | 89000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 594€ > 500€ Maximum |  |
-| 185 | is24-169143590 | Kassel | 85000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 581€ > 500€ Maximum |  |
-| 186 | is24-170490772 | Kassel | 135000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 879€ > 500€ Maximum |  |
-| 187 | is24-170311961 | Kassel | 89000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 594€ > 500€ Maximum |  |
-| 188 | is24-169600446 | Kassel | 89000 | 34 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 605€ > 500€ Maximum |  |
-| 189 | is24-170769595 | Duisburg | 150000 | 53 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1009€ > 500€ Maximum |  |
-| 190 | is24-170704703 | Duisburg | 99000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 667€ > 500€ Maximum |  |
-| 191 | is24-170142538 | Duisburg | 130000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 850€ > 500€ Maximum |  |
-| 192 | is24-169155006 | Duisburg | 95000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 652€ > 500€ Maximum |  |
-| 193 | is24-166854422 | Duisburg | 135000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 927€ > 500€ Maximum |  |
-| 194 | is24-169149818 | Duisburg / Rheinhausen | 145000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 975€ > 500€ Maximum |  |
-| 195 | is24-170804706 | Salzgitter | 85000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 644€ > 500€ Maximum |  |
-| 196 | is24-165679781 | Hannover | 118000 | 53 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 828€ > 500€ Maximum |  |
-| 197 | is24-170695552 | Hannover | 89000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 602€ > 500€ Maximum |  |
-| 198 | is24-170694892 | Hannover | 105000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 693€ > 500€ Maximum |  |
-| 199 | is24-168101077 | Hannover | 135000 | 31 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 858€ > 500€ Maximum |  |
-| 200 | is24-159666359 | Hannover | 80000 | 31 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 546€ > 500€ Maximum |  |
-| 201 | is24-167308003 | Hannover | 135000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 915€ > 500€ Maximum |  |
-| 202 | is24-166235503 | Hannover | 119000 | 40 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 794€ > 500€ Maximum |  |
-| 203 | is24-170309462 | Wolfsburg | 120000 | 49 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 827€ > 500€ Maximum |  |
-| 204 | is24-169677485 | Wolfsburg | 84950 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 571€ > 500€ Maximum |  |
-| 205 | is24-166238984 | Berlin | 121000 | 36 | 493 | 20.5 | acceptable | no | 17.7 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
-| 206 | is24-170660512 | Leipzig | 89900 | 37 | 334 | 22.4 | market | no | 16.1 | Brutto-Yield 4.46% < 4.5% Minimum |  |
-| 207 | klz-f7b0f292f251 | Leipzig | 142000 | 64 | 582 | 20.3 | acceptable | no | 16.0 | Wohnfläche 64.0m² > 55m² Maximum; Leipzig: Wohnfläche 64m² > 55m² Limit; Leipzig: Kaufpreis 142000€ > 120000€ Limit |  |
-| 208 | is24-169531750 | Halle (Saale) | 95000 | 38 | 350 | 22.6 | market | no | 15.6 | Brutto-Yield 4.43% < 4.5% Minimum |  |
-| 209 | is24-171198152 | Leipzig | 124000 | 55 | 500 | 20.7 | acceptable | no | 15.5 | Leipzig: Kaufpreis 124000€ > 120000€ Limit |  |
-| 210 | is24-164912811 | Leipzig | 99000 | 40 | 366 | 22.5 | market | no | 15.4 | Brutto-Yield 4.44% < 4.5% Minimum |  |
-| 211 | is24-170211870 | Halle (Saale) | 98000 | 38 | 350 | 23.3 | market | no | 14.3 | Brutto-Yield 4.29% < 4.5% Minimum |  |
-| 212 | is24-165775270 | Berlin | 134000 | 39 | 526 | 21.2 | acceptable | no | 13.6 | Erbpacht/Erbbaurecht (Keyword-Erkennung im Exposé-Text) |  |
+| 7 | is24-168245548 | Berlin | 88110 | 37 | 498 | 14.7 | very_good | YES | 54.3 |  |  |
+| 8 | is24-171032230 | Berlin | 122000 | 51 | 688 | 14.8 | very_good | YES | 53.3 |  |  |
+| 9 | is24-170604306 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  |  |
+| 10 | is24-170924614 | Berlin | 129000 | 54 | 729 | 14.8 | very_good | YES | 53.3 |  |  |
+| 11 | is24-170759480 | Berlin | 122000 | 51 | 687 | 14.8 | very_good | YES | 53.2 |  |  |
+| 12 | is24-168702079 | Berlin | 120000 | 50 | 675 | 14.8 | very_good | YES | 53.1 |  |  |
+| 13 | is24-170727867 | Leipzig | 84000 | 51 | 461 | 15.2 | very_good | YES | 50.8 |  |  |
+| 14 | is24-168245592 | Berlin | 91800 | 37 | 498 | 15.4 | very_good | YES | 50.5 |  |  |
+| 15 | is24-170727822 | Leipzig | 90000 | 54 | 487 | 15.4 | very_good | YES | 49.1 |  |  |
+| 16 | is24-170075455 | Berlin | 119900 | 48 | 647 | 15.4 | very_good | YES | 49.1 |  |  |
+| 17 | is24-167480549 | Berlin | 99000 | 39 | 524 | 15.7 | very_good | YES | 48.0 |  |  |
+| 18 | is24-169470323 | Halle (Saale) | 87000 | 50 | 461 | 15.7 | very_good | YES | 47.5 |  |  |
+| 19 | is24-171105664 | Berlin | 110000 | 43 | 580 | 15.8 | very_good | YES | 47.3 |  |  |
+| 20 | is24-170980530 | Berlin | 95000 | 37 | 498 | 15.9 | very_good | YES | 47.2 |  |  |
+| 21 | is24-169685364 | Halle (Saale) | 89000 | 51 | 470 | 15.8 | very_good | YES | 47.1 |  |  |
+| 22 | is24-169473719 | Berlin | 139900 | 55 | 742 | 15.7 | very_good | YES | 46.9 |  |  |
+| 23 | is24-170649186 | Leipzig | 84000 | 48 | 439 | 16.0 | very_good | YES | 46.2 |  |  |
+| 24 | is24-144506295 | Halle (Saale) | 84600 | 47 | 433 | 16.3 | very_good | YES | 44.5 |  |  |
+| 25 | is24-170927950 | Berlin | 119000 | 45 | 608 | 16.3 | very_good | YES | 44.0 |  |  |
+| 26 | is24-170541514 | Leipzig | 92500 | 52 | 473 | 16.3 | very_good | YES | 43.9 |  |  |
+| 27 | is24-167458068 | Berlin | 140000 | 53 | 716 | 16.3 | very_good | YES | 43.3 |  |  |
+| 28 | is24-171045546 | Berlin | 125000 | 47 | 633 | 16.4 | very_good | YES | 43.0 |  |  |
+| 29 | is24-166737022 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | YES | 42.2 |  |  |
+| 30 | is24-166737145 | Berlin | 99000 | 36 | 493 | 16.7 | very_good | YES | 42.2 |  |  |
+| 31 | is24-169973024 | Berlin | 124000 | 46 | 621 | 16.6 | very_good | YES | 41.9 |  |  |
+| 32 | is24-169345022 | Leipzig | 99000 | 54 | 492 | 16.8 | very_good | YES | 41.0 |  |  |
+| 33 | is24-165522418 | Berlin | 89000 | 32 | 433 | 17.1 | very_good | YES | 40.6 |  |  |
+| 34 | is24-170574817 | Leipzig | 80000 | 43 | 389 | 17.1 | very_good | YES | 39.9 |  |  |
+| 35 | is24-168981966 | Leipzig | 99995 | 53 | 482 | 17.3 | very_good | YES | 38.2 |  |  |
+| 36 | is24-168814348 | Magdeburg | 85000 | 55 | 409 | 17.3 | very_good | YES | 38.2 |  |  |
+| 37 | is24-171030186 | Magdeburg | 80000 | 52 | 384 | 17.4 | very_good | YES | 38.1 |  |  |
+| 38 | is24-160214365 | Berlin | 135000 | 48 | 648 | 17.4 | very_good | YES | 37.5 |  |  |
+| 39 | is24-166242558 | Berlin | 106000 | 36 | 493 | 17.9 | very_good | YES | 35.7 |  |  |
+| 40 | is24-170766097 | Halle (Saale) | 96000 | 48 | 446 | 17.9 | very_good | YES | 35.0 |  |  |
+| 41 | is24-165670742 | Magdeburg | 85000 | 53 | 395 | 17.9 | very_good | YES | 35.0 |  |  |
+| 42 | is24-170321676 | Berlin | 129000 | 44 | 601 | 17.9 | very_good | YES | 34.9 |  |  |
+| 43 | is24-170050852 | Berlin | 150000 | 55 | 742 | 16.8 | very_good | YES | 34.9 |  |  |
+| 44 | is24-168247504 | Leipzig | 89000 | 45 | 411 | 18.1 | acceptable | YES | 34.8 |  |  |
+| 45 | is24-170679817 | Berlin | 120000 | 41 | 554 | 18.1 | acceptable | YES | 34.4 |  |  |
+| 46 | is24-170646605 | Berlin | 98000 | 33 | 446 | 18.3 | acceptable | YES | 34.0 |  |  |
+| 47 | is24-170337022 | Berlin | 149000 | 54 | 727 | 17.1 | very_good | YES | 33.6 |  |  |
+| 48 | is24-163901385 | Leipzig | 98000 | 49 | 448 | 18.2 | acceptable | YES | 33.4 |  |  |
+| 49 | is24-170761472 | Berlin | 97000 | 32 | 438 | 18.4 | acceptable | YES | 33.4 |  |  |
+| 50 | is24-169515953 | Magdeburg | 82000 | 50 | 372 | 18.4 | acceptable | YES | 33.1 |  |  |
+| 51 | is24-167210504 | Leipzig | 95000 | 47 | 431 | 18.4 | acceptable | YES | 33.0 |  |  |
+| 52 | is24-170078177 | Berlin | 100000 | 33 | 448 | 18.6 | acceptable | YES | 32.5 |  |  |
+| 53 | is24-170943086 | Berlin | 128000 | 43 | 580 | 18.4 | acceptable | YES | 32.4 |  |  |
+| 54 | is24-162170677 | Magdeburg | 88900 | 54 | 402 | 18.4 | acceptable | YES | 32.3 |  |  |
+| 55 | is24-165953117 | Berlin | 110000 | 36 | 493 | 18.6 | acceptable | YES | 32.1 |  |  |
+| 56 | is24-171007118 | Berlin | 100000 | 33 | 445 | 18.7 | acceptable | YES | 32.0 |  |  |
+| 57 | is24-169613651 | Magdeburg | 89000 | 54 | 400 | 18.6 | acceptable | YES | 31.8 |  |  |
+| 58 | is24-167867115 | Berlin | 95000 | 31 | 418 | 18.9 | acceptable | YES | 31.2 |  |  |
+| 59 | is24-168716768 | Magdeburg | 90000 | 54 | 402 | 18.7 | acceptable | YES | 31.2 |  |  |
+| 60 | is24-170166888 | Halle (Saale) | 85000 | 41 | 375 | 18.9 | acceptable | YES | 31.0 |  |  |
+| 61 | is24-171106103 | Berlin | 124900 | 41 | 554 | 18.8 | acceptable | YES | 30.4 |  |  |
+| 62 | is24-169975599 | Leipzig | 95000 | 46 | 419 | 18.9 | acceptable | YES | 30.4 |  |  |
+| 63 | is24-170265932 | Leipzig | 99000 | 48 | 436 | 18.9 | acceptable | YES | 30.1 |  |  |
+| 64 | is24-164263873 | Magdeburg | 82000 | 48 | 359 | 19.1 | acceptable | YES | 29.8 |  |  |
+| 65 | is24-165169109 | Halle (Saale) | 99000 | 47 | 433 | 19.0 | acceptable | YES | 29.5 |  |  |
+| 66 | is24-162110953 | Magdeburg | 82000 | 48 | 357 | 19.1 | acceptable | YES | 29.5 |  |  |
+| 67 | is24-170038946 | Leipzig | 100000 | 48 | 436 | 19.1 | acceptable | YES | 29.2 |  |  |
+| 68 | is24-170516531 | Magdeburg | 80000 | 46 | 345 | 19.3 | acceptable | YES | 28.6 |  |  |
+| 69 | is24-155854134 | Halle (Saale) | 110000 | 52 | 479 | 19.1 | acceptable | YES | 28.6 |  |  |
+| 70 | is24-170259658 | Magdeburg | 89000 | 52 | 385 | 19.2 | acceptable | YES | 28.5 |  |  |
+| 71 | is24-171117823 | Leipzig | 100000 | 48 | 432 | 19.3 | acceptable | YES | 28.3 |  |  |
+| 72 | is24-168765421 | Berlin | 149000 | 51 | 688 | 18.0 | acceptable | YES | 28.3 |  |  |
+| 73 | is24-169171082 | Leipzig | 95000 | 45 | 408 | 19.4 | acceptable | YES | 28.1 |  |  |
+| 74 | is24-164790551 | Berlin | 137470 | 47 | 629 | 18.2 | acceptable | YES | 27.9 |  |  |
+| 75 | is24-168717151 | Berlin | 134900 | 46 | 617 | 18.2 | acceptable | YES | 27.9 |  |  |
+| 76 | is24-164121494 | Leipzig | 85000 | 40 | 362 | 19.6 | acceptable | YES | 27.8 |  |  |
+| 77 | is24-169944449 | Magdeburg | 95000 | 55 | 409 | 19.4 | acceptable | YES | 27.7 |  |  |
+| 78 | is24-169972719 | Leipzig | 104000 | 49 | 445 | 19.5 | acceptable | YES | 27.2 |  |  |
+| 79 | is24-165395853 | Berlin | 110000 | 34 | 465 | 19.7 | acceptable | YES | 26.8 |  |  |
+| 80 | is24-170922095 | Berlin | 149000 | 50 | 675 | 18.4 | acceptable | YES | 26.5 |  |  |
+| 81 | is24-170311936 | Leipzig | 99000 | 46 | 418 | 19.7 | acceptable | YES | 26.3 |  |  |
+| 82 | is24-169944712 | Magdeburg | 95000 | 54 | 402 | 19.7 | acceptable | YES | 26.0 |  |  |
+| 83 | is24-170394108 | Berlin | 119000 | 37 | 500 | 19.9 | acceptable | YES | 25.7 |  |  |
+| 84 | is24-170971077 | Leipzig | 89900 | 41 | 375 | 20.0 | acceptable | YES | 25.6 |  |  |
+| 85 | is24-170806704 | Magdeburg | 81000 | 45 | 337 | 20.0 | acceptable | YES | 25.5 |  |  |
+| 86 | is24-167725206 | Berlin | 139900 | 46 | 624 | 18.7 | acceptable | YES | 25.3 |  |  |
+| 87 | is24-169492304 | Berlin | 145000 | 48 | 648 | 18.6 | acceptable | YES | 25.3 |  |  |
+| 88 | is24-165231442 | Leipzig | 82500 | 37 | 339 | 20.3 | acceptable | YES | 24.6 |  |  |
+| 89 | is24-167335165 | Berlin | 129000 | 42 | 567 | 19.0 | acceptable | YES | 24.4 |  |  |
+| 90 | is24-168945027 | Berlin | 149500 | 49 | 662 | 18.8 | acceptable | YES | 24.2 |  |  |
+| 91 | is24-168907279 | Berlin | 141000 | 46 | 621 | 18.9 | acceptable | YES | 24.2 |  |  |
+| 92 | is24-170862832 | Leipzig | 95000 | 43 | 391 | 20.2 | acceptable | YES | 24.1 |  |  |
+| 93 | is24-169925288 | Leipzig | 89000 | 40 | 364 | 20.4 | acceptable | YES | 23.9 |  |  |
+| 94 | is24-169648772 | Leipzig | 95000 | 43 | 390 | 20.3 | acceptable | YES | 23.8 |  |  |
+| 95 | is24-169812827 | Berlin | 115000 | 35 | 472 | 20.3 | acceptable | YES | 23.8 |  |  |
+| 96 | is24-166668872 | Leipzig | 109000 | 50 | 451 | 20.1 | acceptable | YES | 23.7 |  |  |
+| 97 | is24-160431544 | Berlin | 139500 | 45 | 608 | 19.1 | acceptable | YES | 23.1 |  |  |
+| 98 | is24-170288526 | Berlin | 150000 | 49 | 656 | 19.0 | acceptable | YES | 23.1 |  |  |
+| 99 | is24-170673874 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  |  |
+| 100 | is24-170408593 | Berlin | 128000 | 41 | 554 | 19.3 | acceptable | YES | 23.0 |  |  |
+| 101 | is24-166345736 | Berlin | 149000 | 48 | 651 | 19.1 | acceptable | YES | 23.0 |  |  |
+| 102 | is24-168788114 | Berlin | 128000 | 41 | 550 | 19.4 | acceptable | YES | 22.5 |  |  |
+| 103 | is24-169200408 | Leipzig | 99000 | 44 | 400 | 20.6 | acceptable | YES | 22.2 |  |  |
+| 104 | is24-170645267 | Magdeburg | 85000 | 46 | 342 | 20.7 | acceptable | YES | 22.2 |  |  |
+| 105 | is24-170512369 | Berlin | 135000 | 43 | 579 | 19.4 | acceptable | YES | 21.9 |  |  |
+| 106 | is24-170939628 | Magdeburg | 91000 | 49 | 366 | 20.7 | acceptable | YES | 21.6 |  |  |
+| 107 | is24-164478117 | Magdeburg | 80500 | 43 | 321 | 20.9 | acceptable | YES | 21.6 |  |  |
+| 108 | is24-170275887 | Leipzig | 97000 | 43 | 388 | 20.9 | acceptable | YES | 21.4 |  |  |
+| 109 | is24-168612618 | Leipzig | 115000 | 54 | 490 | 19.6 | acceptable | YES | 21.2 |  |  |
+| 110 | is24-169925187 | Berlin | 138500 | 44 | 590 | 19.6 | acceptable | YES | 21.1 |  |  |
+| 111 | is24-168404225 | Berlin | 145000 | 46 | 618 | 19.6 | acceptable | YES | 20.9 |  |  |
+| 112 | is24-170966561 | Leipzig | 94500 | 41 | 374 | 21.0 | acceptable | YES | 20.6 |  |  |
+| 113 | is24-164479261 | Magdeburg | 85600 | 45 | 338 | 21.1 | acceptable | YES | 20.4 |  |  |
+| 114 | is24-170678152 | Magdeburg | 99000 | 53 | 394 | 20.9 | acceptable | YES | 20.3 |  |  |
+| 115 | is24-167032492 | Berlin | 150000 | 47 | 637 | 19.6 | acceptable | YES | 20.3 |  |  |
+| 116 | is24-162658139 | Leipzig | 85000 | 36 | 332 | 21.4 | acceptable | YES | 19.8 |  |  |
+| 117 | is24-169970456 | Leipzig | 84000 | 36 | 327 | 21.4 | acceptable | YES | 19.7 |  |  |
+| 118 | is24-169925297 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | YES | 19.6 |  |  |
+| 119 | is24-169993532 | Leipzig | 119000 | 55 | 500 | 19.8 | acceptable | YES | 19.6 |  |  |
+| 120 | is24-170336668 | Leipzig | 80000 | 34 | 309 | 21.6 | acceptable | YES | 19.3 |  |  |
+| 121 | is24-170508496 | Leipzig | 110000 | 50 | 456 | 20.1 | acceptable | YES | 19.0 |  |  |
+| 122 | is24-157076072 | Leipzig | 90000 | 38 | 349 | 21.5 | acceptable | YES | 19.0 |  |  |
+| 123 | is24-162367311 | Leipzig | 87000 | 37 | 336 | 21.6 | acceptable | YES | 18.9 |  |  |
+| 124 | is24-168253841 | Leipzig | 98000 | 42 | 382 | 21.4 | acceptable | YES | 18.9 |  |  |
+| 125 | is24-170641603 | Berlin | 139000 | 43 | 578 | 20.1 | acceptable | YES | 18.8 |  |  |
+| 126 | is24-162293322 | Magdeburg | 99000 | 52 | 387 | 21.3 | acceptable | YES | 18.6 |  |  |
+| 127 | is24-169416486 | Berlin | 105000 | 30 | 405 | 21.6 | acceptable | YES | 18.5 |  |  |
+| 128 | is24-164478734 | Magdeburg | 90500 | 47 | 351 | 21.5 | acceptable | YES | 18.4 |  |  |
+| 129 | is24-170973694 | Magdeburg | 85000 | 44 | 327 | 21.6 | acceptable | YES | 18.2 |  |  |
+| 130 | is24-169497600 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | YES | 17.9 |  |  |
+| 131 | is24-169967652 | Leipzig | 119000 | 54 | 491 | 20.2 | acceptable | YES | 17.9 |  |  |
+| 132 | is24-170984818 | Leipzig | 99000 | 42 | 382 | 21.6 | acceptable | YES | 17.9 |  |  |
+| 133 | is24-170918245 | Berlin | 130000 | 40 | 533 | 20.3 | acceptable | YES | 17.9 |  |  |
+| 134 | is24-165785400 | Leipzig | 118000 | 53 | 486 | 20.2 | acceptable | YES | 17.9 |  |  |
+| 135 | is24-168387399 | Leipzig | 115000 | 52 | 473 | 20.3 | acceptable | YES | 17.8 |  |  |
+| 136 | is24-161135562 | Leipzig | 99000 | 42 | 381 | 21.6 | acceptable | YES | 17.8 |  |  |
+| 137 | is24-166238984 | Berlin | 121000 | 36 | 493 | 20.5 | acceptable | YES | 17.7 |  |  |
+| 138 | is24-171219350 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | YES | 17.4 |  |  |
+| 139 | is24-171115981 | Leipzig | 116000 | 52 | 474 | 20.4 | acceptable | YES | 17.4 |  |  |
+| 140 | is24-168281005 | Leipzig | 84000 | 35 | 317 | 22.1 | market | YES | 17.1 |  |  |
+| 141 | is24-167599902 | Leipzig | 100000 | 42 | 382 | 21.8 | acceptable | YES | 16.9 |  |  |
+| 142 | is24-159739391 | Leipzig | 110000 | 49 | 444 | 20.6 | acceptable | YES | 16.4 |  |  |
+| 143 | is24-170983229 | Magdeburg | 95000 | 48 | 361 | 22.0 | acceptable | YES | 16.1 |  |  |
+| 144 | is24-169643348 | Halle (Saale) | 115000 | 50 | 463 | 20.7 | acceptable | YES | 15.9 |  |  |
+| 145 | is24-166523139 | Berlin | 140000 | 42 | 562 | 20.8 | acceptable | YES | 15.4 |  |  |
+| 146 | is24-170082436 | Berlin | 139000 | 41 | 557 | 20.8 | acceptable | YES | 15.3 |  |  |
+| 147 | is24-170233259 | Leipzig | 120000 | 53 | 480 | 20.8 | acceptable | YES | 15.0 |  |  |
+| 148 | is24-170496834 | Berlin | 139000 | 41 | 554 | 20.9 | acceptable | YES | 14.7 |  |  |
+| 149 | is24-165800418 | Berlin | 124000 | 36 | 488 | 21.2 | acceptable | YES | 14.3 |  |  |
+| 150 | is24-165775270 | Berlin | 134000 | 39 | 526 | 21.2 | acceptable | YES | 13.6 |  |  |
+| 151 | is24-169713182 | Berlin | 147000 | 43 | 578 | 21.2 | acceptable | YES | 13.0 |  |  |
+| 152 | is24-162006418 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
+| 153 | is24-168376765 | Berlin | 119000 | 34 | 459 | 21.6 | acceptable | YES | 12.7 |  |  |
+| 154 | is24-168452012 | Berlin | 145000 | 42 | 567 | 21.3 | acceptable | YES | 12.6 |  |  |
+| 155 | is24-170246745 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
+| 156 | is24-170247177 | Berlin | 126000 | 36 | 486 | 21.6 | acceptable | YES | 12.3 |  |  |
+| 157 | is24-89353290 | Halle (Saale) | 130000 | 55 | 507 | 21.4 | acceptable | YES | 12.1 |  |  |
+| 158 | is24-170929496 | Berlin | 140000 | 40 | 540 | 21.6 | acceptable | YES | 11.6 |  |  |
+| 159 | is24-169529109 | Halle (Saale) | 127000 | 53 | 491 | 21.6 | acceptable | YES | 11.4 |  |  |
+| 160 | is24-170973897 | Berlin | 149900 | 43 | 579 | 21.6 | acceptable | YES | 11.3 |  |  |
+| 161 | is24-166271265 | Leipzig | 110000 | 46 | 418 | 21.9 | acceptable | YES | 10.9 |  |  |
+| 162 | is24-165386797 | Berlin | 149950 | 43 | 577 | 21.6 | acceptable | YES | 10.9 |  |  |
+| 163 | is24-169684022 | Leipzig | 110000 | 46 | 417 | 22.0 | acceptable | YES | 10.6 |  |  |
+| 164 | is24-168146590 | Leipzig | 109000 | 45 | 409 | 22.2 | market | YES | 10.3 |  |  |
+| 165 | is24-170447807 | Berlin | 140000 | 39 | 531 | 22.0 | acceptable | YES | 9.9 |  |  |
+| 166 | is24-167336413 | Berlin | 145000 | 40 | 547 | 22.1 | market | YES | 9.4 |  |  |
+| 167 | is24-102951297 | Berlin | 144000 | 40 | 540 | 22.2 | market | YES | 9.2 |  |  |
+| 168 | poschmann-0008 | Leipzig | 170000 | 89 | 805 | 17.6 | very_good | no | 28.1 | Kaufpreis 170000€ > 150000€ Maximum; Wohnfläche 88.6m² > 55m² Maximum; Leipzig: Wohnfläche 89m² > 55m² Limit; Leipzig: Kaufpreis 170000€ > 120000€ Limit |  |
+| 169 | poschmann-0002 | Taucha | 690000 | 170 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 690000€ > 150000€ Maximum; Wohnfläche 170.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 4420€ > 500€ Maximum; Erforderliches Eigenkapital 52950€ > 40000€ Maximum |  |
+| 170 | poschmann-0013 | Leipzig | 169000 | 0 | 0 | 0.0 | phenomenal | no | 20.0 | Kaufpreis 169000€ > 150000€ Maximum; Wohnfläche 0.0m² < 30m² Minimum; Leipzig: Kaufpreis 169000€ > 120000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 958€ > 500€ Maximum |  |
+| 171 | poschmann-0014 | Frohburg | 97700 | 450 | 0 | 0.0 | phenomenal | no | 20.0 | Wohnfläche 450.0m² > 55m² Maximum; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1904€ > 500€ Maximum |  |
+| 172 | is24-168691907 | Cottbus | 85000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Wohnfläche 50m² > 45m² Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 632€ > 500€ Maximum |  |
+| 173 | is24-170743880 | Cottbus | 120000 | 41 | 0 | 0.0 | phenomenal | no | 20.0 | Cottbus: Kaufpreis 120000€ > 99000€ Limit; Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 803€ > 500€ Maximum |  |
+| 174 | is24-169848147 | Brandenburg an der Havel | 110000 | 47 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 764€ > 500€ Maximum |  |
+| 175 | is24-169615921 | Brandenburg an der Havel | 135000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 918€ > 500€ Maximum |  |
+| 176 | is24-171196663 | Brandenburg an der Havel | 136000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 933€ > 500€ Maximum |  |
+| 177 | is24-171073768 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum |  |
+| 178 | is24-170982968 | Brandenburg an der Havel | 114000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 751€ > 500€ Maximum |  |
+| 179 | is24-166739981 | Brandenburg an der Havel | 149000 | 37 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 954€ > 500€ Maximum |  |
+| 180 | is24-166601545 | Brandenburg an der Havel | 129000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 893€ > 500€ Maximum |  |
+| 181 | is24-171201160 | Brandenburg an der Havel | 138000 | 45 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 916€ > 500€ Maximum |  |
+| 182 | is24-168987972 | Schwerin | 115000 | 42 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 777€ > 500€ Maximum |  |
+| 183 | is24-165926923 | Schwerin | 105000 | 46 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 733€ > 500€ Maximum |  |
+| 184 | is24-170085626 | Kassel | 82000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 555€ > 500€ Maximum |  |
+| 185 | is24-171199222 | Kassel (Wesertor) | 149000 | 32 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 940€ > 500€ Maximum |  |
+| 186 | is24-171135328 | Niestetal / Sandershausen | 89000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 594€ > 500€ Maximum |  |
+| 187 | is24-169143590 | Kassel | 85000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 581€ > 500€ Maximum |  |
+| 188 | is24-170490772 | Kassel | 135000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 879€ > 500€ Maximum |  |
+| 189 | is24-170311961 | Kassel | 89000 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 594€ > 500€ Maximum |  |
+| 190 | is24-169600446 | Kassel | 89000 | 34 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 605€ > 500€ Maximum |  |
+| 191 | is24-170769595 | Duisburg | 150000 | 53 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 1009€ > 500€ Maximum |  |
+| 192 | is24-170704703 | Duisburg | 99000 | 35 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 667€ > 500€ Maximum |  |
+| 193 | is24-170142538 | Duisburg | 130000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 850€ > 500€ Maximum |  |
+| 194 | is24-169155006 | Duisburg | 95000 | 38 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 652€ > 500€ Maximum |  |
+| 195 | is24-166854422 | Duisburg | 135000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 927€ > 500€ Maximum |  |
+| 196 | is24-169149818 | Duisburg / Rheinhausen | 145000 | 51 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 975€ > 500€ Maximum |  |
+| 197 | is24-170804706 | Salzgitter | 85000 | 54 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 644€ > 500€ Maximum |  |
+| 198 | is24-165679781 | Hannover | 118000 | 53 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 828€ > 500€ Maximum |  |
+| 199 | is24-170695552 | Hannover | 89000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 602€ > 500€ Maximum |  |
+| 200 | is24-170694892 | Hannover | 105000 | 33 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 693€ > 500€ Maximum |  |
+| 201 | is24-168101077 | Hannover | 135000 | 31 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 858€ > 500€ Maximum |  |
+| 202 | is24-159666359 | Hannover | 80000 | 31 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 546€ > 500€ Maximum |  |
+| 203 | is24-167308003 | Hannover | 135000 | 50 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 915€ > 500€ Maximum |  |
+| 204 | is24-166235503 | Hannover | 119000 | 40 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 794€ > 500€ Maximum |  |
+| 205 | is24-170309462 | Wolfsburg | 120000 | 49 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 827€ > 500€ Maximum |  |
+| 206 | is24-169677485 | Wolfsburg | 84950 | 30 | 0 | 0.0 | phenomenal | no | 20.0 | Brutto-Yield 0.00% < 4.5% Minimum; Monatlicher Top-Up 571€ > 500€ Maximum |  |
+| 207 | is24-170660512 | Leipzig | 89900 | 37 | 334 | 22.4 | market | no | 16.1 | Brutto-Yield 4.46% < 4.5% Minimum |  |
+| 208 | klz-f7b0f292f251 | Leipzig | 142000 | 64 | 582 | 20.3 | acceptable | no | 16.0 | Wohnfläche 64.0m² > 55m² Maximum; Leipzig: Wohnfläche 64m² > 55m² Limit; Leipzig: Kaufpreis 142000€ > 120000€ Limit |  |
+| 209 | is24-169531750 | Halle (Saale) | 95000 | 38 | 350 | 22.6 | market | no | 15.6 | Brutto-Yield 4.43% < 4.5% Minimum |  |
+| 210 | is24-171198152 | Leipzig | 124000 | 55 | 500 | 20.7 | acceptable | no | 15.5 | Leipzig: Kaufpreis 124000€ > 120000€ Limit |  |
+| 211 | is24-164912811 | Leipzig | 99000 | 40 | 366 | 22.5 | market | no | 15.4 | Brutto-Yield 4.44% < 4.5% Minimum |  |
+| 212 | is24-170211870 | Halle (Saale) | 98000 | 38 | 350 | 23.3 | market | no | 14.3 | Brutto-Yield 4.29% < 4.5% Minimum |  |
 | 213 | is24-169809647 | Magdeburg | 95000 | 45 | 335 | 23.6 | market | no | 13.4 | Brutto-Yield 4.23% < 4.5% Minimum |  |
 | 214 | is24-170869630 | Leipzig | 125000 | 53 | 485 | 21.5 | acceptable | no | 11.8 | Leipzig: Kaufpreis 125000€ > 120000€ Limit |  |
 | 215 | is24-167163170 | Leipzig | 128000 | 55 | 496 | 21.5 | acceptable | no | 11.6 | Leipzig: Kaufpreis 128000€ > 120000€ Limit |  |

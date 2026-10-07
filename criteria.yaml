@@ -96,7 +96,7 @@ monthly_top_up:
   max: 500
   comment: Die Differenz zwischen monatlichen Kosten (Kredit + NK) und Kaltmiete
 exclusions:
-  erbpacht: true
+  erbpacht: false
   vacation: true
   auction: true
   care_apartment: true
